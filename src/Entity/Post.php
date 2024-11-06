@@ -32,6 +32,9 @@ class Post
     #[ORM\Column]
     private ?int $numViews = null;
 
+    #[ORM\ManyToOne(inversedBy: 'posts')]
+    private ?User $user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +108,18 @@ class Post
     public function setNumViews(int $numViews): static
     {
         $this->numViews = $numViews;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
