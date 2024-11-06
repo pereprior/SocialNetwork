@@ -32,6 +32,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private bool $isStudent = false;
 
+    #[ORM\Column(type: 'boolean')]
+    private bool $isChef = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -101,6 +104,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsStudent(bool $isStudent): static
     {
         $this->isStudent = $isStudent;
+
+        return $this;
+    }
+
+    public function getIsChef(): bool
+    {
+        return $this->isChef;
+    }
+
+    public function setIsChef(bool $isChef): static
+    {
+        $this->isChef = $isChef;
 
         return $this;
     }

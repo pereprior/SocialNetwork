@@ -2,11 +2,10 @@
 
 namespace App\Form;
 
-use App\Entity\User; // or Student if you’re using the Student entity
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\TextType; // Import TextType here
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -40,7 +39,14 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'required' => false,
                 'value' => 'true',  // Almacenamos 'true' si está marcado
+            ])
+            ->add('isChef', CheckboxType::class, [
+                'label' => 'Soy chef',
+                'mapped' => false,
+                'required' => false,
+                'value' => 'true',  // Almacenamos 'true' si está marcado
             ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

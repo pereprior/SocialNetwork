@@ -25,6 +25,8 @@ class RegistrationController extends AbstractController
             // Asigna el valor del checkbox 'isStudent' a la entidad como booleano
             $isStudent = $form->get('isStudent')->getData(); // Será true o false
             $user->setIsStudent($isStudent); // Se guarda el valor true o false
+            $isChef = $form->get('isChef')->getData();
+            $user->setIsChef($isChef);
 
             // Cifra la contraseña
             $user->setPassword(
