@@ -46,6 +46,23 @@ class RegistrationController extends AbstractController
                 $user->setProofOfChefTitle($newFilename);
             }
 
+            $userImage = $form->get('userImage')->getData();
+            if ($userImage) {
+                $newFilename = uniqid().'.'.$userImage->guessExtension();
+
+                try {
+                    $userImage->move(
+                        $this->getParameter('uploads_directory'), // Necesitas configurar este parámetro
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // Maneja la excepción si la subida falla
+                }
+
+                // Establece el nombre del archivo en la entidad `User`
+                $user->setUserImage($newFilename);
+            }
+
             // Cifra la contraseña
             $user->setPassword(
                 $userPasswordHasher->hashPassword(

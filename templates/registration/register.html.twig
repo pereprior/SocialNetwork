@@ -3,22 +3,94 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="mb-0">Register</h2>
+                    </div>
+                    <div class="card-body">
+                        {{ form_errors(registrationForm) }}
 
-    {{ form_errors(registrationForm) }}
+                        {{ form_start(registrationForm) }}
+                        <div class="form-group mb-3">
+                            {{ form_label(registrationForm.username, null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.username, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(registrationForm.username) }}
+                        </div>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-        {{ form_row(registrationForm.isStudent) }}
-        {{ form_row(registrationForm.isChef) }}
-        {{ form_row(registrationForm.proofOfChefTitle) }}
+                        <div class="form-group mb-3">
+                            {{ form_label(registrationForm.name, null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.name, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(registrationForm.name) }}
+                        </div>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+                        <div class="form-group mb-3">
+                            {{ form_label(registrationForm.email, null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(registrationForm.email) }}
+                        </div>
+
+                        <div class="form-group mb-3">
+                            {{ form_label(registrationForm.plainPassword, 'Password', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(registrationForm.plainPassword) }}
+                        </div>
+
+                        <div class="form-group mb-3">
+                            {{ form_label(registrationForm.gender, null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.gender, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(registrationForm.gender) }}
+                        </div>
+
+                        <div class="form-group mb-3">
+                            {{ form_label(registrationForm.birthdate, null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.birthdate, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(registrationForm.birthdate) }}
+                        </div>
+
+                        <div class="form-group mb-3">
+                            {{ form_label(registrationForm.bio, null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.bio, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(registrationForm.bio) }}
+                        </div>
+
+                        <div class="form-group mb-3">
+                            {{ form_row(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+                        </div>
+
+                        <div class="form-group mb-3">
+                            {{ form_label(registrationForm.isStudent, null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.isStudent, {'attr': {'class': 'form-check-input'}}) }}
+                            {{ form_errors(registrationForm.isStudent) }}
+                        </div>
+
+                        <div class="form-group mb-3">
+                            {{ form_label(registrationForm.isChef, null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.isChef, {'attr': {'class': 'form-check-input'}}) }}
+                            {{ form_errors(registrationForm.isChef) }}
+                        </div>
+
+                        <div class="form-group mb-3">
+                            {{ form_label(registrationForm.proofOfChefTitle, 'Proof of Chef Title', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.proofOfChefTitle, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(registrationForm.proofOfChefTitle) }}
+                        </div>
+
+                        <div class="form-group mb-3">
+                            {{ form_label(registrationForm.userImage, 'Upload your profile image', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.userImage, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(registrationForm.userImage) }}
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </div>
+                        {{ form_end(registrationForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
-
-

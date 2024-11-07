@@ -3,6 +3,10 @@
 namespace App\Form;
 
 use App\Entity\User;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -20,6 +24,8 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('username', TextType::class)
+            ->add('name', TextType::class)
             ->add('email', EmailType::class)
             ->add('plainPassword', PasswordType::class, [
                 'mapped' => false,
@@ -36,6 +42,23 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('gender', ChoiceType::class, [
+                'choices'  => [
+                    'Male' => 'male',
+                    'Female' => 'female',
+                ],
+                'expanded' => true, // Esto hace que se muestren como botones de radio (opciones seleccionables)
+                'multiple' => false, // Solo puede seleccionar una opción
+                'label' => 'Gender', // Etiqueta del campo
+            ])
+            ->add('birthdate', DateType::class, [
+                'widget' => 'single_text', // Elige un solo campo de texto
+                'input' => 'datetime', // Symfony debe esperar un objeto DateTime
+                'format' => 'yyyy-MM-dd', // Establece el formato de la fecha
+                'label' => 'Birthdate',
+            ])
+
+            ->add('bio', TextareaType::class)
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -65,6 +88,21 @@ class RegistrationFormType extends AbstractType
                             'application/pdf',
                         ],
                         'mimeTypesMessage' => 'Please upload a valid image or PDF file.',
+                    ]),
+                ],
+            ])
+            ->add('userImage', FileType::class, [
+                'required' => false,
+                'mapped' => false,
+                'label' => 'Upload your profile image',
+                'constraints' => [
+                    new Assert\File([
+                        'maxSize' => '2M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid image (JPEG or PNG).',
                     ]),
                 ],
             ]);

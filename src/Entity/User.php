@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints\Date;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
@@ -16,6 +17,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
+    #[ORM\Column]
+    private ?string $username = null;
+
+    #[ORM\Column]
+    private ?string $name = null;
 
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
@@ -38,6 +45,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $proofOfChefTitle = null;
 
+    #[ORM\Column]
+    private ?string $bio = null;
+
+    #[ORM\Column(type: 'date')]
+    private ?\DateTimeInterface $birthdate = null;
+
+    #[ORM\Column]
+    private ?string $gender = null;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $userImage = null;
     public function getId(): ?int
     {
         return $this->id;
@@ -131,6 +149,78 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setProofOfChefTitle(?string $proofOfChefTitle): static
     {
         $this->proofOfChefTitle = $proofOfChefTitle;
+
+        return $this;
+    }
+
+    public function getUsername(): ?string {
+
+        return $this->username;
+    }
+
+    public function setUsername(string $username): static {
+
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function getName(): ?string {
+
+        return $this->name;
+    }
+
+    public function setName(string $name): static {
+
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getBio(): ?string {
+
+        return $this->bio;
+    }
+
+    public function setBio(string $bio): static {
+
+        $this->bio = $bio;
+
+        return $this;
+    }
+
+    public function getBirthdate(): ?\DateTimeInterface {
+
+        return $this->birthdate;
+    }
+
+    public function setBirthdate(\DateTimeInterface $birthdate): static {
+
+        $this->birthdate = $birthdate;
+
+        return $this;
+    }
+
+    public function getUserImage(): ?string
+    {
+        return $this->userImage;
+    }
+
+    public function setUserImage(?string $userImage): static
+    {
+        $this->userImage = $userImage;
+
+        return $this;
+    }
+
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(?string $gender): static
+    {
+        $this->gender = $gender;
 
         return $this;
     }
