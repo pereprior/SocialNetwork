@@ -35,6 +35,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private bool $isChef = false;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $proofOfChefTitle = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -116,6 +119,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsChef(bool $isChef): static
     {
         $this->isChef = $isChef;
+
+        return $this;
+    }
+
+    public function getProofOfChefTitle(): ?string
+    {
+        return $this->proofOfChefTitle;
+    }
+
+    public function setProofOfChefTitle(?string $proofOfChefTitle): static
+    {
+        $this->proofOfChefTitle = $proofOfChefTitle;
 
         return $this;
     }
