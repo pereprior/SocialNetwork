@@ -26,6 +26,11 @@ class Comment
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $datetime = null;
 
+    public function __construct()
+    {
+        $this->datetime = new DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -70,12 +75,5 @@ class Comment
     public function getDatetime(): ?\DateTimeInterface
     {
         return $this->datetime;
-    }
-
-    public function setDatetime(\DateTimeInterface $datetime): static
-    {
-        $this->datetime = $datetime;
-
-        return $this;
     }
 }

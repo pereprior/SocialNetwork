@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\PostRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -43,6 +44,7 @@ class Post
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->datetime = new DateTime();
     }
 
     public function getId(): ?int
@@ -89,13 +91,6 @@ class Post
     public function getDatetime(): ?\DateTimeInterface
     {
         return $this->datetime;
-    }
-
-    public function setDatetime(\DateTimeInterface $datetime): static
-    {
-        $this->datetime = $datetime;
-
-        return $this;
     }
 
     public function getNumLikes(): ?int
