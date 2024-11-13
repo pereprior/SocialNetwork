@@ -15,8 +15,6 @@ class PostFormType extends AbstractType
             ->add('title')
             ->add('content')
             ->add('img')
-            ->add('numLikes')
-            ->add('numViews')
             ->add('user')
         ;
     }

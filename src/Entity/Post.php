@@ -45,6 +45,8 @@ class Post
     {
         $this->comments = new ArrayCollection();
         $this->datetime = new DateTime();
+        $this->numLikes = 0;
+        $this->numViews = 0;
     }
 
     public function getId(): ?int
