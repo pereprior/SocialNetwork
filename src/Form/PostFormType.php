@@ -18,6 +18,7 @@ class PostFormType extends AbstractType
             ->add('title')
             ->add('content', TextareaType::class)
             ->add('img', FileType::class,[
+                'required' => false,
                 'mapped' => false,
                 'constraints' => [
                     new File([

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Form\PostFormType;
+use App\Repository\PostRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,10 +15,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class PageController extends AbstractController
 {
     private ObjectManager $manager;
+    private PostRepository $postRepository;
 
     public function __construct(ManagerRegistry $doctrine)
     {
         $this->manager = $doctrine->getManager();
+        $this->postRepository = $doctrine->getRepository(Post::class);
     }
 
     #[Route('/', name: 'app_inicio')]
@@ -39,7 +42,8 @@ class PageController extends AbstractController
         }
 
         return $this->render('page/index.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'posts' => $this->postRepository->findAll()
         ]);
     }
 }

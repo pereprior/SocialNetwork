@@ -1,0 +1,11 @@
+<div class="post-card" data-post-id="{{ post.id }}">
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+    {% if post.img %}
+        <img src="{{ asset('uploads/images/' ~ post.img) }}" alt="{{ post.title }}">
+    {% endif %}
+    <p>Posted on: {{ post.datetime|date('Y-m-d H:i') }}</p>
+    <p>Likes: {{ post.numLikes }}</p>
+    <p>Views: {{ post.numViews }}</p>
+    <p>Author: {{ post.user.username }}</p>
+</div>

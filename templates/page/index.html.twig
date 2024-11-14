@@ -27,6 +27,10 @@
                 </span>
                 </section>
 
+                {% for post in posts %}
+                    {{ include('post/_post.html.twig') }}
+                {% endfor %}
+
                 <!-- Section -->
                 <section>
                     <header class="major">

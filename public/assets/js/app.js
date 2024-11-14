@@ -5,4 +5,10 @@ $(document).ready(function() {
         event.preventDefault();
         newPostModal.modal('show');
     });
+
+    $(".post-card").click(function(event) {
+        event.preventDefault();
+        const postId = $(this).data('post-id');
+        window.location.href = `/post/${postId}`;
+    });
 });
