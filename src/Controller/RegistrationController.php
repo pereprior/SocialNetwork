@@ -23,47 +23,56 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Asigna el valor del checkbox 'isStudent' a la entidad como booleano
-            $isStudent = $form->get('isStudent')->getData(); // Será true o false
-            $user->setIsStudent($isStudent); // Se guarda el valor true o false
+            // Verifica si el usuario seleccionó "estudiante" o "chef"
+            $isStudent = $form->get('isStudent')->getData();
             $isChef = $form->get('isChef')->getData();
-            $user->setIsChef($isChef);
 
+            if ($isStudent) {
+                $user->setRoles(['ROLE_STUDENT']);
+            }
+
+            if ($isChef) {
+                $user->setRoles(['ROLE_CHEF']);
+            }
+
+            // Si se seleccionan ambos roles, puedes combinarlos si es necesario
+            if ($isStudent && $isChef) {
+                $user->setRoles(['ROLE_STUDENT', 'ROLE_CHEF']);
+            }
+
+            // Resto del código para manejar archivos y cifrar la contraseña
             $proofOfChefTitleFile = $form->get('proofOfChefTitle')->getData();
             if ($proofOfChefTitleFile) {
-                $newFilename = uniqid().'.'.$proofOfChefTitleFile->guessExtension();
+                $newFilename = uniqid() . '.' . $proofOfChefTitleFile->guessExtension();
 
                 try {
                     $proofOfChefTitleFile->move(
-                        $this->getParameter('uploads_directory'), // Necesitas configurar este parámetro
+                        $this->getParameter('uploads_directory'), // Configura este parámetro en services.yaml
                         $newFilename
                     );
                 } catch (FileException $e) {
                     // Maneja la excepción si la subida falla
                 }
 
-                // Establece el nombre del archivo en la entidad `User`
                 $user->setProofOfChefTitle($newFilename);
             }
 
             $userImage = $form->get('userImage')->getData();
             if ($userImage) {
-                $newFilename = uniqid().'.'.$userImage->guessExtension();
+                $newFilename = uniqid() . '.' . $userImage->guessExtension();
 
                 try {
                     $userImage->move(
-                        $this->getParameter('uploads_directory'), // Necesitas configurar este parámetro
+                        $this->getParameter('uploads_directory'),
                         $newFilename
                     );
                 } catch (FileException $e) {
                     // Maneja la excepción si la subida falla
                 }
 
-                // Establece el nombre del archivo en la entidad `User`
                 $user->setUserImage($newFilename);
             }
 
-            // Cifra la contraseña
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -71,12 +80,12 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            // Persiste la entidad en la base de datos
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_inicio');
+            return $this->redirectToRoute('app_page');
         }
+
 
 
 

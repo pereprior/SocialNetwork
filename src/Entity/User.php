@@ -47,11 +47,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'userFrom')]
     private Collection $messages;
 
+    #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'followers')]
+    #[ORM\JoinTable(name: 'user_following')]
+    private Collection $following;
+
+    #[ORM\ManyToMany(targetEntity: self::class, mappedBy: 'following')]
+    private Collection $followers;
+
+
+
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->messages = new ArrayCollection();
+        $this->following = new ArrayCollection();
+        $this->followers = new ArrayCollection();
     }
 
     #[ORM\Column(type: 'boolean')]
@@ -241,6 +253,46 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->gender = $gender;
 
         return $this;
+    }
+
+    public function follow(User $user): void
+    {
+        if (!$this->following->contains($user)) {
+            $this->following->add($user);
+            $user->addFollower($this);
+        }
+    }
+
+    public function getFollowing(): Collection
+    {
+        return $this->following;
+    }
+
+    public function unfollow(User $user): void
+    {
+        if ($this->following->contains($user)) {
+            $this->following->removeElement($user);
+            $user->removeFollower($this);
+        }
+    }
+
+    public function removeFollower(User $user): void
+    {
+        if ($this->followers->contains($user)) {
+            $this->followers->removeElement($user);
+        }
+    }
+
+    public function addFollower(User $user): void
+    {
+        if (!$this->followers->contains($user)) {
+            $this->followers->add($user);
+        }
+    }
+
+    public function getFollowers(): Collection
+    {
+        return $this->followers;
     }
 
     /**
