@@ -29,7 +29,7 @@ class PostController extends AbstractController
     #[Route('/new', name: 'new_post')]
     public function newPost(Request $request): Response
     {
-        $post = new Post();
+        /*$post = new Post();
         $form = $this->createForm(PostFormType::class, $post);
         $form->handleRequest($request);
 
@@ -40,10 +40,12 @@ class PostController extends AbstractController
 
             $this->manager->persist($post);
             $this->manager->flush();
-        }
 
-        return $this->render('post/index.html.twig', array(
-            'form' => $form->createView()
+            return $this->redirectToRoute('app_inicio');
+        }*/
+
+        return $this->render('page/index.html.twig', array(
+            //'form' => $form->createView()
         ));
     }
 

@@ -245,6 +245,21 @@ hr {
   color: black;
 }
 
+/* Close Button (PERE) */
+.close-button {
+  margin-top: 10px;
+  margin-left: 20px;
+  color: black;
+  cursor: pointer;
+  font-size: 2em;
+  text-decoration: none;
+}
+
+#fit-content {
+    width: 40%;
+    align-items: center;
+}
+
 .align-left {
   text-align: left; }
 
