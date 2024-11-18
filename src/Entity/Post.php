@@ -160,4 +160,27 @@ class Post
 
         return $this;
     }
+
+    public function like(): void
+    {
+        if ($this->user) {
+            if ($this->user->getLikedPosts()->contains($this)) {
+                $this->numLikes--;
+                $this->user->removeLikedPost($this);
+            } else {
+                $this->numLikes++;
+                $this->user->addLikedPost($this);
+            }
+        }
+    }
+
+    public function isLikedByUser(User $user): bool
+    {
+        return $this->user && $this->user->getLikedPosts()->contains($this);
+    }
+
+    public function addView(): void
+    {
+        $this->numViews++;
+    }
 }

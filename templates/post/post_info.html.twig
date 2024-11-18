@@ -3,9 +3,21 @@
 {% block title %}{{ post.title }}{% endblock %}
 
 {% block body %}
-    <h1>{{ post.title }}</h1>
-    <p>{{ post.content }}</p>
-    {% if post.img %}
-        <img src="{{ asset('uploads/' ~ post.img) }}" alt="{{ post.title }}">
-    {% endif %}
+    {{ include('post/_post.html.twig') }}
+
+    {% for comment in comments %}
+        {{ include('post/_comment.html.twig') }}
+    {% endfor %}
+
+    <button type="submit" class="btn btn-primary comment-btn">Comment</button>
+
+    <div id="comment-form" class="visibility-none">
+        {{ form_start(commentForm) }}
+        {{ form_row(commentForm.content) }}
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Create</button>
+            {{ form_end(commentForm) }}
+        </div>
+    </div>
 {% endblock %}

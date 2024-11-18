@@ -263,8 +263,14 @@ hr {
 .post-card {
   margin: 10px;
   padding: 10px;
-  border: solid #3d4449;
-  border-radius: 20px;
+}
+.thick-divider {
+  height: 3px;
+  background-color: #999999;
+  border: none;
+}
+.visibility-none {
+  display: none;
 }
 
 .align-left {

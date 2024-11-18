@@ -46,4 +46,16 @@ class PageController extends AbstractController
             'posts' => $this->postRepository->findAll()
         ]);
     }
+
+    #[Route('/like/{id}', name: 'post_like')]
+    public function like($id) : Response
+    {
+        $post = $this->postRepository->find($id);
+        if ($post) {
+            $post->like();
+            $this->manager->flush();
+        }
+
+        return $this->redirectToRoute('app_inicio');
+    }
 }

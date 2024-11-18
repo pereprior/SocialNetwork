@@ -11,4 +11,11 @@ $(document).ready(function() {
         const postId = $(this).data('post-id');
         window.location.href = `/post/${postId}`;
     });
+
+    $(".comment-btn").click(function(event) {
+        event.preventDefault();
+        document.getElementById('comment-form').classList.toggle('visibility-none')
+    });
+
+
 });
