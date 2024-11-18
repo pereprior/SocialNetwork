@@ -7,7 +7,7 @@
     <p>Ingresa tu información de pago para completar la actualización a Premium.</p>
 
     <form method="post" action="{{ path('billing_submit') }}">
-    <div class="form-group">
+        <div class="form-group">
             <label for="card-number">Número de Tarjeta</label>
             <input type="text" id="card-number" name="card_number" class="form-control" placeholder="1234 5678 9012 3456" required>
         </div>
@@ -39,5 +39,4 @@
 
         <button type="submit" class="btn btn-primary">Enviar</button>
     </form>
-
 {% endblock %}

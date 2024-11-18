@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+
 
 class ProfileController extends AbstractController
 {
@@ -27,23 +29,17 @@ class ProfileController extends AbstractController
     }
 
     #[Route('/upgrade-to-premium', name: 'app_upgrade_to_premium', methods: ['POST'])]
-    public function upgradeToPremium(EntityManagerInterface $entityManager): RedirectResponse
+    public function upgradeToPremium(): RedirectResponse
     {
         $user = $this->getUser();
 
-        // Cambia la redirección a la página de facturación
+        // Asegúrate de que el usuario esté autenticado
         if (!$user) {
             return $this->redirectToRoute('app_billing');
         }
 
-        // Lógica de actualización a Premium
-        $user->setRoles(array_merge($user->getRoles(), ['ROLE_PREMIUM']));
-        $entityManager->persist($user);
-        $entityManager->flush();
-
-        $this->addFlash('success', '¡Has actualizado a Premium con éxito!');
-
-        return $this->redirectToRoute('app_profile');
+        // Redirige al usuario al formulario de facturación
+        return $this->redirectToRoute('app_billing');
     }
 
     #[Route('/downgrade-from-premium', name: 'app_downgrade_from_premium', methods: ['POST'])]
@@ -55,12 +51,11 @@ class ProfileController extends AbstractController
             return $this->redirectToRoute('app_profile');
         }
 
-        // Elimina el rol de 'ROLE_PREMIUM'
+        // Elimina el rol 'ROLE_PREMIUM'
         $roles = $user->getRoles();
         $roles = array_diff($roles, ['ROLE_PREMIUM']);
         $user->setRoles($roles);
 
-        $entityManager->persist($user);
         $entityManager->flush();
 
         $this->addFlash('success', '¡Has cancelado tu suscripción Premium!');

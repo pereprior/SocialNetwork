@@ -55,6 +55,7 @@
                             <a class="nav-link" href="{{ path('app_page') }}">Funciones Premium</a>
                         </li>
                     {% endif %}
+                    <li><a href="{{ path('app_settings') }}">Settings</a></li>
 
                     {# Botón de logout solo si el usuario está logueado #}
                     <li><a href="{{ path('logout') }}" class="button">Logout</a></li>
@@ -63,6 +64,7 @@
                     <li><a href="{{ path('login') }}">Login</a></li>
                     <li><a href="{{ path('app_register') }}">Register</a></li>
                 {% endif %}
+
 
 
             </ul>

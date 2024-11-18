@@ -36,6 +36,17 @@
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
+
+    <div class="user-info" style="position: absolute; top: 10px; right: 10px; display: flex; align-items: center;">
+        {% if app.user %}
+            {% if app.user.userImage %}
+                <img src="{{ asset('uploads/' ~ app.user.userImage) }}" alt="Imagen de perfil" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
+            {% else %}
+                <img src="{{ asset('images/default-avatar.png') }}" alt="Imagen de perfil predeterminada" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
+            {% endif %}
+            <span>{{ app.user.username }}</span>
+        {% endif %}
+    </div>
 {% endblock %}
 </body>
 </html>
