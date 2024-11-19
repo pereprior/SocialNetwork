@@ -8,6 +8,7 @@
 </div>
 <p>
     Likes: <a href="{{ path('post_like', { 'id': post.id }) }}" class="like-btn" data-post-id="{{ post.id }}">
+            <!-- TODO: QUE LOS QUE NO ESTAN REGISTRADOS PUEDAN VER LOS POSTS -->
            <i class="bi bi-heart{% if post.isLikedByUser(app.user) %}-fill{% endif %}"></i> {{ post.numLikes }}
            </a>
     Views: <i class="bi bi-eye"></i> {{ post.numViews }}
