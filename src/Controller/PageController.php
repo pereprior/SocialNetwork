@@ -12,11 +12,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 class PageController extends AbstractController
 {
@@ -55,8 +50,33 @@ class PageController extends AbstractController
         //$posts = $this->apiService->fetch('http://localhost:8000/api/posts');
 
         return $this->render('page/index.html.twig', [
+            'page_title' => 'Home',
             'form' => $form->createView(),
             'posts' => $this->postRepository->findAll()
+        ]);
+    }
+
+    #[Route('/explore', name: 'explore')]
+    public function explore(): Response
+    {
+        return $this->render('page/explore.html.twig', [
+            'page_title' => 'Explore',
+        ]);
+    }
+
+    #[Route('/profile', name: 'profile')]
+    public function profile(): Response
+    {
+        return $this->render('page/profile.html.twig', [
+            'page_title' => 'Profile',
+        ]);
+    }
+
+    #[Route('/chats', name: 'chats')]
+    public function chats(): Response
+    {
+        return $this->render('page/chats.html.twig', [
+            'page_title' => 'Chats'
         ]);
     }
 

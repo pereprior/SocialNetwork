@@ -1,15 +1,17 @@
 <!DOCTYPE HTML>
-<html lang="es">
+<html>
 <head>
-    <title>{% block title %}ChefSfera{% endblock %}</title>
+    <title>{% block title %}Editorial by HTML5 UP{% endblock %}</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+        <link rel="icon" href="{{ asset('favicon.ico') }}" type=image/x-icon">
     {% endblock %}
-    
+
     {% block javascripts %}
         <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
         <script src="{{ asset('assets/js/browser.min.js') }}"></script>
@@ -32,19 +34,21 @@
         <!-- Main -->
         <div id="main">
             <div class="inner">
-                {% block content %}
-                    {% block header %}
-                        {% include 'partials/header.html.twig' %}
-                    {% endblock %}
+                {% block header %}
+                    {% include 'partials/header.html.twig' %}
                 {% endblock %}
+
+
+                {% block body %}
+                {% endblock %}
+
             </div>
         </div>
-
-
         {% include 'partials/sidebar.html.twig' %}
         {% include 'post/index.html.twig' %}
 
     </div>
 {% endblock %}
 </body>
+
 </html>
