@@ -268,6 +268,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
     /**
      * @see UserInterface
      */
@@ -275,5 +290,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getBirthdateFormated(): string
+    {
+        return $this->birthdate->format('Y-m-d');
     }
 }

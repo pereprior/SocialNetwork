@@ -95,6 +95,11 @@ class Post
         return $this->datetime;
     }
 
+    public function getDatetimeFormated(): string
+    {
+        return $this->datetime->format('Y-m-d H:i');
+    }
+
     public function getNumLikes(): ?int
     {
         return $this->numLikes;

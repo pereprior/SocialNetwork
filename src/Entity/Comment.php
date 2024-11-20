@@ -77,4 +77,9 @@ class Comment
     {
         return $this->datetime;
     }
+
+    public function getDatetimeFormated(): string
+    {
+        return $this->datetime->format('Y-m-d H:i');
+    }
 }
