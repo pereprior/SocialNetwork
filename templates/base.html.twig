@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="es">
 <head>
     <title>{% block title %}Editorial by HTML5 UP{% endblock %}</title>
     <meta charset="utf-8" />
@@ -26,8 +26,6 @@
     {% endblock %}
 </head>
 <body class="is-preload">
-{% block body %}
-
     <!-- Wrapper -->
     <div id="wrapper">
 
@@ -38,17 +36,16 @@
                     {% include 'partials/header.html.twig' %}
                 {% endblock %}
 
-
                 {% block body %}
                 {% endblock %}
 
             </div>
         </div>
+
         {% include 'partials/sidebar.html.twig' %}
-        {% include 'post/index.html.twig' %}
 
     </div>
-{% endblock %}
+
 </body>
 
 </html>
