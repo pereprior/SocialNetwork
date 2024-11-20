@@ -6,13 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="01fe80f8-bf7b-4503-b999-3b52070a5d98" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/page/chats.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page/chats.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/page/explore.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page/explore.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/page/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/page/profile.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/page/profile.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/partials/sidebar.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/sidebar.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/post/_post.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/post/_post.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
