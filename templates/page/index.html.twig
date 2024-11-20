@@ -126,7 +126,9 @@
                 </section>
             </div>
 
-            {% include 'partials/_new_post_button.html.twig' %}
+            {% if app.user %}
+                {% include 'partials/_new_post_button.html.twig' %}
+            {% endif %}
         </div>
     </div>
 
