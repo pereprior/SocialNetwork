@@ -50,12 +50,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Post::class)]
     private Collection $likedPosts;
 
+    #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'followers')]
+    #[ORM\JoinTable(name: 'user_following')]
+    private Collection $following;
+
+    #[ORM\ManyToMany(targetEntity: self::class, mappedBy: 'following')]
+    private Collection $followers;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->messages = new ArrayCollection();
         $this->likedPosts = new ArrayCollection();
+        $this->following = new ArrayCollection();
+        $this->followers = new ArrayCollection();
     }
 
     #[ORM\Column(type: 'boolean')]
@@ -78,6 +87,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $userImage = null;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $emailNotifications = false;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $appNotifications = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -102,7 +118,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string) $this->username;  // Usa el 'username' en lugar del 'email'
     }
 
     /**
@@ -244,6 +260,68 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->gender = $gender;
 
+        return $this;
+    }
+
+    public function follow(User $user): void
+    {
+        if (!$this->following->contains($user)) {
+            $this->following->add($user);
+            $user->addFollower($this);
+        }
+    }
+
+    public function getFollowing(): Collection
+    {
+        return $this->following;
+    }
+
+    public function unfollow(User $user): void
+    {
+        if ($this->following->contains($user)) {
+            $this->following->removeElement($user);
+            $user->removeFollower($this);
+        }
+    }
+
+    public function removeFollower(User $user): void
+    {
+        if ($this->followers->contains($user)) {
+            $this->followers->removeElement($user);
+        }
+    }
+
+    public function addFollower(User $user): void
+    {
+        if (!$this->followers->contains($user)) {
+            $this->followers->add($user);
+        }
+    }
+
+    public function getFollowers(): Collection
+    {
+        return $this->followers;
+    }
+
+    public function getEmailNotifications(): bool
+    {
+        return $this->emailNotifications;
+    }
+
+    public function setEmailNotifications(bool $emailNotifications): static
+    {
+        $this->emailNotifications = $emailNotifications;
+        return $this;
+    }
+
+    public function getAppNotifications(): bool
+    {
+        return $this->appNotifications;
+    }
+
+    public function setAppNotifications(bool $appNotifications): static
+    {
+        $this->appNotifications = $appNotifications;
         return $this;
     }
 
