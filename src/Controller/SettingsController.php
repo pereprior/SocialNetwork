@@ -96,6 +96,7 @@ class SettingsController extends AbstractController
         }
 
         return $this->render('settings/settings.html.twig', [
+            'page_title' => 'Settings',
             'changePasswordForm' => $changePasswordForm->createView(),
             'deleteAccountForm' => $deleteAccountForm->createView(),
             'notificationSettingsForm' => $notificationSettingsForm->createView(),

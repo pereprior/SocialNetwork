@@ -5,43 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="01fe80f8-bf7b-4503-b999-3b52070a5d98" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/commandlinetools/Symfony_13_11_24__12_04.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/css/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/theme_toggle.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/67348ae86cdde.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/67348ae86d667.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/6735b3bc14267.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/uploads/6735b9f909563.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/BillingController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/ProfileController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/SettingsController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Security/UserProvider.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/billing/billing.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/login/login.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/profile/profile.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/settings/settings.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a738b313-415c-462e-b347-6f818d6ad529.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a738b313-415c-462e-b347-6f818d6ad529/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a738b313-415c-462e-b347-6f818d6ad529/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a738b313-415c-462e-b347-6f818d6ad529/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a738b313-415c-462e-b347-6f818d6ad529/storage_v2/_src_/schema/social_network.XFsVBA.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a738b313-415c-462e-b347-6f818d6ad529/storage_v2/_src_/schema/sys.zb4BAA.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20241106121619.php" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/Version20241106121619.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20241106122144.php" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/Version20241106122144.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20241111085006.php" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/Version20241111084016.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/LoginController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20241105104231.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20241106121651.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20241106122144.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20241106122525.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20241106123728.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20241107082119.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20241107085400.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20241107090154.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20241107091308.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20241107092856.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20241107093503.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20241111084016.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20241118082926.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/RegistrationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RegistrationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/inicio/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/login/index.html.twig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/partials/sidebar.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/sidebar.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/registration/register.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/register.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SettingsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SettingsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/settings/settings.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/settings/settings.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -222,7 +204,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "com.codeium.enabled": "true",
-    "git-widget-placeholder": "Merging merge__raul",
+    "git-widget-placeholder": "merge__raul",
     "last_opened_file_path": "/home/alumno/Escritorio/SocialNetwork/public",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
