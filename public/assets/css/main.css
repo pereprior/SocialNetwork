@@ -226,6 +226,60 @@ hr {
   hr.major {
     margin: 3em 0; }
 
+  /* Floating Action Button (PERE) */
+.fab {
+  position: fixed;
+  width: 80px;
+  height: 80px;
+  bottom: 24px;
+  right: 24px;
+  border-radius: 50%;
+  border: none;
+  background-color: deepskyblue;
+  color: #fff;
+  padding: 12px;
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+}
+  .fab:hover {
+    background-color: deepskyblue;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 12px 40px rgba(0, 0, 0, 0.2);
+  }
+.large-icon {
+  font-size: 3.5em;
+  color: black;
+}
+
+/* Close Button (PERE) */
+.close-button {
+  margin-top: 10px;
+  margin-left: 20px;
+  color: black;
+  cursor: pointer;
+  font-size: 2em;
+  text-decoration: none;
+}
+#fit-content {
+    width: 40%;
+    align-items: center;
+}
+
+/* Post Styles (PERE) */
+.post-card {
+  margin: 10px;
+  padding: 10px;
+}
+.thick-divider {
+  height: 3px;
+  background-color: #999999;
+  border: none;
+}
+.visibility-none {
+  display: none;
+}
+
 .align-left {
   text-align: left; }
 
@@ -2372,5 +2426,3 @@ button,
     border-top: 0;
     margin-top: 0;
     padding-top: 0; }
-
-

@@ -47,11 +47,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'userFrom')]
     private Collection $messages;
 
+    #[ORM\ManyToMany(targetEntity: Post::class)]
+    private Collection $likedPosts;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->messages = new ArrayCollection();
+        $this->likedPosts = new ArrayCollection();
     }
 
     #[ORM\Column(type: 'boolean')]
@@ -243,6 +247,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getLikedPosts(): Collection
+    {
+        return $this->likedPosts;
+    }
+
+    public function addLikedPost(Post $post): static
+    {
+        if (!$this->likedPosts->contains($post)) {
+            $this->likedPosts->add($post);
+        }
+
+        return $this;
+    }
+
+    public function removeLikedPost(Post $post): static
+    {
+        $this->likedPosts->removeElement($post);
+
+        return $this;
+    }
+
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
     /**
      * @see UserInterface
      */
@@ -250,5 +290,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getBirthdateFormated(): string
+    {
+        return $this->birthdate->format('Y-m-d');
     }
 }

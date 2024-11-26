@@ -1,0 +1,22 @@
+<div class="post-card" data-post-id="{{ post.id }}">
+    <p><strong>{{ post.user.name }}</strong> @{{ post.user.username }} · {{ post.datetime|date('Y-m-d H:i') }}</p>
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+    {% if post.img %}
+        <img src="{{ asset('uploads/images/' ~ post.img) }}" alt="{{ post.title }}">
+    {% endif %}
+</div>
+<p>
+    Likes:
+    {% if app.user %}
+        <a href="{{ path('post_like', { 'id': post.id }) }}" class="like-btn" data-post-id="{{ post.id }}">
+            <i class="bi bi-heart{% if post.isLikedByUser(app.user) %}-fill{% endif %}"></i> {{ post.numLikes }}
+        </a>
+    {% else %}
+        <span class="like-btn" data-post-id="{{ post.id }}">
+        <i class="bi bi-heart"></i> {{ post.numLikes }}
+    </span>
+    {% endif %}
+    Views: <i class="bi bi-eye"></i> {{ post.numViews }}
+</p>
+<hr class="thick-divider">

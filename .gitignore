@@ -2,9 +2,6 @@
 .env.local
 .env.local.php
 .env.*.local
-composer.lock
-composer.json
-.idea/php.xml
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /var/
