@@ -48,6 +48,7 @@ class PageController extends AbstractController
         //$posts = $this->apiService->fetch('http://localhost:8000/api/posts');
 
         return $this->render('page/index.html.twig', [
+            'page_title' => 'Inicio',
             'form' => $form->createView(),
             'posts' => $this->postRepository->findAll()
         ]);

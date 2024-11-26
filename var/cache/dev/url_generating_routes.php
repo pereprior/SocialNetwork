@@ -19,10 +19,10 @@ return [
     'api_index' => [[], ['_controller' => 'App\\Controller\\ApiController::index'], [], [['text', '/api/']], [], [], []],
     'login' => [[], ['_controller' => 'App\\Controller\\LoginController::index'], [], [['text', '/login']], [], [], []],
     'app_inicio' => [[], ['_controller' => 'App\\Controller\\PageController::index'], [], [['text', '/']], [], [], []],
+    'explore' => [[], ['_controller' => 'App\\Controller\\PageController::explore'], [], [['text', '/explore']], [], [], []],
+    'profile' => [[], ['_controller' => 'App\\Controller\\PageController::profile'], [], [['text', '/profile']], [], [], []],
+    'chats' => [[], ['_controller' => 'App\\Controller\\PageController::chats'], [], [['text', '/chats']], [], [], []],
     'post_like' => [['id'], ['_controller' => 'App\\Controller\\PageController::like'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/like']], [], [], []],
     'post_info' => [['id'], ['_controller' => 'App\\Controller\\PostController::post'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/post']], [], [], []],
     'app_register' => [[], ['_controller' => 'App\\Controller\\RegistrationController::register'], [], [['text', '/register']], [], [], []],
-    'api_posts' => [[], ['_controller' => 'App\\Controller\\ApiController::getPosts'], [], [['text', '/api/posts']], [], [], []],
-    'api_comments' => [[], ['_controller' => 'App\\Controller\\ApiController::getComments'], [], [['text', '/api/comments']], [], [], []],
-    'api_users' => [[], ['_controller' => 'App\\Controller\\ApiController::getUsers'], [], [['text', '/api/users']], [], [], []],
 ];

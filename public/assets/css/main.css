@@ -1974,12 +1974,12 @@ button,
   font-size: 0.9em;
   position: sticky;
   overflow-y: auto;
-  width: 100em; }
+  width: 24em; }
   #sidebar h2 {
     font-size: 1.38889em; }
   #sidebar > .inner {
     padding: 2.22222em 2.22222em 2.44444em 2.22222em ;
-    position: relative;
+    position: fixed;
     width: 26em; }
     #sidebar > .inner > * {
       padding: 0 0 90px 0; }

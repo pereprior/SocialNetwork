@@ -17,10 +17,10 @@ return [
         '/api' => [[['_route' => 'api_index', '_controller' => 'App\\Controller\\ApiController::index'], null, null, null, true, false, null]],
         '/login' => [[['_route' => 'login', '_controller' => 'App\\Controller\\LoginController::index'], null, null, null, false, false, null]],
         '/' => [[['_route' => 'app_inicio', '_controller' => 'App\\Controller\\PageController::index'], null, null, null, false, false, null]],
+        '/explore' => [[['_route' => 'explore', '_controller' => 'App\\Controller\\PageController::explore'], null, null, null, false, false, null]],
+        '/profile' => [[['_route' => 'profile', '_controller' => 'App\\Controller\\PageController::profile'], null, null, null, false, false, null]],
+        '/chats' => [[['_route' => 'chats', '_controller' => 'App\\Controller\\PageController::chats'], null, null, null, false, false, null]],
         '/register' => [[['_route' => 'app_register', '_controller' => 'App\\Controller\\RegistrationController::register'], null, null, null, false, false, null]],
-        '/api/posts' => [[['_route' => 'api_posts', '_controller' => 'App\\Controller\\ApiController::getPosts'], null, ['GET' => 0], null, false, false, null]],
-        '/api/comments' => [[['_route' => 'api_comments', '_controller' => 'App\\Controller\\ApiController::getComments'], null, ['GET' => 0], null, false, false, null]],
-        '/api/users' => [[['_route' => 'api_users', '_controller' => 'App\\Controller\\ApiController::getUsers'], null, ['GET' => 0], null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'

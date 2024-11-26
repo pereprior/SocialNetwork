@@ -31,7 +31,7 @@ class __TwigTemplate_80b9cef5a3f4d4f972858e0c0930854d extends Template
 
         $this->blocks = [
             'title' => [$this, 'block_title'],
-            'content' => [$this, 'block_content'],
+            'body' => [$this, 'block_body'],
         ];
     }
 
@@ -87,45 +87,38 @@ class __TwigTemplate_80b9cef5a3f4d4f972858e0c0930854d extends Template
     /**
      * @return iterable<null|scalar|\Stringable>
      */
-    public function block_content(array $context, array $blocks = []): iterable
+    public function block_body(array $context, array $blocks = []): iterable
     {
         $macros = $this->macros;
         $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
-        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "content"));
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
-        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "content"));
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
         // line 5
-        yield "
-    <div id=\"wrapper\">
-
-        <!-- Main -->
-        <div id=\"main\">
-            <div class=\"inner\">
-
+        yield "                <br><h1>New Content</h1>
                 <!-- Banner -->
                 <section id=\"banner\">
                     <div class=\"content\">
                         <header>
-                            <h1>Hi, I’m Editorial<br />
-                                by HTML5 UP</h1>
-                            <p>A free and fully responsive site template</p>
+                            <h2>First Publication</h2>
+                            <p>Hashtags</p>
                         </header>
-                        <p>Aenean ornare velit lacus, ac varius enim ullamcorper eu. Proin aliquam facilisis ante interdum congue. Integer mollis, nisl amet convallis, porttitor magna ullamcorper, amet egestas mauris. Ut magna finibus nisi nec lacinia. Nam maximus erat id euismod egestas. Pellentesque sapien ac quam. Lorem ipsum dolor sit nullam.</p>
+                        <p>Short Description</p>
                         <ul class=\"actions\">
-                            <li><a href=\"#\" class=\"button big\">Learn More</a></li>
+                            <li><a href=\"#\" class=\"button big\">Let's cook!</a></li>
                         </ul>
                     </div>
                     <span class=\"image object\">
-                        <img src=\"images/pic10.jpg\" alt=\"\" />
+                        <img src=\"images/pic10.jpg\" alt=\"Photo\" />
                 </span>
                 </section>
 
                 ";
-        // line 30
+        // line 23
         $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["posts"]) || array_key_exists("posts", $context) ? $context["posts"] : (function () { throw new RuntimeError('Variable "posts" does not exist.', 30, $this->source); })()));
+        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["posts"]) || array_key_exists("posts", $context) ? $context["posts"] : (function () { throw new RuntimeError('Variable "posts" does not exist.', 23, $this->source); })()));
         $context['loop'] = [
           'parent' => $context['_parent'],
           'index0' => 0,
@@ -140,7 +133,7 @@ class __TwigTemplate_80b9cef5a3f4d4f972858e0c0930854d extends Template
             $context['loop']['last'] = 1 === $length;
         }
         foreach ($context['_seq'] as $context["_key"] => $context["post"]) {
-            // line 31
+            // line 24
             yield "                    ";
             yield Twig\Extension\CoreExtension::include($this->env, $context, "post/_post.html.twig");
             yield "
@@ -157,7 +150,7 @@ class __TwigTemplate_80b9cef5a3f4d4f972858e0c0930854d extends Template
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['post'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 33
+        // line 26
         yield "
                 <!-- Section -->
                 <section>
@@ -252,15 +245,14 @@ class __TwigTemplate_80b9cef5a3f4d4f972858e0c0930854d extends Template
                         </article>
                     </div>
                 </section>
-            </div>
-
             ";
-        // line 129
-        yield from $this->loadTemplate("partials/_new_post_button.html.twig", "page/index.html.twig", 129)->unwrap()->yield($context);
-        // line 130
-        yield "        </div>
-    </div>
-
+        // line 120
+        yield from $this->loadTemplate("partials/_new_post_button.html.twig", "page/index.html.twig", 120)->unwrap()->yield($context);
+        // line 121
+        yield "            ";
+        yield from $this->loadTemplate("post/index.html.twig", "page/index.html.twig", 121)->unwrap()->yield($context);
+        // line 122
+        yield "
 ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -292,7 +284,7 @@ class __TwigTemplate_80b9cef5a3f4d4f972858e0c0930854d extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  261 => 130,  259 => 129,  161 => 33,  144 => 31,  127 => 30,  100 => 5,  87 => 4,  64 => 2,  41 => 1,);
+        return array (  255 => 122,  252 => 121,  250 => 120,  154 => 26,  137 => 24,  120 => 23,  100 => 5,  87 => 4,  64 => 2,  41 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -300,29 +292,22 @@ class __TwigTemplate_80b9cef5a3f4d4f972858e0c0930854d extends Template
         return new Source("{% extends 'base.html.twig' %}
 {% block title %}Home{% endblock %}
 
-{% block content %}
-
-    <div id=\"wrapper\">
-
-        <!-- Main -->
-        <div id=\"main\">
-            <div class=\"inner\">
-
+{% block body %}
+                <br><h1>New Content</h1>
                 <!-- Banner -->
                 <section id=\"banner\">
                     <div class=\"content\">
                         <header>
-                            <h1>Hi, I’m Editorial<br />
-                                by HTML5 UP</h1>
-                            <p>A free and fully responsive site template</p>
+                            <h2>First Publication</h2>
+                            <p>Hashtags</p>
                         </header>
-                        <p>Aenean ornare velit lacus, ac varius enim ullamcorper eu. Proin aliquam facilisis ante interdum congue. Integer mollis, nisl amet convallis, porttitor magna ullamcorper, amet egestas mauris. Ut magna finibus nisi nec lacinia. Nam maximus erat id euismod egestas. Pellentesque sapien ac quam. Lorem ipsum dolor sit nullam.</p>
+                        <p>Short Description</p>
                         <ul class=\"actions\">
-                            <li><a href=\"#\" class=\"button big\">Learn More</a></li>
+                            <li><a href=\"#\" class=\"button big\">Let's cook!</a></li>
                         </ul>
                     </div>
                     <span class=\"image object\">
-                        <img src=\"images/pic10.jpg\" alt=\"\" />
+                        <img src=\"images/pic10.jpg\" alt=\"Photo\" />
                 </span>
                 </section>
 
@@ -423,11 +408,8 @@ class __TwigTemplate_80b9cef5a3f4d4f972858e0c0930854d extends Template
                         </article>
                     </div>
                 </section>
-            </div>
-
             {% include 'partials/_new_post_button.html.twig' %}
-        </div>
-    </div>
+            {% include 'post/index.html.twig' %}
 
 {% endblock %}", "page/index.html.twig", "/home/pprior/PhpstormProjects/SocialNetwork/templates/page/index.html.twig");
     }
