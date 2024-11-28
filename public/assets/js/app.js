@@ -17,5 +17,21 @@ $(document).ready(function() {
         document.getElementById('comment-form').classList.toggle('visibility-none')
     });
 
+    $(".like-btn").click(function(event) {
+        event.preventDefault();
+        const postId = $(this).data('post-id');
+        const likeBtn = $(this);
 
+        $.ajax({
+            url: `/like/${postId}`,
+            method: 'POST',
+            success: function(response) {
+                likeBtn.find('i').toggleClass('bi-heart bi-heart-fill');
+                likeBtn.find('span').text(response.likes);
+            },
+            error: function() {
+                alert('Error liking the post.');
+            }
+        });
+    });
 });

@@ -94,7 +94,7 @@ class PageController extends AbstractController
     }
 
     #[Route('/like/{id}', name: 'post_like')]
-    public function like($id) : Response
+    public function like($id): Response
     {
         $post = $this->postRepository->find($id);
         if ($post) {
@@ -102,6 +102,6 @@ class PageController extends AbstractController
             $this->manager->flush();
         }
 
-        return $this->redirectToRoute('app_inicio');
+        return $this->json(['likes' => $post->getNumLikes()]);
     }
 }
