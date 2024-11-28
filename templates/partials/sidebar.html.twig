@@ -15,12 +15,36 @@
                 <h2>Menu</h2>
             </header>
             <ul>
-                <li><a href="{{ path('app_inicio') }}">Home</a></li>
-                <li><a href="{{ path('explore') }}">Explore</a></li>
-                <li><a href="{{ path('profile') }}">Profile</a></li>
-                <li><a href="{{ path('chats') }}">Chats</a></li>
-                <li><a href="#">Notification</a></li>
-                <li><a href="#">Report an error</a></li>
+
+                {% if app.user %}
+                    <li><a href="{{ path('app_inicio') }}">Home</a></li>
+                    <li><a href="{{ path('explore') }}">Explore</a></li>
+                    <li><a href="{{ path('profile') }}">Profile</a></li>
+                    <li><a href="{{ path('chats') }}">Chats</a></li>
+                    <li><a href="#">Notification</a></li>
+                    <li><a href="#">Report an error</a></li>
+
+                    {% if is_granted('ROLE_CHEF') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_page') }}">Crear Clases</a>
+                        </li>
+                    {% endif %}
+
+                    {% if is_granted('ROLE_PREMIUM') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_page') }}">Funciones Premium</a>
+                        </li>
+                    {% endif %}
+                    <li><a href="#">Settings</a></li>
+
+                    {# Botón de logout solo si el usuario está logueado #}
+                    <li><a href="{{ path('logout') }}" class="button">Logout</a></li>
+                {% else %}
+                    {# Si el usuario no está logueado, solo mostrar login y register #}
+                    <li><a href="{{ path('login') }}">Login</a></li>
+                    <li><a href="{{ path('app_register') }}">Register</a></li>
+                {% endif %}
+
             </ul>
         </nav>
 

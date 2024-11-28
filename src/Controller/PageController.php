@@ -12,15 +12,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class PageController extends AbstractController
 {
     private ObjectManager $manager;
+    private $security;
     private PostRepository $postRepository;
 
-    public function __construct(ManagerRegistry $doctrine)
+    public function __construct(ManagerRegistry $doctrine, Security $security)
     {
         $this->manager = $doctrine->getManager();
+        $this->security = $security;
         $this->postRepository = $doctrine->getRepository(Post::class);
     }
 
@@ -31,13 +34,18 @@ class PageController extends AbstractController
     public function index(Request $request): Response
     {
         $post = new Post();
+        $user = $this->security->getUser();
         $form = $this->createForm(PostFormType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
         {
+            if (!$user) {
+                throw $this->createAccessDeniedException();
+            }
+
             $post = $form->getData();
-            $post->setUser($this->getUser());
+            $post->setUser($user);
 
             $this->manager->persist($post);
             $this->manager->flush();
