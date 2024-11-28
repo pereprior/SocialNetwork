@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Post;
 use App\Form\PostFormType;
 use App\Repository\PostRepository;
+use App\Service\FileService;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
 use JsonException;
@@ -31,7 +32,7 @@ class PageController extends AbstractController
      * @throws JsonException
      */
     #[Route('/', name: 'app_inicio')]
-    public function index(Request $request): Response
+    public function index(Request $request, FileService $fileService): Response
     {
         $post = new Post();
         $user = $this->security->getUser();
@@ -45,6 +46,12 @@ class PageController extends AbstractController
             }
 
             $post = $form->getData();
+
+            $image = $form->get('img')->getData();
+            if ($image) {
+                $newFile = $fileService->setFileAsImage($image);
+                $post->setImg($newFile);
+            }
             $post->setUser($user);
 
             $this->manager->persist($post);
