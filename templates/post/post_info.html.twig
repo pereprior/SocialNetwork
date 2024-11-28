@@ -3,7 +3,9 @@
 {% block title %}{{ post.title }}{% endblock %}
 
 {% block body %}
-    {{ include('post/_post.html.twig') }}
+    <div class="pointer-events-none">
+        {{ include('post/_post.html.twig') }}
+    </div>
 
     {% for comment in comments %}
         {{ include('post/_comment.html.twig') }}
