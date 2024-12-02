@@ -85,7 +85,7 @@ class SettingsController extends AbstractController
 
             // Redirige a la página de inicio o despedida
             $this->addFlash('success', 'Your account has been deleted.');
-            return $this->redirectToRoute('app_login');  // O redirige a la página de inicio de sesión
+            return $this->redirectToRoute('login');  // O redirige a la página de inicio de sesión
         }
 
         // Procesar formulario de notificaciones

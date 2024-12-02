@@ -67,7 +67,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $proofOfChefTitle = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type:'string', nullable: true)]
     private ?string $bio = null;
 
     #[ORM\Column(type: 'date')]
