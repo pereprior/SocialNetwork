@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c78c43d-5be5-4d3b-a19c-2d74c33802e0" name="Changes" comment="Delete account updated">
+    <list default="true" id="0c78c43d-5be5-4d3b-a19c-2d74c33802e0" name="Changes" comment="Change Password, and deleted account update">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0db30a8b-a961-4adc-9aff-25267680e47d.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/0db30a8b-a961-4adc-9aff-25267680e47d.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProfileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/RegistrationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RegistrationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -248,7 +244,7 @@
       <workItem from="1732796171256" duration="1851000" />
       <workItem from="1733123279895" duration="140000" />
       <workItem from="1733123452808" duration="5970000" />
-      <workItem from="1733138201413" duration="1703000" />
+      <workItem from="1733138201413" duration="2057000" />
     </task>
     <task id="LOCAL-00001" summary="New Version and changes">
       <option name="closed" value="true" />
@@ -282,7 +278,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733128468005</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Change Password, and deleted account update">
+      <option name="closed" value="true" />
+      <created>1733139959923</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1733139959923</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -304,6 +308,7 @@
     <MESSAGE value="New Settings Version (8.1) and new migration" />
     <MESSAGE value="Deleted controller Profile from page/inicio and added from an independent controller Profile" />
     <MESSAGE value="Delete account updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="Delete account updated" />
+    <MESSAGE value="Change Password, and deleted account update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change Password, and deleted account update" />
   </component>
 </project>

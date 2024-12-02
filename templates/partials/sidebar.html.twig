@@ -5,7 +5,10 @@
         <!-- Search -->
         <section id="search" class="alt">
             <form method="post" action="#">
-                <img src="logo.png" class="sidebar-logo" alt="Logo">
+                <!-- Envolver la imagen del logo con un enlace -->
+                <a href="{{ path('app_inicio') }}">
+                    <img src="logo.png" class="sidebar-logo" alt="Logo">
+                </a>
             </form>
         </section>
 
