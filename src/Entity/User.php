@@ -78,6 +78,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $userImage = null;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $emailNotifications = false;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $appNotifications = false;
     public function getId(): ?int
     {
         return $this->id;
@@ -281,6 +287,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getMessages(): Collection
     {
         return $this->messages;
+    }
+
+    public function getEmailNotifications(): bool
+    {
+        return $this->emailNotifications;
+    }
+
+    public function setEmailNotifications(bool $emailNotifications): static
+    {
+        $this->emailNotifications = $emailNotifications;
+        return $this;
+    }
+
+    public function getAppNotifications(): bool
+    {
+        return $this->appNotifications;
+    }
+
+    public function setAppNotifications(bool $appNotifications): static
+    {
+        $this->appNotifications = $appNotifications;
+        return $this;
     }
 
     /**

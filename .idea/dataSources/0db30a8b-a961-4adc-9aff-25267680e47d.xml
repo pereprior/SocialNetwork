@@ -1154,7 +1154,7 @@ test\\_%|schema||&apos;&apos;||UPDATE|G</Grants>
     </schema>
     <schema id="328" parent="1" name="social_network">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2024-11-28.12:36:12</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-12-02.07:26:09</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_general_ci</CollationName>
     </schema>
     <schema id="329" parent="1" name="test">
@@ -1448,7 +1448,7 @@ test\\_%|schema||&apos;&apos;||UPDATE|G</Grants>
       <Predicate>json_valid(`roles`)</Predicate>
     </check>
     <column id="393" parent="339" name="id">
-      <AutoIncrement>1</AutoIncrement>
+      <AutoIncrement>2</AutoIncrement>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>int(11)|0s</StoredType>
