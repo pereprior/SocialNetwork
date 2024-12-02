@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Perfil{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .btn {
+            margin-top: 1em;
+            border-radius: 50rem;
+            font-size: 1.1rem;
+        }
+    </style>
+
+    <div class="example-wrapper">
+        <h1 class="text-center">Perfil de {{ user.name }}
+            {% if 'ROLE_PREMIUM' in user.roles %}
+                ⭐
+            {% endif %}
+        </h1>
+
+        <div>
+            <p><strong>Nombre de usuario:</strong> {{ user.username }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Fecha de nacimiento:</strong> {{ user.birthdate|date('Y-m-d') }}</p>
+            <p><strong>Biografía:</strong> {{ user.bio }}</p>
+            <p><strong>Género:</strong> {{ user.gender }}</p>
+
+            {% if user.isStudent %}
+                <p><strong>Rol:</strong> Estudiante</p>
+            {% elseif user.isChef %}
+                <p><strong>Rol:</strong> Chef</p>
+            {% endif %}
+
+            {% if 'ROLE_PREMIUM' in user.roles %}
+                <p><strong>Estado:</strong> Usuario Premium</p>
+                <form method="post" action="{{ path('app_downgrade_from_premium') }}">
+                    <button type="submit" class="btn btn-danger">Cancelar Premium</button>
+                </form>
+            {% else %}
+                <form method="post" action="{{ path('app_upgrade_to_premium') }}">
+                    <button type="submit" class="btn btn-primary">Actualizar a Premium</button>
+                </form>
+            {% endif %}
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="{{ path('app_inicio') }}" class="btn btn-secondary">Volver a la Página Principal</a>
+        </div>
+    </div>
+{% endblock %}
