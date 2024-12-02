@@ -325,3 +325,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->birthdate->format('Y-m-d');
     }
 }
+

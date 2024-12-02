@@ -36,7 +36,7 @@ class ProfileController extends AbstractController
 
         // Asegúrate de que el usuario esté autenticado
         if (!$user) {
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_profile');
         }
 
         // Agrega el rol 'ROLE_PREMIUM' al usuario
