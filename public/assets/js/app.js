@@ -38,12 +38,22 @@ $(document).ready(function() {
 
     $(".post-card").click(function(event) {
         event.preventDefault();
-        if (isUserLoggedIn()) {
-            const postId = $(this).data('post-id');
-            window.location.href = `/post/${postId}`;
-        } else {
-            window.location.href = `/login`;
-        }
+        const postId = $(this).data('post-id');
+
+        $.ajax({
+            url: '/isLogged',
+            method: 'GET',
+            success: function(response) {
+                if (response.loggedIn) {
+                    window.location.href = `/post/${postId}`;
+                } else {
+                    window.location.href = `/login`;
+                }
+            },
+            error: function() {
+                alert('Error checking login status.');
+            }
+        });
     });
 
     $(".like-btn").click(function(event) {
@@ -75,5 +85,3 @@ $(document).ready(function() {
         }
     });
 });
-
-function isUserLoggedIn() { return document.cookie.includes('auth_token'); }

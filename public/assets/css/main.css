@@ -29,6 +29,8 @@ footer, header, hgroup, menu, nav, section {
 
 :root {
   --primary-color: #d96c40;
+  --primary-color-dark: #a94a2e;
+  --primary-color-ligth: #f0a07c;
   --secondary-color: #3d4449;
   --tertiary-color: #7f888f;
   --sidebar-background: #f5f6f7;
@@ -235,8 +237,8 @@ hr {
   right: 24px;
   border-radius: 50%;
   border: none;
-  background-color: deepskyblue;
-  color: #fff;
+  background-color: var(--primary-color);
+  color: var(--sidebar-background);
   padding: 12px;
   cursor: pointer;
   text-align: center;
@@ -244,12 +246,13 @@ hr {
   transition: box-shadow 0.3s ease-in-out;
 }
   .fab:hover {
-    background-color: deepskyblue;
+    background-color: var(--primary-color-ligth);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 12px 40px rgba(0, 0, 0, 0.2);
   }
 .large-icon {
   font-size: 3.5em;
-  color: black;
+  color: var(--sidebar-background);
+  font-weight: bold;
 }
 
 /* Close Button (PERE) */
