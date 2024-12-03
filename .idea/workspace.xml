@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c78c43d-5be5-4d3b-a19c-2d74c33802e0" name="Changes" comment="Change Password, and deleted account update">
+    <list default="true" id="0c78c43d-5be5-4d3b-a19c-2d74c33802e0" name="Changes" comment="sidebar-logo button function">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0db30a8b-a961-4adc-9aff-25267680e47d.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/0db30a8b-a961-4adc-9aff-25267680e47d.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProfileController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/profile/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profile/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -191,27 +192,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "database.data.extractors.current.export.id": "SQL Updates",
-    "database.data.extractors.current.id": "SQL Updates",
-    "git-widget-placeholder": "development__raul",
-    "last_opened_file_path": "C:/Users/rauls/Desktop/php8.1/php-8.1.31-Win32-vs16-x64/php.exe",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;database.data.extractors.current.export.id&quot;: &quot;SQL Updates&quot;,
+    &quot;database.data.extractors.current.id&quot;: &quot;SQL Updates&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;development__raul&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/rauls/Desktop/php8.1/php-8.1.31-Win32-vs16-x64/php.exe&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\SocialNetwork" />
@@ -244,7 +245,9 @@
       <workItem from="1732796171256" duration="1851000" />
       <workItem from="1733123279895" duration="140000" />
       <workItem from="1733123452808" duration="5970000" />
-      <workItem from="1733138201413" duration="2057000" />
+      <workItem from="1733138201413" duration="2316000" />
+      <workItem from="1733215844274" duration="86000" />
+      <workItem from="1733215943361" duration="1575000" />
     </task>
     <task id="LOCAL-00001" summary="New Version and changes">
       <option name="closed" value="true" />
@@ -286,7 +289,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733139959923</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="sidebar-logo button function">
+      <option name="closed" value="true" />
+      <created>1733140333781</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1733140333781</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -309,6 +320,7 @@
     <MESSAGE value="Deleted controller Profile from page/inicio and added from an independent controller Profile" />
     <MESSAGE value="Delete account updated" />
     <MESSAGE value="Change Password, and deleted account update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change Password, and deleted account update" />
+    <MESSAGE value="sidebar-logo button function" />
+    <option name="LAST_COMMIT_MESSAGE" value="sidebar-logo button function" />
   </component>
 </project>

@@ -8,6 +8,11 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
 class ProfileController extends AbstractController
@@ -23,9 +28,14 @@ class ProfileController extends AbstractController
             return $this->redirectToRoute('app_profile');
         }
 
+        $form = $this->createFormBuilder()
+            ->getForm();
+
         return $this->render('profile/index.html.twig', [
             'user' => $user,
+            'form' => $form->createView(),
             'page_title' => 'Perfil del Usuario',
+            'show_form' => false,
         ]);
     }
 
@@ -75,5 +85,44 @@ class ProfileController extends AbstractController
         $this->addFlash('success', '¡Has cancelado tu suscripción Premium!');
 
         return $this->redirectToRoute('app_profile');
+    }
+
+    #[Route('/edit-profile', name: 'app_edit_profile')]
+    public function editProfile(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $form = $this->createFormBuilder($user)
+            ->add('name', TextType::class, ['label' => 'Nombre'])
+            ->add('username', TextType::class, ['label' => 'Nombre de usuario'])
+            ->add('email', TextType::class, ['label' => 'Correo electrónico'])
+            ->add('birthdate', DateType::class, [
+                'label' => 'Fecha de nacimiento',
+                'widget' => 'single_text',
+            ])
+            ->add('bio', TextareaType::class, ['label' => 'Biografía', 'required' => false])
+            ->add('gender', TextType::class, ['label' => 'Género'])
+            ->add('submit', SubmitType::class, ['label' => 'Guardar cambios'])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+            $this->addFlash('success', 'Tu perfil ha sido actualizado.');
+
+            return $this->redirectToRoute('app_profile');
+        }
+
+        return $this->render('profile/index.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+            'show_form' => true, // Mostrar el formulario
+            'page_title' => 'Editar Perfil',
+        ]);
     }
 }
