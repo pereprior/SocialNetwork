@@ -25,8 +25,8 @@ class PostRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('p')
             ->innerJoin('p.hashtags', 'h')
-            ->where('h.name = :hashtag')
-            ->setParameter('hashtag', $hashtag)
+            ->where('h.name LIKE :hashtag')
+            ->setParameter('hashtag', '%' . $hashtag . '%')
             ->getQuery()
             ->getResult();
     }
