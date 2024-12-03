@@ -6,15 +6,44 @@ $(document).ready(function() {
         newPostModal.modal('show');
     });
 
-    $(".post-card").click(function(event) {
-        event.preventDefault();
-        const postId = $(this).data('post-id');
-        window.location.href = `/post/${postId}`;
-    });
-
+    const newCommentModal = $("#newCommentModal");
     $(".comment-btn").click(function(event) {
         event.preventDefault();
-        document.getElementById('comment-form').classList.toggle('visibility-none')
+        newCommentModal.modal('show');
+    });
+
+    // Reset form when the comment modal is closed
+    newCommentModal.on('hidden.bs.modal', function() {
+        $(this).find('form')[0].reset();
+    });
+
+    // Reset form after submission
+    $("#commentForm").submit(function(event) {
+        event.preventDefault(); // Prevent default form submission
+        const form = this;
+        $.ajax({
+            type: $(form).attr('method'),
+            url: $(form).attr('action'),
+            data: $(form).serialize(),
+            success: function() {
+                form.reset();
+                newCommentModal.modal('hide');
+                window.location.reload();
+            },
+            error: function() {
+                alert('Error al enviar el comentario');
+            }
+        });
+    });
+
+    $(".post-card").click(function(event) {
+        event.preventDefault();
+        if (isUserLoggedIn()) {
+            const postId = $(this).data('post-id');
+            window.location.href = `/post/${postId}`;
+        } else {
+            window.location.href = `/login`;
+        }
     });
 
     $(".like-btn").click(function(event) {
@@ -34,4 +63,17 @@ $(document).ready(function() {
             }
         });
     });
+
+    const dropdownMenu = $("#dropdown");
+    $("#btn").click(function(event) {
+        event.stopPropagation();
+        dropdownMenu.toggleClass("show");
+    });
+    $(document).click(function() {
+        if (dropdownMenu.hasClass("show")) {
+            dropdownMenu.toggleClass("show");
+        }
+    });
 });
+
+function isUserLoggedIn() { return document.cookie.includes('auth_token'); }
