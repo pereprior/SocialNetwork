@@ -125,7 +125,7 @@ a {
   text-decoration: none; }
   a:hover {
     border-bottom-color: var(--primary-color);
-    color: var(--primary-color) !important; }
+    color: var(--primary-color); }
     a:hover strong {
       color: inherit; }
 
@@ -1644,7 +1644,8 @@ button,
   button:hover,
   .button:hover {
     background-color: var(--primary-color);
-    color: var(--sidebar-background); }
+    color: var(--sidebar-background);
+    text-decoration: none; }
   input[type="submit"]:active,
   input[type="reset"]:active,
   input[type="button"]:active,
@@ -2430,6 +2431,7 @@ button,
   padding: 0;
   text-transform: uppercase; }
   #menu ul a, #menu ul span {
+    line-height: 2.5em;
     border-bottom: 0;
     color: inherit;
     cursor: pointer;
@@ -2438,6 +2440,10 @@ button,
     padding: 0.625em 0; }
     #menu ul a:hover, #menu ul span:hover {
       color: var(--primary-color); }
+    #menu ul a.button:hover, #menu ul span.button:hover {
+      color: var(--sidebar-background); }
+    #menu ul a.active, #menu ul span.active {
+        color: var(--primary-color); }
     #menu ul a.opener, #menu ul span.opener {
       -moz-transition: color 0.2s ease-in-out;
       -webkit-transition: color 0.2s ease-in-out;

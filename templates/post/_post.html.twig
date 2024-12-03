@@ -7,7 +7,11 @@
                     <p><strong>{{ post.user.name }}</strong> <span class="text-lowercase">@{{ post.user.username }}</span> · {{ post.datetime|date('Y-m-d H:i') }}</p>
                 </div>
                 <h2>{{ post.title }}</h2>
-                <p>Hashtags</p>
+                <p class="text-lowercase">
+                    {% for hashtag in post.hashtags %}
+                        #{{ hashtag.name }}{% if not loop.last %} {% endif %}
+                    {% endfor %}
+                </p>
             </header>
             <p>{{ post.content }}</p>
             <ul class="actions">

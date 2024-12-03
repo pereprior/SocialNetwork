@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Hashtag;
 use App\Entity\Post;
 use App\Form\PostFormType;
 use App\Repository\PostRepository;
@@ -46,6 +47,19 @@ class PageController extends AbstractController
             }
 
             $post = $form->getData();
+            $newHashtags = $form->get('hashtags')->getData();
+            if ($newHashtags) {
+                $hashtagNames = array_map('trim', explode(',', $newHashtags));
+                foreach ($hashtagNames as $name) {
+                    $hashtag = $this->manager->getRepository(Hashtag::class)->findOneBy(['name' => $name]);
+                    if (!$hashtag) {
+                        $hashtag = new Hashtag();
+                        $hashtag->setName($name);
+                        $this->manager->persist($hashtag);
+                    }
+                    $post->addHashtag($hashtag);
+                }
+            }
 
             $image = $form->get('img')->getData();
             if ($image) {
