@@ -24,6 +24,7 @@ class RegistrationController extends AbstractController
         UserPasswordHasherInterface $userPasswordHasher,
         EntityManagerInterface $entityManager,
         UserAuthenticatorInterface $userAuthenticator,
+        //Inyector del formulario de login, maneja el inicio de sesión automático
         #[Autowire(service: 'security.authenticator.form_login.main')] $formLoginAuthenticator
     ): Response {
         $user = new User();
