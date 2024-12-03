@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c78c43d-5be5-4d3b-a19c-2d74c33802e0" name="Changes" comment="Autologin after register" />
+    <list default="true" id="0c78c43d-5be5-4d3b-a19c-2d74c33802e0" name="Changes" comment="Explain of Autowire">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/LoginController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProfileController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/partials/sidebar.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/sidebar.html.twig" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -242,7 +249,7 @@
       <workItem from="1733123452808" duration="5970000" />
       <workItem from="1733138201413" duration="2316000" />
       <workItem from="1733215844274" duration="86000" />
-      <workItem from="1733215943361" duration="2679000" />
+      <workItem from="1733215943361" duration="5658000" />
     </task>
     <task id="LOCAL-00001" summary="New Version and changes">
       <option name="closed" value="true" />
@@ -308,7 +315,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733218350125</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Explain of Autowire">
+      <option name="closed" value="true" />
+      <created>1733218725537</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1733218725537</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -334,6 +349,7 @@
     <MESSAGE value="sidebar-logo button function" />
     <MESSAGE value="Edit profile function, make it" />
     <MESSAGE value="Autologin after register" />
-    <option name="LAST_COMMIT_MESSAGE" value="Autologin after register" />
+    <MESSAGE value="Explain of Autowire" />
+    <option name="LAST_COMMIT_MESSAGE" value="Explain of Autowire" />
   </component>
 </project>

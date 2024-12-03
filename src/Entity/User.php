@@ -50,6 +50,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Post::class)]
     private Collection $likedPosts;
 
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();

@@ -12,13 +12,22 @@
             </form>
         </section>
 
+        <!-- Información del usuario -->
+        {% if app.user %}
+            <section id="user-info">
+                <a href="{{ path('app_profile') }}" class="user-profile">
+                    <img src="{{ asset('uploads/' ~ app.user.userImage) }}" alt="Profile Picture" class="profile-image">
+                    <p class="username">{{ app.user.username }}</p>
+                </a>
+            </section>
+        {% endif %}
+
         <!-- Menu -->
         <nav id="menu">
             <header class="major">
                 <h2>Menu</h2>
             </header>
             <ul>
-
                 {% if app.user %}
                     <li><a href="{{ path('app_inicio') }}">Home</a></li>
                     <li><a href="{{ path('explore') }}">Explore</a></li>
@@ -47,7 +56,6 @@
                     <li><a href="{{ path('login') }}">Login</a></li>
                     <li><a href="{{ path('app_register') }}">Register</a></li>
                 {% endif %}
-
             </ul>
         </nav>
 

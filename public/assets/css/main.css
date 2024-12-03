@@ -2426,3 +2426,48 @@ button,
     border-top: 0;
     margin-top: 0;
     padding-top: 0; }
+
+.user-profile {
+  display: flex;  /* Usamos flexbox para alinear la imagen y el nombre */
+  align-items: center;  /* Centra verticalmente la imagen y el texto */
+  gap: 10px;  /* Espacio entre la imagen y el nombre */
+  text-decoration: none;
+}
+
+.profile-image {
+  width: 50px;  /* Tamaño de la imagen */
+  height: 50px; /* Igual que el ancho para mantener la forma circular */
+  border-radius: 50%;  /* Imagen en forma de círculo */
+  object-fit: cover;  /* Asegura que la imagen se recorte para llenar el círculo */
+  border: 2px solid #ccc;  /* Opcional: Agrega un borde alrededor de la imagen */
+  text-decoration: none;
+}
+
+.username {
+  font-size: 16px;  /* Tamaño del texto */
+  font-weight: bold;  /* Estilo en negrita */
+  text-decoration: none;
+}
+
+
+/* Asegúrate de que la imagen y el nombre del usuario se vean como esperas */
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espacio entre la imagen y el nombre */
+  text-decoration: none;
+}
+
+.user-profile img {
+  width: 65px; /* Ajusta el tamaño de la imagen */
+  height: 65px; /* Ajusta el tamaño de la imagen */
+  border-radius: 50%; /* Hace la imagen circular */
+  text-decoration: none;
+}
+
+.user-profile .username {
+  font-size: 20px; /* Ajusta el tamaño del nombre */
+  text-decoration: none;
+  margin: 0; /* Elimina márgenes innecesarios */
+}
+
