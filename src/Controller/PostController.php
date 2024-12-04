@@ -52,7 +52,7 @@ class PostController extends AbstractController
         }
 
         return $this->render('post/post_info.html.twig', array(
-            'page_title' => 'Post',
+            'page_title' => 'Post info',
             'commentForm' => $form->createView(),
             'comments' => $this->commentRepository->findBy(array('post' => $id)),
             'post' => $this->repository->find($id)

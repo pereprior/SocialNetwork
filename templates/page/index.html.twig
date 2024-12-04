@@ -2,9 +2,6 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-
-    <br><h1>New Content</h1>
-
     {% for post in posts %}
         {{ include('post/_post.html.twig') }}
     {% endfor %}

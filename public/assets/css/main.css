@@ -29,8 +29,8 @@ footer, header, hgroup, menu, nav, section {
 
 :root {
   --primary-color: #d96c40;
-  --primary-color-light: #f0a76b;
-  --primary-color-dark: #b85a30;
+  --primary-color-dark: #a94a2e;
+  --primary-color-ligth: #f0a07c;
   --secondary-color: #3d4449;
   --tertiary-color: #7f888f;
   --sidebar-background: #f5f6f7;
@@ -125,11 +125,9 @@ a {
   text-decoration: none; }
   a:hover {
     border-bottom-color: var(--primary-color);
-    color: var(--primary-color);
-    text-decoration: none; }
+    color: var(--primary-color); }
     a:hover strong {
-      color: inherit;
-      text-decoration: none; }
+      color: inherit; }
 
 strong, b {
   color: var(--secondary-color);
@@ -240,7 +238,7 @@ hr {
   border-radius: 50%;
   border: none;
   background-color: var(--primary-color);
-  color: #fff;
+  color: var(--sidebar-background);
   padding: 12px;
   cursor: pointer;
   text-align: center;
@@ -248,12 +246,13 @@ hr {
   transition: box-shadow 0.3s ease-in-out;
 }
   .fab:hover {
-    background-color: var(--primary-color-dark);
+    background-color: var(--primary-color-ligth);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 12px 40px rgba(0, 0, 0, 0.2);
   }
 .large-icon {
   font-size: 3.5em;
   color: var(--sidebar-background);
+  font-weight: bold;
 }
 
 /* Close Button (PERE) */
@@ -269,12 +268,6 @@ hr {
     width: 40%;
     align-items: center;
 }
-.button.big:hover {
-  color: white;
-}
-a.button.big:hover {
-  color: white;
-}
 
 /* Post Styles (PERE) */
 .post-card {
@@ -289,6 +282,70 @@ a.button.big:hover {
 .visibility-none {
   display: none;
 }
+.post-img {
+  width: max-content;
+  height: 320px;
+}
+
+/* DROPDOWN MENU (PERE) */
+.menu-btn {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  column-gap: 0.5rem;
+  padding: 0.6rem;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  position: relative;
+}
+.bx {
+  font-size: 1.1rem;
+}
+.dropdown {
+  display: none;
+  position: absolute;
+  width: 250px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0 6px 10px 0,
+  rgba(0, 0, 0, 0.1) 0 0 0 1px;
+  border-radius: 5px;
+  margin-top: 0.3rem;
+  background: white;
+}
+.dropdown a {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+  padding: 0.8rem 1rem;
+  text-decoration: none;
+  color: black;
+}
+.dropdown a:hover {
+  background-color: #166e67;
+  color: white;
+}
+.header-box {
+  display: flex;
+  justify-content: space-between;
+}
+.show {
+  display: block;
+}
+.icn-btn {
+  height: auto;
+  box-shadow: none;
+}
+.icn-btn i:hover {
+  transform: scale(1.2);
+}
+.icn-btn:hover {
+  background-color: transparent;
+  color: var(--primary-color);
+}
+
+
+
 
 .align-left {
   text-align: left; }
@@ -1587,7 +1644,8 @@ button,
   button:hover,
   .button:hover {
     background-color: var(--primary-color);
-    color: var(--sidebar-background) }
+    color: var(--sidebar-background);
+    text-decoration: none; }
   input[type="submit"]:active,
   input[type="reset"]:active,
   input[type="button"]:active,
@@ -2002,7 +2060,7 @@ button,
         padding-bottom: 0; }
     #sidebar > .inner > .alt {
       border-bottom: 0;
-      margin: -2.22222em 0 4.44444em -2.22222em;
+      margin: -2.22222em 0 2.44444em -2.22222em;
       padding: 2.22222em;
       width: calc(100% + 4.44444em); }
   #sidebar .toggle {
@@ -2373,6 +2431,7 @@ button,
   padding: 0;
   text-transform: uppercase; }
   #menu ul a, #menu ul span {
+    line-height: 2.5em;
     border-bottom: 0;
     color: inherit;
     cursor: pointer;
@@ -2381,6 +2440,10 @@ button,
     padding: 0.625em 0; }
     #menu ul a:hover, #menu ul span:hover {
       color: var(--primary-color); }
+    #menu ul a.button:hover, #menu ul span.button:hover {
+      color: var(--sidebar-background); }
+    #menu ul a.active, #menu ul span.active {
+        color: var(--primary-color); }
     #menu ul a.opener, #menu ul span.opener {
       -moz-transition: color 0.2s ease-in-out;
       -webkit-transition: color 0.2s ease-in-out;
@@ -2438,4 +2501,47 @@ button,
     margin-top: 0;
     padding-top: 0; }
 
+.user-profile {
+  display: flex;  /* Usamos flexbox para alinear la imagen y el nombre */
+  align-items: center;  /* Centra verticalmente la imagen y el texto */
+  gap: 10px;  /* Espacio entre la imagen y el nombre */
+  text-decoration: none;
+}
+
+.profile-image {
+  width: 50px;  /* Tamaño de la imagen */
+  height: 50px; /* Igual que el ancho para mantener la forma circular */
+  border-radius: 50%;  /* Imagen en forma de círculo */
+  object-fit: cover;  /* Asegura que la imagen se recorte para llenar el círculo */
+  border: 2px solid #ccc;  /* Opcional: Agrega un borde alrededor de la imagen */
+  text-decoration: none;
+}
+
+.username {
+  font-size: 16px;  /* Tamaño del texto */
+  font-weight: bold;  /* Estilo en negrita */
+  text-decoration: none;
+}
+
+
+/* Asegúrate de que la imagen y el nombre del usuario se vean como esperas */
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espacio entre la imagen y el nombre */
+  text-decoration: none;
+}
+
+.user-profile img {
+  width: 65px; /* Ajusta el tamaño de la imagen */
+  height: 65px; /* Ajusta el tamaño de la imagen */
+  border-radius: 50%; /* Hace la imagen circular */
+  text-decoration: none;
+}
+
+.user-profile .username {
+  font-size: 20px; /* Ajusta el tamaño del nombre */
+  text-decoration: none;
+  margin: 0; /* Elimina márgenes innecesarios */
+}
 

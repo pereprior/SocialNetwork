@@ -22,13 +22,15 @@ class FileService
     /**
      * @param mixed $file
      * @return string
+     * @throws FileException
      */
+
     public function setFileAsImage(mixed $file): string
     {
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         // this is needed to safely include the file name as part of the URL
         $safeFilename = $this->slugger->slug($originalFilename);
-        $newFilePath = $safeFilename . '-' . uniqid('', true) . '.' . $file->guessExtension();
+        $newFilePath = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
 
         // Move the file to the directory where images are stored
         try {

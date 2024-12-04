@@ -18,7 +18,7 @@ class ApiController extends AbstractController
     {
         return $this->render('api/index.html.twig');
     }
-
+/*
     #[Route('/posts', name: 'api_posts')]
     public function getPosts(PostRepository $repository): JsonResponse
     {
@@ -113,5 +113,5 @@ class ApiController extends AbstractController
         }
 
         return new JsonResponse($data);
-    }
+    }*/
 }

@@ -85,7 +85,7 @@ class SettingsController extends AbstractController
 
             // Redirige a la página de inicio o despedida
             $this->addFlash('success', 'Your account has been deleted.');
-            return $this->redirectToRoute('app_login');  // O redirige a la página de inicio de sesión
+            return $this->redirectToRoute('login');  // O redirige a la página de inicio de sesión
         }
 
         // Procesar formulario de notificaciones
@@ -95,7 +95,7 @@ class SettingsController extends AbstractController
             $this->addFlash('success', 'Notification settings updated successfully.');
         }
 
-        return $this->render('settings/settings.html.twig', [
+        return $this->render('settings/index.html.twig', [
             'page_title' => 'Settings',
             'changePasswordForm' => $changePasswordForm->createView(),
             'deleteAccountForm' => $deleteAccountForm->createView(),

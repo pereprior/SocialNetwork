@@ -3,21 +3,15 @@
 {% block title %}{{ post.title }}{% endblock %}
 
 {% block body %}
-    {{ include('post/_post.html.twig') }}
-
-    <button type="submit" class="button big comment-btn">Comment</button>
-    <div id="comment-form" class="visibility-none">
-        {{ form_start(commentForm) }}
-        {{ form_row(commentForm.content) }}
-        <div class="modal-footer">
-            <button type="button" class="button big" data-dismiss="modal">Close</button>
-            <button type="submit" class="button big">Create</button>
-            {{ form_end(commentForm) }}
-        </div>
+    <div class="pointer-events-none">
+        {{ include('post/_post.html.twig') }}
     </div>
 
     {% for comment in comments %}
         {{ include('post/_comment.html.twig') }}
     {% endfor %}
+
+    <button type="submit" class="button big comment-btn">Comment</button>
+    {% include 'post/comment-modal.html.twig' %}
 
 {% endblock %}
