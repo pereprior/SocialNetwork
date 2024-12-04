@@ -94,15 +94,6 @@ class PageController extends AbstractController
             'posts' => $posts,
         ]);
     }
-
-    #[Route('/profile', name: 'profile')]
-    public function profile(): Response
-    {
-        return $this->render('page/profile.html.twig', [
-            'page_title' => 'Profile',
-        ]);
-    }
-
     #[Route('/chats', name: 'chats')]
     public function chats(): Response
     {
