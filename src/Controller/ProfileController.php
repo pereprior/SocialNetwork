@@ -8,12 +8,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\Extension\Core\Type\{
-    TextType,
-    DateType,
-    TextareaType,
-    SubmitType
-};
+use Symfony\Component\Form\Extension\Core\Type\{FileType, TextType, DateType, TextareaType, SubmitType};
 
 class ProfileController extends AbstractController
 {
@@ -81,12 +76,33 @@ class ProfileController extends AbstractController
             ->add('birthdate', DateType::class, ['label' => 'Fecha de nacimiento', 'widget' => 'single_text'])
             ->add('bio', TextareaType::class, ['label' => 'Biografía', 'required' => false])
             ->add('gender', TextType::class, ['label' => 'Género'])
+            ->add('userImage', FileType::class, [
+                'label' => 'Imagen de perfil',
+                'mapped' => false,
+                'required' => false,
+            ])
             ->add('submit', SubmitType::class, ['label' => 'Guardar cambios'])
             ->getForm();
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('userImage')->getData();
+
+            if ($imageFile) {
+                $newFilename = uniqid() . '.' . $imageFile->guessExtension();
+
+                try {
+                    $imageFile->move(
+                        $this->getParameter('uploads_directory'),
+                        $newFilename
+                    );
+                    $user->setUserImage($newFilename);
+                } catch (FileException $e) {
+                    $this->addFlash('error', 'Hubo un error al subir la imagen.');
+                }
+            }
+
             $entityManager->flush();
             $this->addFlash('success', 'Tu perfil ha sido actualizado.');
             return $this->redirectToRoute('app_profile');

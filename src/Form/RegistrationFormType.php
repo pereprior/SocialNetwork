@@ -46,6 +46,7 @@ class RegistrationFormType extends AbstractType
                 'choices'  => [
                     'Male' => 'male',
                     'Female' => 'female',
+                    'Unknown' => 'unknown',
                 ],
                 'expanded' => true, // Esto hace que se muestren como botones de radio (opciones seleccionables)
                 'multiple' => false, // Solo puede seleccionar una opción

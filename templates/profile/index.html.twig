@@ -49,7 +49,14 @@
         {% if show_form %}
             <div class="mt-5">
                 {{ form_start(form) }}
-                {{ form_widget(form) }}
+                {{ form_row(form.name) }}
+                {{ form_row(form.username) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.birthdate) }}
+                {{ form_row(form.bio) }}
+                {{ form_row(form.gender) }}
+                {{ form_row(form.userImage) }}
+                {{ form_row(form.submit) }}
                 {{ form_end(form) }}
                 <a href="{{ path('app_profile') }}" class="btn btn-secondary mt-3">Cancelar</a>
             </div>

@@ -32,13 +32,23 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Lógica de registro
+            // Lógica de contraseña
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
             );
+
+            // Procesar los roles según las casillas marcadas
+            $roles = ['ROLE_USER']; // Rol base para todos los usuarios
+            if ($form->get('isStudent')->getData()) {
+                $roles[] = 'ROLE_STUDENT';
+            }
+            if ($form->get('isChef')->getData()) {
+                $roles[] = 'ROLE_CHEF';
+            }
+            $user->setRoles($roles);
 
             $entityManager->persist($user);
             $entityManager->flush();
