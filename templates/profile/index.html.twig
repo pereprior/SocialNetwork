@@ -46,7 +46,9 @@
                             <li class="list-group-item">
                                 <h5>{{ post.title }}</h5>
                                 {% if post.img %}
-                                    <img src="{{ asset('../uploads' ~ post.img) }}" alt="Imagen de {{ post.title }}" class="img-fluid" style="max-width: 100%; height: auto;">
+                                    <div class="post-image-wrapper">
+                                        <img src="{{ post.img }}" alt="Imagen de {{ post.title }}" class="img-fluid rounded" style="max-width: 100%; height: auto;">
+                                    </div>
                                 {% endif %}
                                 <p>Publicado el {{ post.datetime|date('d/m/Y H:i') }}</p>
                                 <p>{{ post.content }}</p>
