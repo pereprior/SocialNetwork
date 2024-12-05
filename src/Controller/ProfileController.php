@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Post;
+use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,7 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\{FileType, TextType, DateType, Te
 class ProfileController extends AbstractController
 {
     #[Route('/profile', name: 'app_profile')]
-    public function profile(): Response
+    public function profile(PostRepository $postRepository): Response
     {
         $user = $this->getUser();
 
@@ -21,9 +24,12 @@ class ProfileController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        $posts = $postRepository->findBy(['user' => $user]);
+
         return $this->render('profile/index.html.twig', [
             'user' => $user,
             'form' => null,
+            'posts' => $posts,
             'page_title' => 'Perfil del Usuario',
             'show_form' => false,
         ]);
@@ -62,8 +68,11 @@ class ProfileController extends AbstractController
     }
 
     #[Route('/edit-profile', name: 'app_edit_profile')]
-    public function editProfile(Request $request, EntityManagerInterface $entityManager): Response
-    {
+    public function editProfile(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        PostRepository $postRepository
+    ): Response {
         $user = $this->getUser();
         if (!$user) {
             return $this->redirectToRoute('app_login');
@@ -108,9 +117,13 @@ class ProfileController extends AbstractController
             return $this->redirectToRoute('app_profile');
         }
 
+        // Recuperar los posts creados por el usuario
+        $posts = $postRepository->findBy(['user' => $user], ['datetime' => 'DESC']);
+
         return $this->render('profile/index.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
+            'posts' => $posts,
             'show_form' => true,
             'page_title' => 'Editar Perfil',
         ]);
