@@ -15,7 +15,9 @@
             </header>
             <p>{{ post.content }}</p>
             <ul class="actions">
-                <li><a href="#" class="button big">Let's cook!</a></li>
+                {% if is_granted('ROLE_STUDENT') or is_granted('ROLE_CHEF') %}
+                    <li><a href="#" class="button big">Let's cook!</a></li>
+                {% endif %}
             </ul>
         </div>
 
