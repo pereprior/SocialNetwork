@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Create a New Class</h1>
+    {{ form_start(classForm) }}
+    {{ form_row(classForm.title) }}
+    {{ form_row(classForm.description) }}
+    {{ form_row(classForm.startDate) }}
+    {{ form_row(classForm.endDate) }}
+    <button class="btn btn-primary">Create</button>
+    {{ form_end(classForm) }}
+{% endblock %}
