@@ -10,8 +10,6 @@
         {% endfor %}
     {% endfor %}
 
-
-
     <ul>
         {% for class in classes %}
             <li>
@@ -19,6 +17,7 @@
                 {{ class.description }}<br>
                 From: {{ class.startDate|date('Y-m-d H:i') }}<br>
                 To: {{ class.endDate|date('Y-m-d H:i') }}<br>
+                <small>Created by: {{ class.chef.username }}</small><br> {# Mostrar el nombre del chef #}
 
                 {# Botones de editar y eliminar visibles solo para el chef que creó la clase #}
                 {% if app.user and class.chef == app.user %}

@@ -52,9 +52,11 @@ class ClasesController extends AbstractController
     #[Route('/clases/{id}/edit', name: 'class_edit')]
     public function editClass(Clases $clases, Request $request, EntityManagerInterface $entityManager): Response
     {
-        // Verificar que el usuario actual es el creador de la clase
+        // Verificar si el usuario autenticado es el chef que creó la clase
+        $this->denyAccessUnlessGranted('ROLE_CHEF');
+
         if ($clases->getChef() !== $this->getUser()) {
-            throw $this->createAccessDeniedException('No tienes permiso para editar esta clase.');
+            throw $this->createAccessDeniedException('You are not allowed to edit this class.');
         }
 
         $form = $this->createForm(ClasesType::class, $clases);
@@ -63,32 +65,38 @@ class ClasesController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            $this->addFlash('success', 'La clase ha sido actualizada correctamente.');
-            return $this->redirectToRoute('class_list'); // Redirige a la lista de clases
+            $this->addFlash('success', 'Class updated successfully.');
+            return $this->redirectToRoute('class_list');
         }
 
         return $this->render('clases/edit.html.twig', [
             'classForm' => $form->createView(),
-            'page_title' => 'Editar Clase',
         ]);
     }
 
+
     // Método para eliminar una clase
     #[Route('/clases/{id}/delete', name: 'class_delete', methods: ['POST'])]
-    public function deleteClass(Clases $clases, Request $request, EntityManagerInterface $entityManager): Response
+    public function deleteClass(Request $request, Clases $clases, EntityManagerInterface $entityManager): Response
     {
-        // Verificar que el usuario actual es el creador de la clase
+        // Verificar si el usuario autenticado es el chef que creó la clase
+        $this->denyAccessUnlessGranted('ROLE_CHEF');
+
         if ($clases->getChef() !== $this->getUser()) {
-            throw $this->createAccessDeniedException('No tienes permiso para eliminar esta clase.');
+            throw $this->createAccessDeniedException('You are not allowed to delete this class.');
         }
 
-        if ($this->isCsrfTokenValid('delete'.$clases->getId(), $request->request->get('_token'))) {
+        // Validar el token CSRF para evitar ataques
+        if ($this->isCsrfTokenValid('delete' . $clases->getId(), $request->request->get('_token'))) {
             $entityManager->remove($clases);
             $entityManager->flush();
 
-            $this->addFlash('success', 'La clase ha sido eliminada correctamente.');
+            $this->addFlash('success', 'Class deleted successfully.');
+        } else {
+            $this->addFlash('error', 'Invalid CSRF token.');
         }
 
-        return $this->redirectToRoute('class_list'); // Redirige a la lista de clases
+        return $this->redirectToRoute('class_list');
     }
+
 }
