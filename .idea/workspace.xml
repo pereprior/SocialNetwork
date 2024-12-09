@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c78c43d-5be5-4d3b-a19c-2d74c33802e0" name="Changes" comment="Template profile deleted, My Post created (images not working)">
+    <list default="true" id="0c78c43d-5be5-4d3b-a19c-2d74c33802e0" name="Changes" comment="Deleted innecesary templates and apply an age restriction">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/routes/framework.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes/framework.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Form/RegistrationFormType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/RegistrationFormType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/login/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/login/login.html.twig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/profile/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profile/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/settings/settings.html.twig" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -252,7 +248,9 @@
       <workItem from="1733138201413" duration="2316000" />
       <workItem from="1733215844274" duration="86000" />
       <workItem from="1733215943361" duration="5993000" />
-      <workItem from="1733385613929" duration="5538000" />
+      <workItem from="1733385613929" duration="6541000" />
+      <workItem from="1733728015212" duration="44000" />
+      <workItem from="1733728070882" duration="373000" />
     </task>
     <task id="LOCAL-00001" summary="New Version and changes">
       <option name="closed" value="true" />
@@ -342,7 +340,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733388128856</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Deleted innecesary templates and apply an age restriction">
+      <option name="closed" value="true" />
+      <created>1733391295578</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1733391295578</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -384,6 +390,7 @@
     <MESSAGE value="Little refactor and profile image/username integration in aside" />
     <MESSAGE value="Update, profile image, roles and register" />
     <MESSAGE value="Template profile deleted, My Post created (images not working)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Template profile deleted, My Post created (images not working)" />
+    <MESSAGE value="Deleted innecesary templates and apply an age restriction" />
+    <option name="LAST_COMMIT_MESSAGE" value="Deleted innecesary templates and apply an age restriction" />
   </component>
 </project>
