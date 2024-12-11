@@ -47,7 +47,7 @@
                                 <h5>{{ post.title }}</h5>
                                 {% if post.img %}
                                     <div class="post-image-wrapper">
-                                        <img src="{{ post.img }}" alt="Imagen de {{ post.title }}" class="img-fluid rounded" style="max-width: 100%; height: auto;">
+                                        <img src="{{ asset(post.img) }}" alt="Imagen de {{ post.title }}" class="img-fluid rounded" style="max-width: 100%; height: auto;">
                                     </div>
                                 {% endif %}
                                 <p>Publicado el {{ post.datetime|date('d/m/Y H:i') }}</p>

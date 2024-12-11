@@ -17,16 +17,31 @@ class ClasesType extends AbstractType
         $builder
             ->add('title', TextType::class, [
                 'label' => 'Class Title',
+                'attr' => ['class' => 'form-control'], // Añadir clases Bootstrap si las usas
             ])
             ->add('description', TextareaType::class, [
                 'required' => false,
                 'label' => 'Class Description',
+                'attr' => [
+                    'class' => 'form-control',
+                    'rows' => 4,
+                ],
             ])
             ->add('startDate', DateTimeType::class, [
                 'label' => 'Start Date',
+                'widget' => 'single_text', // Usar el selector de calendario
+                'html5' => true,          // Activar el soporte HTML5
+                'attr' => [
+                    'class' => 'form-control', // Clase Bootstrap para diseño
+                ],
             ])
             ->add('endDate', DateTimeType::class, [
                 'label' => 'End Date',
+                'widget' => 'single_text',
+                'html5' => true,
+                'attr' => [
+                    'class' => 'form-control',
+                ],
             ]);
     }
 

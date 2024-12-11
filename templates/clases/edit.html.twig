@@ -1,13 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <h1>Editar Clase</h1>
+{% block title %}
+    Editar Clase
+{% endblock %}
 
-    {{ form_start(classForm) }}
-    {{ form_row(classForm.title) }}
-    {{ form_row(classForm.description) }}
-    {{ form_row(classForm.startDate) }}
-    {{ form_row(classForm.endDate) }}
-    <button class="btn btn-primary">Guardar Cambios</button>
-    {{ form_end(classForm) }}
+{% block body %}
+    <div class="container py-5">
+        <h1 class="text-center mb-4">Editar Clase</h1>
+        <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+            <div class="card-body">
+                <h5 class="card-title mb-4 text-center">
+                    <i class="bi bi-pencil-square"></i> Actualiza los detalles de tu clase
+                </h5>
+
+                {{ form_start(classForm) }}
+                <div class="mb-3">
+                    {{ form_label(classForm.title, 'Título', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(classForm.title, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(classForm.title) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(classForm.description, 'Descripción', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(classForm.description, {'attr': {'class': 'form-control', 'rows': 3}}) }}
+                    {{ form_errors(classForm.description) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(classForm.startDate, 'Fecha de Inicio', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(classForm.startDate, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(classForm.startDate) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(classForm.endDate, 'Fecha de Fin', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(classForm.endDate, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(classForm.endDate) }}
+                </div>
+
+                <div class="text-center">
+                    <button class="btn btn-success">
+                        <i class="bi bi-check-circle"></i> Guardar Cambios
+                    </button>
+                    <a href="{{ path('class_list') }}" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i> Volver
+                    </a>
+                </div>
+                {{ form_end(classForm) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

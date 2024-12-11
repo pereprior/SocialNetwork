@@ -1,40 +1,56 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Class List</h1>
+    <div class="container py-5">
+        <h1 class="mb-4 text-center">Class List</h1>
 
-    {# Mostrar mensajes flash si los hay (éxito o error) #}
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="alert alert-{{ label }}">{{ message }}</div>
+        {# Mostrar mensajes flash si los hay (éxito o error) #}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
 
-    <ul>
-        {% for class in classes %}
-            <li>
-                <strong>{{ class.title }}</strong><br>
-                {{ class.description }}<br>
-                From: {{ class.startDate|date('Y-m-d H:i') }}<br>
-                To: {{ class.endDate|date('Y-m-d H:i') }}<br>
-                <small>Created by: {{ class.chef.username }}</small><br> {# Mostrar el nombre del chef #}
+        {# Lista de clases #}
+        <div class="row g-4">
+            {% for class in classes %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ class.title }}</h5>
+                            <p class="card-text text-muted small mb-1">Created by: <strong>{{ class.chef.username }}</strong></p>
+                            <p class="card-text">{{ class.description }}</p>
+                            <p class="card-text small">
+                                <strong>From:</strong> {{ class.startDate|date('Y-m-d H:i') }}<br>
+                                <strong>To:</strong> {{ class.endDate|date('Y-m-d H:i') }}
+                            </p>
+                            {# Botones de editar y eliminar visibles solo para el chef que creó la clase #}
+                            {% if app.user and class.chef == app.user %}
+                                <div>
+                                    <a href="{{ path('class_edit', { id: class.id }) }}" class="btn btn-outline-secondary btn-sm">Edit</a>
+                                    <form method="post" action="{{ path('class_delete', { id: class.id }) }}" onsubmit="return confirm('Are you sure you want to delete this class?');" style="display:inline-block; margin-left: 5px;">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ class.id) }}">
+                                        <button class="btn btn-outline-danger btn-sm">Delete</button>
+                                    </form>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12">
+                    <p class="text-center text-muted">No classes available.</p>
+                </div>
+            {% endfor %}
+        </div>
 
-                {# Botones de editar y eliminar visibles solo para el chef que creó la clase #}
-                {% if app.user and class.chef == app.user %}
-                    <a href="{{ path('class_edit', { id: class.id }) }}" class="btn btn-secondary">Edit</a>
-                    <form method="post" action="{{ path('class_delete', { id: class.id }) }}" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this class?');">
-                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ class.id) }}">
-                        <button class="btn btn-danger">Delete</button>
-                    </form>
-                {% endif %}
-            </li>
-        {% else %}
-            <li>No classes available.</li>
-        {% endfor %}
-    </ul>
-
-    {# Botón de crear clases, visible solo para chefs #}
-    {% if app.user and is_granted('ROLE_CHEF') %}
-        <a href="{{ path('class_new') }}" class="btn btn-primary mb-3">Create New Class</a>
-    {% endif %}
+        {# Botón de crear clases, visible solo para chefs #}
+        {% if app.user and is_granted('ROLE_CHEF') %}
+            <div class="text-center mt-4">
+                <a href="{{ path('class_new') }}" class="btn btn-primary">Create New Class</a>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}
