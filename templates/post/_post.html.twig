@@ -34,9 +34,15 @@
         </p>
     </div>
 
+    {% if error is defined %}
+        <div class="alert alert-danger">
+            {{ error }}
+        </div>
+    {% endif %}
+
     <span class="image object post-img">
-         {% if post.img %}
-             <img src="{{ asset('uploads/images/' ~ post.img) }}" alt="{{ post.title }}">
+         {% if post.imgUrl %}
+             <img src="{{ post.imgUrl }}" alt="{{ post.title }}" />
          {% endif %}
     </span>
 

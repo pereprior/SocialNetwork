@@ -53,6 +53,9 @@ class Post
         $this->hashtags = new ArrayCollection();
     }
 
+    // ESTE CAMPO NO SE GUARDA EN LA BBDD, PERO NO LO TOQUEIS
+    private ?string $imgUrl = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -218,5 +221,17 @@ class Post
         }
 
         return $this;
+    }
+
+    public function setImgUrl(string $imageServerUrl): void
+    {
+        if ($this->img) {
+            $this->imgUrl = rtrim($imageServerUrl, '/') . '/' . $this->img;
+        }
+    }
+
+    public function getImgUrl(): ?string
+    {
+        return $this->imgUrl;
     }
 }

@@ -9,6 +9,7 @@ use App\Repository\PostRepository;
 use App\Service\FileService;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
+use GuzzleHttp\Exception\GuzzleException;
 use JsonException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,6 +32,7 @@ class PageController extends AbstractController
 
     /**
      * @throws JsonException
+     * @throws GuzzleException
      */
     #[Route('/', name: 'app_inicio')]
     public function index(Request $request, FileService $fileService): Response
@@ -63,9 +65,19 @@ class PageController extends AbstractController
 
             $image = $form->get('img')->getData();
             if ($image) {
-                $newFile = $fileService->setFileAsImage($image);
-                $post->setImg($newFile);
+                try {
+                    $fileName = $fileService->uploadImage($image);
+                    $post->setImg($fileName);
+                } catch (\Exception $e) {
+                    return $this->render('page/index.html.twig', [
+                        'page_title' => 'Inicio',
+                        'form' => $form->createView(),
+                        'error' => $e->getMessage(),
+                        'posts' => $this->postRepository->findAll()
+                    ]);
+                }
             }
+
             $post->setUser($user);
 
             $this->manager->persist($post);
@@ -74,7 +86,10 @@ class PageController extends AbstractController
             return $this->redirectToRoute('app_inicio');
         }
 
-        //$posts = $this->apiService->fetch('http://localhost:8000/api/posts');
+        $imageServerUrl = $this->getParameter('image_server_url');
+        foreach ($this->postRepository->findAll() as $post) {
+            $post->setImgUrl($imageServerUrl);
+        }
 
         return $this->render('page/index.html.twig', [
             'page_title' => 'Inicio',

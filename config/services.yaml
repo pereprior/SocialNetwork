@@ -5,6 +5,8 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     uploads_directory: '%kernel.project_dir%/public/uploads'
+    cloud_server_url: 'http://10.112.2.110:8080/uploads/upload.php'
+    image_server_url: '%env(IMAGE_SERVER_URL)%'
     images_directory: '%kernel.project_dir%/public/uploads/images'
     portfolio_directory: '%kernel.project_dir%/public/uploads/portfolio'
 
@@ -23,10 +25,17 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    guzzle.client:
+        class: GuzzleHttp\Client
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
     App\Service\FileService:
         arguments:
-            $imagesDirectory: '%images_directory%'
-            $portfolioDirectory: '%portfolio_directory%'
+            $client: '@guzzle.client'
+            $cloud: '%cloud_server_url%'
+
+    App\Controller\ApiImageController:
+        public: true
+        arguments:
+            $fileService: '@App\Service\FileService'
