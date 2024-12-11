@@ -5,16 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c78c43d-5be5-4d3b-a19c-2d74c33802e0" name="Changes" comment="Little refactor and profile image/username integration in aside">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/PageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PageController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Post.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/FileService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/FileService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/post/_post.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/post/_post.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ApiController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ApiImageController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/api_image/index.html.twig" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -274,7 +269,7 @@
       <workItem from="1733728391183" duration="5842000" />
       <workItem from="1733818086860" duration="2965000" />
       <workItem from="1733821578647" duration="2066000" />
-      <workItem from="1733911986775" duration="5028000" />
+      <workItem from="1733911986775" duration="5482000" />
     </task>
     <task id="LOCAL-00001" summary="New Version and changes">
       <option name="closed" value="true" />
