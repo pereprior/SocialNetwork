@@ -58,4 +58,11 @@ class PostController extends AbstractController
             'post' => $this->repository->find($id)
         ));
     }
+
+    #[Route('/delete/{id}', name: 'post_delete')]
+    public function delete($id): Response
+    {
+        $this->repository->deleteById($id);
+        return $this->redirectToRoute('app_inicio');
+    }
 }

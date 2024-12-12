@@ -4,7 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-    cloud_server_url: 'http://10.112.2.110:8080/uploads/upload.php'
+    upload_server_url: '%env(IMAGE_SERVER_URL)%/upload.php'
     image_server_url: '%env(IMAGE_SERVER_URL)%'
 
 services:
@@ -30,4 +30,4 @@ services:
     App\Service\FileService:
         arguments:
             $client: '@guzzle.client'
-            $cloud: '%cloud_server_url%'
+            $cloud: '%upload_server_url%'

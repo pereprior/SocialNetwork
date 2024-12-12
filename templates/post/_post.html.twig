@@ -34,12 +34,6 @@
         </p>
     </div>
 
-    {% if error is defined %}
-        <div class="alert alert-danger">
-            {{ error }}
-        </div>
-    {% endif %}
-
     <span class="image object post-img">
          {% if post.imgUrl %}
              <img src="{{ post.imgUrl }}" alt="{{ post.title }}" />
@@ -48,13 +42,13 @@
 
     {% if app.user %}
         <div>
-            <button class="menu-btn icn-btn" id="btn"><i class="bi bi-three-dots-vertical"></i></button>
-            <div class="dropdown" id="dropdown">
+            <button class="menu-btn icn-btn" id="dropdown-btn-{{ post.id }}"><i class="bi bi-three-dots-vertical"></i></button>
+            <div class="dropdown" id="dropdown-{{ post.id }}">
                 <a href="#">
                     <i class="bi bi-pencil"></i>
                     Edit
                 </a>
-                <a href="#">
+                <a href="#" class="delete-btn" data-post-id="{{ post.id }}">
                     <i class="bi bi-trash"></i>
                     Delete
                 </a>

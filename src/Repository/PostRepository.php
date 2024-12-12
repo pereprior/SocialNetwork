@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Comment;
 
 /**
  * @extends ServiceEntityRepository<Post>
@@ -29,6 +30,27 @@ class PostRepository extends ServiceEntityRepository
             ->setParameter('hashtag', '%' . $hashtag . '%')
             ->getQuery()
             ->getResult();
+    }
+
+    public function deleteById(string $id): void
+    {
+        $entityManager = $this->getEntityManager();
+
+        // Eliminamos primero los comentarios asociados
+        $entityManager->createQueryBuilder()
+            ->delete(Comment::class, 'c')
+            ->where('c.post = :postId')
+            ->setParameter('postId', $id)
+            ->getQuery()
+            ->execute();
+
+        // Eliminamos el post
+        $this->createQueryBuilder('p')
+            ->delete()
+            ->where('p.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->execute();
     }
 
 //    /**

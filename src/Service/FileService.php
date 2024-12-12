@@ -21,7 +21,7 @@ class FileService
     public function uploadImage(UploadedFile $file): string
     {
         // Validar el archivo
-        if (!in_array($file->getMimeType(), ['image/jpeg', 'image/png', 'image/gif'], true)) {
+        if (!in_array($file->getMimeType(), ['image/jpeg', 'image/png', 'image/gif', 'image/jpg'], true)) {
             throw new FileException('Unsupported file type');
         }
 

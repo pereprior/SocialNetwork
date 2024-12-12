@@ -1,5 +1,6 @@
 // Mostrar el formulario para crear un post
 $(document).ready(function() {
+
     const newPostModal = $("#newPostModal");
     $(".fab").click(function(event) {
         event.preventDefault();
@@ -12,14 +13,12 @@ $(document).ready(function() {
         newCommentModal.modal('show');
     });
 
-    // Reset form when the comment modal is closed
     newCommentModal.on('hidden.bs.modal', function() {
         $(this).find('form')[0].reset();
     });
 
-    // Reset form after submission
     $("#commentForm").submit(function(event) {
-        event.preventDefault(); // Prevent default form submission
+        event.preventDefault();
         const form = this;
         $.ajax({
             type: $(form).attr('method'),
@@ -36,6 +35,7 @@ $(document).ready(function() {
         });
     });
 
+    /* Entrar dentro de los post */
     $(".post-card").click(function(event) {
         event.preventDefault();
         const postId = $(this).data('post-id');
@@ -56,6 +56,7 @@ $(document).ready(function() {
         });
     });
 
+    /* Boton de like */
     $(".like-btn").click(function(event) {
         event.preventDefault();
         const postId = $(this).data('post-id');
@@ -74,14 +75,34 @@ $(document).ready(function() {
         });
     });
 
-    const dropdownMenu = $("#dropdown");
-    $("#btn").click(function(event) {
+    /* Dropdown menu */
+    $(".icn-btn").click(function(event) {
         event.stopPropagation();
+        const postId = $(this).attr('id').split('-')[2];
+        const dropdownMenu = $(`#dropdown-${postId}`);
         dropdownMenu.toggleClass("show");
     });
     $(document).click(function() {
-        if (dropdownMenu.hasClass("show")) {
-            dropdownMenu.toggleClass("show");
-        }
+        $(".dropdown.show").removeClass("show");
+    });
+    $(".delete-btn").click(function (event) {
+        event.preventDefault();
+        const postId = $(this).data('post-id');
+
+        const request = $.ajax({
+            url: `/post/delete/${postId}`,
+            method: 'POST'
+        });
+
+        request.done(function() {
+            window.location.reload();
+        });
+
+        request.fail(function(jqXHR, textStatus, errorThrown) {
+            console.error("Error details:", textStatus, errorThrown);
+            console.error("Response text:", jqXHR.responseText);
+            alert("Error al eliminar el post");
+        });
+
     });
 });
