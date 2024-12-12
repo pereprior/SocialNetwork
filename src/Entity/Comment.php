@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CommentRepository;
+use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -25,6 +26,11 @@ class Comment
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $datetime = null;
+
+    public function __construct()
+    {
+        $this->datetime = new DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -72,10 +78,8 @@ class Comment
         return $this->datetime;
     }
 
-    public function setDatetime(\DateTimeInterface $datetime): static
+    public function getDatetimeFormated(): string
     {
-        $this->datetime = $datetime;
-
-        return $this;
+        return $this->datetime->format('Y-m-d H:i');
     }
 }

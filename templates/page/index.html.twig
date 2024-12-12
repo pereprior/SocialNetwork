@@ -2,32 +2,14 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
+    {% for post in posts %}
+        {{ include('post/_post.html.twig') }}
+    {% endfor %}
 
-    <div id="wrapper">
+    {% if app.user %}
+        {% include 'partials/_new_post_button.html.twig' %}
+    {% endif %}
 
-        <!-- Main -->
-        <div id="main">
-            <div class="inner">
-                <br><h1>New Content</h1>
-                <!-- Banner -->
-                <section id="banner">
-                    <div class="content">
-                        <header>
-                            <h2>First Publication</h2>
-                            <p>Hashtags</p>
-                        </header>
-                        <p>Short Description</p>
-                        <ul class="actions">
-                            <li><a href="#" class="button big">Let's cook!</a></li>
-                        </ul>
-                    </div>
-                    <span class="image object">
-                        <img src="images/pic10.jpg" alt="Photo" />
-                </span>
-                </section>
-
-            </div>
-        </div>
-    </div>
+    {% include 'post/index.html.twig' %}
 
 {% endblock %}

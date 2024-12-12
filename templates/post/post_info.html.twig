@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block body %}
+    <div class="pointer-events-none">
+        {{ include('post/_post.html.twig') }}
+    </div>
+
+    {% for comment in comments %}
+        {{ include('post/_comment.html.twig') }}
+    {% endfor %}
+
+    <button type="submit" class="button big comment-btn">Comment</button>
+    {% include 'post/comment-modal.html.twig' %}
+
+{% endblock %}

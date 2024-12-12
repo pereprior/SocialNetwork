@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\PostRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -40,9 +41,16 @@ class Post
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'post')]
     private Collection $comments;
 
+    #[ORM\ManyToMany(targetEntity: Hashtag::class, mappedBy: 'posts')]
+    private Collection $hashtags;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->datetime = new DateTime();
+        $this->numLikes = 0;
+        $this->numViews = 0;
+        $this->hashtags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -91,11 +99,9 @@ class Post
         return $this->datetime;
     }
 
-    public function setDatetime(\DateTimeInterface $datetime): static
+    public function getDatetimeFormated(): string
     {
-        $this->datetime = $datetime;
-
-        return $this;
+        return $this->datetime->format('Y-m-d H:i');
     }
 
     public function getNumLikes(): ?int
@@ -159,6 +165,56 @@ class Post
             if ($comment->getPost() === $this) {
                 $comment->setPost(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function like(): void
+    {
+        if ($this->user) {
+            if ($this->user->getLikedPosts()->contains($this)) {
+                $this->numLikes--;
+                $this->user->removeLikedPost($this);
+            } else {
+                $this->numLikes++;
+                $this->user->addLikedPost($this);
+            }
+        }
+    }
+
+    public function isLikedByUser(User $user): bool
+    {
+        return $this->user && $this->user->getLikedPosts()->contains($this);
+    }
+
+    public function addView(): void
+    {
+        $this->numViews++;
+    }
+
+    /**
+     * @return Collection<int, Hashtag>
+     */
+    public function getHashtags(): Collection
+    {
+        return $this->hashtags;
+    }
+
+    public function addHashtag(Hashtag $hashtag): static
+    {
+        if (!$this->hashtags->contains($hashtag)) {
+            $this->hashtags->add($hashtag);
+            $hashtag->addPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHashtag(Hashtag $hashtag): static
+    {
+        if ($this->hashtags->removeElement($hashtag)) {
+            $hashtag->removePost($this);
         }
 
         return $this;
