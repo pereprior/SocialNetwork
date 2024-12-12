@@ -4,7 +4,7 @@
 {% block body %}
     <form method="get" action="{{ path('explore') }}">
         <div>
-            <label>
+            <label class="search-label">
                 <input type="text" name="search" placeholder="Search by hashtag" value="{{ app.request.get('search') }}">
             </label>
             <button type="submit">Search</button>

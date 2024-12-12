@@ -29,11 +29,11 @@
             {% if 'ROLE_PREMIUM' in user.roles %}
                 <p><strong>Estado:</strong> Usuario Premium</p>
                 <form method="post" action="{{ path('app_downgrade_from_premium') }}">
-                    <button type="submit" class="btn btn-danger">Cancelar Premium</button>
+                    <button type="submit" class="button">Cancelar Premium</button>
                 </form>
             {% else %}
                 <form method="post" action="{{ path('app_upgrade_to_premium') }}">
-                    <button type="submit" class="btn btn-primary">Actualizar a Premium</button>
+                    <button type="submit" class="button">Actualizar a Premium</button>
                 </form>
             {% endif %}
         </div>
@@ -41,7 +41,7 @@
         <!-- Botón Editar Perfil -->
         <h2>Editar Perfil</h2>
         {% if not show_form %}
-            <a href="{{ path('app_edit_profile') }}" class="btn btn-warning mt-3">Editar Perfil</a>
+            <a href="{{ path('app_edit_profile') }}" class="button">Editar Perfil</a>
         {% endif %}
 
         <!-- Formulario de edición y botón de cancelar -->
@@ -51,12 +51,12 @@
                 {{ form_start(form) }}
                 {{ form_widget(form) }}
                 {{ form_end(form) }}
-                <a href="{{ path('app_profile') }}" class="btn btn-secondary mt-3">Cancelar</a>
+                <a href="{{ path('app_profile') }}" class="button">Cancelar</a>
             </div>
         {% endif %}
     </div>
 
     <div class="text-center mt-4">
-        <a href="{{ path('app_inicio') }}" class="btn btn-secondary">Volver a la Página Principal</a>
+        <a href="{{ path('app_inicio') }}" class="button">Volver a la Página Principal</a>
     </div>
 {% endblock %}

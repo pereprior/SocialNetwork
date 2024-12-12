@@ -49,7 +49,7 @@
                 </div>
 
                 <div class="d-grid">
-                    {{ form_widget(changePasswordForm.change, {'attr': {'class': 'btn btn-primary btn-lg rounded-pill'}}) }}
+                    {{ form_widget(changePasswordForm.change, {'attr': {'class': 'button-settings'}}) }}
                 </div>
 
                 {{ form_end(changePasswordForm) }}
@@ -84,7 +84,7 @@
                 </div>
 
                 <div class="d-grid">
-                    {{ form_widget(deleteAccountForm.delete, {'attr': {'class': 'btn btn-danger btn-lg rounded-pill'}}) }}
+                    {{ form_widget(deleteAccountForm.delete, {'attr': {'class': 'button-settings-delete'}}) }}
                 </div>
 
                 {{ form_end(deleteAccountForm) }}
@@ -113,7 +113,7 @@
                 </div>
 
                 <div class="d-grid">
-                    {{ form_widget(notificationSettingsForm.save, {'attr': {'class': 'btn btn-success btn-lg rounded-pill'}}) }}
+                    {{ form_widget(notificationSettingsForm.save, {'attr': {'class': 'button-settings-save'}}) }}
                 </div>
 
                 {{ form_end(notificationSettingsForm) }}
@@ -122,7 +122,7 @@
 
         <!-- Botón para regresar a la página principal -->
         <div class="text-center mt-4">
-            <a href="{{ path('app_inicio') }}" class="btn btn-secondary btn-lg rounded-pill">
+            <a href="{{ path('app_inicio') }}" class="button-settings">
                 Return to Main Page
             </a>
         </div>
