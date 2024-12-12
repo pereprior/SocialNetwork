@@ -120,7 +120,6 @@ a {
   -webkit-transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
   -ms-transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
   transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
-  border-bottom: dotted 1px;
   color: var(--primary-color);
   text-decoration: none; }
   a:hover {
@@ -172,7 +171,8 @@ h6 {
 
 @media screen and (max-width: 1680px) {
   h1 {
-    font-size: 3.5em; } }
+    font-size: 3.5em;
+    padding-top: 30px; } }
 
 @media screen and (max-width: 980px) {
   h1 {
@@ -244,6 +244,7 @@ hr {
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease-in-out;
+  font-family: inherit;
 }
   .fab:hover {
     background-color: var(--primary-color-ligth);
@@ -342,6 +343,14 @@ hr {
 .icn-btn:hover {
   background-color: transparent;
   color: var(--primary-color);
+}
+
+.like-btn {
+  text-decoration: none;
+}
+
+.like-btn:hover {
+  text-decoration: none;
 }
 
 
@@ -1138,12 +1147,18 @@ header.main > :last-child {
 form {
   margin: 0 0 2em 0; }
 
+
+.search-label {
+  margin: 4em 0 2em 0;
+}
+
 label {
   color: var(--secondary-color);
   display: block;
   font-size: 0.9em;
   font-weight: 600;
-  margin: 0 0 1em 0; }
+  margin: 0 0 2em 0; }
+
 
 input[type="text"],
 input[type="password"],
@@ -1606,6 +1621,29 @@ table {
     table.alt tfoot {
       border-top: 0; }
 
+
+/* SETTINGS */
+
+.card-header h5{
+  color: var(--sidebar-background);
+}
+
+.example-wrapper .d-grid{
+  display: grid !important;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+}
+
+.button-settings-delete:hover{
+  background-color: red !important;
+}
+
+.button-settings-save:hover{
+  background-color: green !important;
+}
+
+
 /* Button */
 input[type="submit"],
 input[type="reset"],
@@ -2026,6 +2064,7 @@ button,
 }
 
 
+
 #sidebar {
   -moz-flex-grow: 0;
   -webkit-flex-grow: 0;
@@ -2043,7 +2082,7 @@ button,
   font-size: 0.9em;
   position: sticky;
   overflow-y: auto;
-  width: 24em; }
+  width: 24em;}
   #sidebar h2 {
     font-size: 1.38889em; }
   #sidebar > .inner {
@@ -2051,7 +2090,7 @@ button,
     position: fixed;
     width: 26em; }
     #sidebar > .inner > * {
-      padding: 0 0 90px 0; }
+      padding: 0 0 20px 0; }
       #sidebar > .inner > * > :last-child {
         margin-bottom: 0; }
       #sidebar > .inner > *:last-child {
@@ -2112,7 +2151,11 @@ button,
       width: 24em; }
       #sidebar > .inner {
         padding: 1.66667em 1.66667em 1.33333em 1.66667em ;
-        width: 24em; }
+        width: 24em;
+        height: 100%;
+        overflow-y: auto;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE y Edge */ }
         #sidebar > .inner > .alt {
           margin: -1.66667em 0 0.33333em -1.66667em;
           padding: 1.66667em;
@@ -2199,7 +2242,21 @@ button,
     font-family: "Roboto Slab", serif;
     font-size: 1.125em; }
   #header .icons {
-    text-align: right; }
+    text-align: right;
+    padding-top: 40px;
+  }
+
+  #header h2 {
+    padding-top: 40px;
+  }
+
+  #header h1 {
+    padding-top: 26px;
+  }
+
+  #header h1 strong {
+      font-size: 30px;
+  }
   @media screen and (max-width: 1680px) {
     #header {
       padding-top: 5em; } }
@@ -2216,9 +2273,10 @@ button,
         right: -0.5em;
         top: 0; } }
 
+
 /* Banner */
 #banner {
-  padding: 6em 0 4em 0 ;
+  padding: 2em 0 4em 0 ;
   display: -moz-flex;
   display: -webkit-flex;
   display: -ms-flex;
@@ -2429,7 +2487,8 @@ button,
   list-style: none;
   margin-bottom: 0;
   padding: 0;
-  text-transform: uppercase; }
+  text-transform: uppercase;
+  margin-top: -40px; }
   #menu ul a, #menu ul span {
     line-height: 2.5em;
     border-bottom: 0;
@@ -2439,7 +2498,8 @@ button,
     font-size: 0.9em;
     padding: 0.625em 0; }
     #menu ul a:hover, #menu ul span:hover {
-      color: var(--primary-color); }
+      color: var(--primary-color);
+      text-decoration: none; }
     #menu ul a.button:hover, #menu ul span.button:hover {
       color: var(--sidebar-background); }
     #menu ul a.active, #menu ul span.active {
@@ -2484,8 +2544,8 @@ button,
 
 #menu > ul > li {
   border-top: solid 1px rgba(210, 215, 217, 0.75);
-  margin: 0.5em 0 0 0;
-  padding: 0.5em 0 0 0; }
+  margin: 0 0 0 0;
+  padding: 0 0 0 0; }
   #menu > ul > li > ul {
     color: #9fa3a6;
     display: none;
@@ -2500,12 +2560,16 @@ button,
     border-top: 0;
     margin-top: 0;
     padding-top: 0; }
+  #menu ul li .button{
+    margin-top: 31px;
+  }
 
 .user-profile {
   display: flex;  /* Usamos flexbox para alinear la imagen y el nombre */
   align-items: center;  /* Centra verticalmente la imagen y el texto */
   gap: 10px;  /* Espacio entre la imagen y el nombre */
   text-decoration: none;
+  padding-bottom: -20px;
 }
 
 .profile-image {
@@ -2532,6 +2596,10 @@ button,
   text-decoration: none;
 }
 
+.user-profile:hover{
+  text-decoration: none;
+}
+
 .user-profile img {
   width: 65px; /* Ajusta el tamaño de la imagen */
   height: 65px; /* Ajusta el tamaño de la imagen */
@@ -2539,9 +2607,55 @@ button,
   text-decoration: none;
 }
 
+
+
 .user-profile .username {
   font-size: 20px; /* Ajusta el tamaño del nombre */
   text-decoration: none;
   margin: 0; /* Elimina márgenes innecesarios */
 }
+
+
+
+
+/* REGISTRO */
+.vh-100 {
+  height: 230vh !important;
+}
+
+.card-header h2{
+  color: var(--sidebar-background);
+}
+
+.bg-gradient-primary {
+  background: linear-gradient(90deg, var(--primary-color), var(--primary-color-dark)) !important;
+}
+.form-label {
+  font-weight: bold;
+  color: #333;
+}
+.form-control {
+  border-radius: 25px;
+  padding: 5px 15px;
+}
+.form-check-input {
+  margin-right: 10px;
+}
+
+.card-body .d-grid {
+  display: grid !important;
+  align-items: center;
+}
+
+.btn-primary {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  border: none;
+  font-size: 20px;
+}
+.btn-primary:hover {
+  background-color: var(--primary-color-dark) !important;
+  border-color: var(--primary-color-dark) !important;
+}
+
 
