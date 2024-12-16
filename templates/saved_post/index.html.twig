@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Saved Posts{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+        <h1>Saved Posts</h1>
+
+        {% if savedPosts is empty %}
+            <p>You have no saved posts yet.</p>
+        {% else %}
+            <ul>
+                {% for savedPost in savedPosts %}
+                    <li>
+                        <h2>{{ savedPost.getPost().title }}</h2>
+                        <p>{{ savedPost.getPost().content }}</p>  {# Muestra el contenido del post, si lo tienes #}
+                        <p>Saved at: {{ savedPost.getSavedAt()|date('Y-m-d H:i') }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+{% endblock %}

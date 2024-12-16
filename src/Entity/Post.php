@@ -44,6 +44,9 @@ class Post
     #[ORM\ManyToMany(targetEntity: Hashtag::class, mappedBy: 'posts')]
     private Collection $hashtags;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: SavedPost::class)]
+    private Collection $savedPosts;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -51,6 +54,7 @@ class Post
         $this->numLikes = 0;
         $this->numViews = 0;
         $this->hashtags = new ArrayCollection();
+        $this->savedPosts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -218,5 +222,34 @@ class Post
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getSavedPosts(): Collection
+    {
+        return $this->savedPosts;
+    }
+
+    public function addSavedPost(User $user): static
+    {
+        if (!$this->savedPosts->contains($user)) {
+            $this->savedPosts[] = $user;
+        }
+
+        return $this;
+    }
+
+    public function removeSavedPost(User $user): static
+    {
+        $this->savedPosts->removeElement($user);
+
+        return $this;
+    }
+
+    public function isSavedByUser(User $user): bool
+    {
+        return $this->savedPosts->contains($user);
     }
 }

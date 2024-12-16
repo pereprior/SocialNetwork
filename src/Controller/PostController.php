@@ -59,6 +59,4 @@ class PostController extends AbstractController
         ));
     }
 
-
-
 }

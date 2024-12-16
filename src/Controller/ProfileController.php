@@ -25,13 +25,16 @@ class ProfileController extends AbstractController
         }
 
         $posts = $postRepository->findBy(['user' => $user]);
+        $savedPosts = $user->getSavedPosts();
 
         return $this->render('profile/index.html.twig', [
             'user' => $user,
             'form' => null,
             'posts' => $posts,
             'page_title' => 'Perfil del Usuario',
+            'savedPosts' => $savedPosts,
             'show_form' => false,
+
         ]);
     }
 

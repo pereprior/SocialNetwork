@@ -58,6 +58,37 @@
                 {% endif %}
             </div>
 
+            <!-- Sección de "Mis Posts Guardados" -->
+            <div class="card-footer bg-light mt-4">
+                <h3 class="text-center">Mis Posts Guardados</h3>
+                {% if savedPosts is empty %}
+                    <p class="text-center text-muted">No has guardado ningún post todavía.</p>
+                {% else %}
+                    <ul class="list-group mt-3">
+                        {% for savedPost in savedPosts %}
+                            {% if savedPost.post is not null %}
+                                <div class="post-card">
+                                    <h3>{{ savedPost.post.title }}</h3>
+                                    <p>{{ savedPost.post.content }}</p>
+                                    <p><strong>{{ savedPost.post.user.username }}</strong> - {{ savedPost.post.datetime|date('Y-m-d H:i') }}</p>
+                                    <form method="post" action="{{ path('saved_posts_remove', {'id': savedPost.id}) }}">
+                                        <button type="submit" class="btn btn-danger btn-sm disabled">Eliminar</button>
+                                    </form>
+                                </div>
+                            {% else %}
+                                <div class="post-card">
+                                    <p class="text-danger">El post asociado ya no está disponible.</p>
+                                    <form method="post" action="{{ path('saved_posts_remove', {'id': savedPost.id}) }}">
+                                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                    </form>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+
             <!-- Sección de edición del perfil -->
             <div class="card-footer bg-light">
                 <h3 class="text-center">Editar Perfil</h3>

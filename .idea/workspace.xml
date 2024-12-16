@@ -4,17 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c78c43d-5be5-4d3b-a19c-2d74c33802e0" name="Changes" comment="Update create clases">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2f66fb88-986f-4278-a4a2-4cbf7430a2e2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/2f66fb88-986f-4278-a4a2-4cbf7430a2e2.xml" afterDir="false" />
+    <list default="true" id="0c78c43d-5be5-4d3b-a19c-2d74c33802e0" name="Changes" comment="Update Templates">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0db30a8b-a961-4adc-9aff-25267680e47d.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/0db30a8b-a961-4adc-9aff-25267680e47d.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/BillingController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ClasesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ClasesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/ClasesType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/ClasesType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/clases/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/clases/edit.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/clases/lista_clases.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/clases/lista_clases.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/partials/header.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/header.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/partials/sidebar.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/sidebar.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PostController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProfileController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Post.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/billing/billing.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/post/_post.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/post/_post.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/post/post_info.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/post/post_info.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/profile/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profile/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -260,7 +259,9 @@
       <workItem from="1733728015212" duration="44000" />
       <workItem from="1733728070882" duration="6273000" />
       <workItem from="1733821039575" duration="2587000" />
-      <workItem from="1733912001491" duration="4502000" />
+      <workItem from="1733912001491" duration="5353000" />
+      <workItem from="1733990525072" duration="5809000" />
+      <workItem from="1734332826512" duration="623000" />
     </task>
     <task id="LOCAL-00001" summary="New Version and changes">
       <option name="closed" value="true" />
@@ -390,7 +391,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733731824561</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Update Templates">
+      <option name="closed" value="true" />
+      <created>1733917352696</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1733917352696</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -437,6 +446,7 @@
     <MESSAGE value="Users can't see button let's cook" />
     <MESSAGE value="Beta of create clases" />
     <MESSAGE value="Update create clases" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update create clases" />
+    <MESSAGE value="Update Templates" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update Templates" />
   </component>
 </project>

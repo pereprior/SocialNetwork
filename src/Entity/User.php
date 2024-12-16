@@ -57,6 +57,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->comments = new ArrayCollection();
         $this->messages = new ArrayCollection();
         $this->likedPosts = new ArrayCollection();
+        $this->savedPosts = new ArrayCollection();
     }
 
     #[ORM\Column(type: 'boolean')]
@@ -85,6 +86,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'boolean')]
     private bool $appNotifications = false;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: SavedPost::class, cascade: ['persist', 'remove'])]
+    private Collection $savedPosts;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -325,5 +330,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->birthdate->format('Y-m-d');
     }
-}
 
+    /**
+     * @return Collection<int, Post>
+     */
+    public function getSavedPosts(): Collection
+    {
+        return $this->savedPosts;
+    }
+
+    public function addSavedPost(Post $post): static
+    {
+        if (!$this->savedPosts->contains($post)) {
+            $this->savedPosts[] = $post;
+            $post->addSavedByUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSavedPost(Post $post): static
+    {
+        if ($this->savedPosts->removeElement($post)) {
+            $post->removeSavedByUser($this);
+        }
+
+        return $this;
+    }
+}
