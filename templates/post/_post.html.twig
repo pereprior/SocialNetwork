@@ -1,5 +1,4 @@
 <section id="banner">
-
     <div class="content">
         <div class="post-card" data-post-id="{{ post.id }}">
             <header>
@@ -15,7 +14,9 @@
             </header>
             <p>{{ post.content }}</p>
             <ul class="actions">
-                <li><a href="#" class="button big">Let's cook!</a></li>
+                {% if is_granted('ROLE_STUDENT') or is_granted('ROLE_CHEF') %}
+                    <li><a href="#" class="button big">Let's cook!</a></li>
+                {% endif %}
             </ul>
         </div>
 
@@ -41,19 +42,37 @@
     </span>
 
     {% if app.user %}
-        <div>
-            <button class="menu-btn icn-btn" id="dropdown-btn-{{ post.id }}"><i class="bi bi-three-dots-vertical"></i></button>
-            <div class="dropdown" id="dropdown-{{ post.id }}">
-                <a href="#">
-                    <i class="bi bi-pencil"></i>
-                    Edit
-                </a>
-                <a href="#" class="delete-btn" data-post-id="{{ post.id }}">
-                    <i class="bi bi-trash"></i>
-                    Delete
-                </a>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <button class="menu-btn icn-btn" id="dropdown-btn-{{ post.id }}"><i class="bi bi-three-dots-vertical"></i></button>
+                <div class="dropdown" id="dropdown-{{ post.id }}">
+                    <a href="#">
+                        <i class="bi bi-pencil"></i>
+                        Edit
+                    </a>
+                    <a href="#" class="delete-btn" data-post-id="{{ post.id }}">
+                        <i class="bi bi-trash"></i>
+                        Delete
+                    </a>
+                </div>
+            </div>
+            <div>
+                <form action="{{ path('saved_posts_add', {'id': post.id}) }}" method="POST" id="save-post-form-{{ post.id }}">
+                    <button type="submit" style="display:none;">Guardar post</button> <!-- Form hidden -->
+                </form>
+                <form action="{{ path('saved_posts_add', {'id': post.id}) }}" method="POST" id="save-post-toggle-form-{{ post.id }}">
+                    <button type="submit" style="display:none;">Toggle Save</button>
+                </form>
+                <i class="bi bi-bookmark{% if app.user and post.isSavedByUser(app.user) %}-fill{% endif %}"
+                   onclick="document.getElementById('save-post-toggle-form-{{ post.id }}').submit();"></i>
+                <span id="save-text-{{ post.id }}">
+                    {% if app.user and post.isSavedByUser(app.user) %}
+                        Saved
+                    {% else %}
+                        Save
+                    {% endif %}
+                </span>
             </div>
         </div>
     {% endif %}
-
 </section>

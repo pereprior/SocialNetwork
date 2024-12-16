@@ -2,23 +2,21 @@
 
 namespace App\Controller;
 
+use App\Entity\Post;
+use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\Extension\Core\Type\{
-    TextType,
-    DateType,
-    TextareaType,
-    SubmitType
-};
+use Symfony\Component\Form\Extension\Core\Type\{FileType, TextType, DateType, TextareaType, SubmitType};
 
 class ProfileController extends AbstractController
 {
     #[Route('/profile', name: 'app_profile')]
-    public function profile(): Response
+    public function profile(PostRepository $postRepository): Response
     {
         $user = $this->getUser();
 
@@ -26,11 +24,17 @@ class ProfileController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        $posts = $postRepository->findBy(['user' => $user]);
+        $savedPosts = $user->getSavedPosts();
+
         return $this->render('profile/index.html.twig', [
             'user' => $user,
             'form' => null,
+            'posts' => $posts,
             'page_title' => 'Perfil del Usuario',
+            'savedPosts' => $savedPosts,
             'show_form' => false,
+
         ]);
     }
 
@@ -67,8 +71,11 @@ class ProfileController extends AbstractController
     }
 
     #[Route('/edit-profile', name: 'app_edit_profile')]
-    public function editProfile(Request $request, EntityManagerInterface $entityManager): Response
-    {
+    public function editProfile(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        PostRepository $postRepository
+    ): Response {
         $user = $this->getUser();
         if (!$user) {
             return $this->redirectToRoute('app_login');
@@ -81,20 +88,45 @@ class ProfileController extends AbstractController
             ->add('birthdate', DateType::class, ['label' => 'Fecha de nacimiento', 'widget' => 'single_text'])
             ->add('bio', TextareaType::class, ['label' => 'Biografía', 'required' => false])
             ->add('gender', TextType::class, ['label' => 'Género'])
+            ->add('userImage', FileType::class, [
+                'label' => 'Imagen de perfil',
+                'mapped' => false,
+                'required' => false,
+            ])
             ->add('submit', SubmitType::class, ['label' => 'Guardar cambios'])
             ->getForm();
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('userImage')->getData();
+
+            if ($imageFile) {
+                $newFilename = uniqid() . '.' . $imageFile->guessExtension();
+
+                try {
+                    $imageFile->move(
+                        $this->getParameter('uploads_directory'),
+                        $newFilename
+                    );
+                    $user->setUserImage($newFilename);
+                } catch (FileException $e) {
+                    $this->addFlash('error', 'Hubo un error al subir la imagen.');
+                }
+            }
+
             $entityManager->flush();
             $this->addFlash('success', 'Tu perfil ha sido actualizado.');
             return $this->redirectToRoute('app_profile');
         }
 
+        // Recuperar los posts creados por el usuario
+        $posts = $postRepository->findBy(['user' => $user], ['datetime' => 'DESC']);
+
         return $this->render('profile/index.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
+            'posts' => $posts,
             'show_form' => true,
             'page_title' => 'Editar Perfil',
         ]);

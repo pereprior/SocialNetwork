@@ -24,7 +24,6 @@ class RegistrationController extends AbstractController
         UserPasswordHasherInterface $userPasswordHasher,
         EntityManagerInterface $entityManager,
         UserAuthenticatorInterface $userAuthenticator,
-        //Inyector del formulario de login, maneja el inicio de sesión automático
         #[Autowire(service: 'security.authenticator.form_login.main')] $formLoginAuthenticator
     ): Response {
         $user = new User();
@@ -32,7 +31,24 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Lógica de registro
+            // Procesar la imagen del usuario
+            $userImage = $form->get('userImage')->getData();
+            if ($userImage) {
+                $uploadsDirectory = $this->getParameter('uploads_directory'); // Directorio configurado en services.yaml
+                $newFilename = uniqid() . '.' . $userImage->guessExtension();
+
+                try {
+                    $userImage->move($uploadsDirectory, $newFilename);
+                } catch (FileException $e) {
+                    // Manejar error al mover el archivo
+                    $this->addFlash('error', 'No se pudo cargar la imagen. Inténtalo de nuevo.');
+                }
+
+                // Establecer el nombre del archivo en el usuario
+                $user->setUserImage($newFilename);
+            }
+
+            // Configurar la contraseña
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -40,6 +56,17 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            // Configurar roles
+            $roles = ['ROLE_USER']; // Rol base para todos los usuarios
+            if ($form->get('isStudent')->getData()) {
+                $roles[] = 'ROLE_STUDENT';
+            }
+            if ($form->get('isChef')->getData()) {
+                $roles[] = 'ROLE_CHEF';
+            }
+            $user->setRoles($roles);
+
+            // Persistir el usuario
             $entityManager->persist($user);
             $entityManager->flush();
 
