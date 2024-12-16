@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Repository\PostRepository;
+use App\Service\FileService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -15,10 +16,17 @@ use Symfony\Component\Form\Extension\Core\Type\{FileType, TextType, DateType, Te
 
 class ProfileController extends AbstractController
 {
+    private PostRepository $postRepository;
+    public function __construct(PostRepository $postRepository)
+    {
+        $this->postRepository = $postRepository;
+    }
+
     #[Route('/profile', name: 'app_profile')]
-    public function profile(PostRepository $postRepository): Response
+    public function profile(PostRepository $postRepository, FileService $fileService): Response
     {
         $user = $this->getUser();
+        $fileService->setImagesUrl($this->postRepository->findAll());
 
         if (!$user) {
             return $this->redirectToRoute('app_login');
@@ -34,7 +42,6 @@ class ProfileController extends AbstractController
             'page_title' => 'Perfil del Usuario',
             'savedPosts' => $savedPosts,
             'show_form' => false,
-
         ]);
     }
 

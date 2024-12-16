@@ -184,7 +184,7 @@ class Post
     public function like(): void
     {
         if ($this->user) {
-            if ($this->user->getLikedPosts()->contains($this)) {
+            if ($this->user->getLikedPost()->contains($this)) {
                 $this->numLikes--;
                 $this->user->removeLikedPost($this);
             } else {
@@ -196,7 +196,7 @@ class Post
 
     public function isLikedByUser(User $user): bool
     {
-        return $this->user && $this->user->getLikedPosts()->contains($this);
+        return $this->user && $this->user->getLikedPost()->contains($this);
     }
 
     public function addView(): void
