@@ -2,8 +2,10 @@
 
 namespace App\Service;
 
+use App\Entity\Post;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -11,11 +13,13 @@ class FileService
 {
     private Client $client;
     private string $cloud;
+    private ParameterBagInterface $params;
 
-    public function __construct(Client $client, string $cloud)
+    public function __construct(Client $client, string $cloud, ParameterBagInterface $params)
     {
         $this->client = $client;
         $this->cloud = $cloud;
+        $this->params = $params;
     }
 
     public function uploadImage(UploadedFile $file): string
@@ -54,61 +58,13 @@ class FileService
         }
     }
 
-
-    public function getImageUrl(string $fileName): string
+    public function setImagesUrl(array $posts): void
     {
-        $timestamp = time();
-        return rtrim($this->cloud, '/') . '/' . ltrim($fileName, '/') . '?t=' . $timestamp;
-    }
-
-    public function setFileAsImage(UploadedFile $file): string
-    {
-        try {
-            $fileName = $this->uploadImage($file);
-            return json_encode([
-                'id' => $fileName,
-                'url' => $this->getImageUrl($fileName),
-            ], JSON_THROW_ON_ERROR);
-        } catch (FileException $e) {
-            throw new FileException('Failed to upload file');
-        } catch (\JsonException $e) {
-            throw new FileException('Failed to encode response');
-        }
-    }
-
-
-    public function listImages(): array
-    {
-        try {
-            $response = $this->client->request('GET', $this->cloud);
-            $responseBody = $response->getBody()->getContents();
-
-            // Load the HTML response into DOMDocument
-            $dom = new \DOMDocument();
-            @$dom->loadHTML($responseBody);
-
-            // Use DOMXPath to query the image filenames
-            $xpath = new \DOMXPath($dom);
-            $imageNodes = $xpath->query('//tr[td/a[contains(@href, ".png") or contains(@href, ".jpg") or contains(@href, ".jpeg") or contains(@href, ".gif")]]');
-
-            $images = [];
-            foreach ($imageNodes as $node) {
-                $name = $xpath->query('td/a', $node)->item(0)->getAttribute('href');
-
-                $images[] = [
-                    'name' => $name,
-                    'url' => $this->getImageUrl($name),
-                ];
+        $imageServerUrl = $this->params->get('image_server_url');
+        foreach ($posts as $post) {
+            if ($post instanceof Post) {
+                $post->setImgUrl($imageServerUrl);
             }
-
-            // Assign indices
-            foreach ($images as $index => $image) {
-                $images[$index]['id'] = $index + 1;
-            }
-
-            return $images;
-        } catch (GuzzleException $e) {
-            throw new \RuntimeException('Failed to fetch images from server');
         }
     }
 
