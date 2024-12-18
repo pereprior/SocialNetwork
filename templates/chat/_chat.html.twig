@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Chat con este tio</h1>
+
+    <ul style="list-style-type: none">
+        {% if chats %}
+            {% for chat in chats %}
+                {{ include('chat/_message.html.twig') }}
+            {% endfor %}
+        {% else %}
+            <li>No chats found</li>
+        {% endif %}
+    </ul>
+
+    <div class="modal-body">
+        {{ form_start(messageForm, {'attr': {'id': 'messageForm'}}) }}
+        {{ form_row(messageForm.content) }}
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary submit-comment" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary submit-comment">Create</button>
+        {{ form_end(messageForm) }}
+    </div>
+
+{% endblock %}

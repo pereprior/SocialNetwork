@@ -27,6 +27,8 @@ class Message
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $datetime = null;
 
+    private ?string $timeSince = null;
+
     public function __construct()
     {
         $this->datetime = new DateTime();
@@ -76,5 +78,17 @@ class Message
     public function getDatetime(): ?\DateTimeInterface
     {
         return $this->datetime;
+    }
+
+    public function getTimeSince(): ?string
+    {
+        return $this->timeSince;
+    }
+
+    public function setTimeSince(string $timeSince): static
+    {
+        $this->timeSince = $timeSince;
+
+        return $this;
     }
 }

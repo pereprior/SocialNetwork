@@ -31,3 +31,6 @@ services:
         arguments:
             $client: '@guzzle.client'
             $cloud: '%upload_server_url%'
+
+    App\Service\DateTimeService:
+        public: true

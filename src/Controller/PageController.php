@@ -107,13 +107,6 @@ class PageController extends AbstractController
             'posts' => $posts,
         ]);
     }
-    #[Route('/chats', name: 'chats')]
-    public function chats(): Response
-    {
-        return $this->render('page/chats.html.twig', [
-            'page_title' => 'Chats',
-        ]);
-    }
 
     #[Route('/like/{id}', name: 'post_like')]
     public function like($id): Response

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Message;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,6 +20,31 @@ class MessageRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Message::class);
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findLastMessagesByUsers(int $userId1, int $userId2): ?Message
+    {
+        return $this->createQueryBuilder('m')
+            ->where('(m.userFrom = :user1 AND m.userTo = :user2) OR (m.userFrom = :user2 AND m.userTo = :user1)')
+            ->setParameter('user1', $userId1)
+            ->setParameter('user2', $userId2)
+            ->orderBy('m.datetime', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function findMessagesByUserId($userId)
+    {
+        return $this->createQueryBuilder('m')
+            ->where('m.userFrom = :userId OR m.userTo = :userId')
+            ->setParameter('userId', $userId)
+            ->orderBy('m.datetime', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**

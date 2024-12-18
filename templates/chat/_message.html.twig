@@ -1,0 +1,9 @@
+<li>
+    <a href="{{ path('chat_dm', { 'id': chat.userFrom.id }) }}">
+        {% if chat.userFrom.id == app.user.id %}
+            <p style="text-align: end">{{ chat.content }} · {{ chat.timeSince }}</p>
+        {% else %}
+            <p>{{ chat.content }} · {{ chat.timeSince }}</p>
+        {% endif %}
+    </a>
+</li>

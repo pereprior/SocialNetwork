@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Chats disponibles</h1>
+    <section id="banner-chats">
+        <ul>
+            {% if chats %}
+                {% for chat in chats %}
+                    {{ include('chat/_chat_entry.html.twig') }}
+                {% endfor %}
+            {% else %}
+                <li>No chats found</li>
+            {% endif %}
+        </ul>
+    </section>
+
+{% endblock %}
