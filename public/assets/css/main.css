@@ -2099,7 +2099,7 @@ button,
 
 /* Sidebar */
 .sidebar-logo {
-  width: 270px; /* Ajusta el tamaño del logo */
+  width: 90%; /* Ajusta el tamaño del logo */
   height: auto; /* Mantiene las proporciones del logo */
   display: block; /* Hace que el logo sea un bloque para centrarlo */
   border-radius: 10px; /* Hace que los bordes del logo sean redondeados (opcional) */
@@ -2130,13 +2130,13 @@ button,
   font-size: 0.9em;
   position: sticky;
   overflow-y: auto;
-  width: 24em;}
+  width: 20%;}
   #sidebar h2 {
     font-size: 1.38889em; }
   #sidebar > .inner {
     padding: 2.22222em 2.22222em 2.44444em 2.22222em ;
     position: fixed;
-    width: 26em; }
+    width: 20%; }
     #sidebar > .inner > * {
       padding: 0 0 20px 0; }
       #sidebar > .inner > * > :last-child {
@@ -2196,14 +2196,15 @@ button,
     margin-left: -26em; }
   @media screen and (max-width: 1680px) {
     #sidebar {
-      width: 24em; }
+      width: 20%; }
       #sidebar > .inner {
         padding: 1.66667em 1.66667em 1.33333em 1.66667em ;
-        width: 24em;
+        width: 20%;
         height: 100%;
         overflow-y: auto;
-        scrollbar-width: none; /* Firefox */
-        -ms-overflow-style: none; /* IE y Edge */ }
+        scrollbar-width: none ; /* Firefox */
+        -ms-overflow-style: none; /* IE y Edge */
+        -webkit-scrollbar: none; }
         #sidebar > .inner > .alt {
           margin: -1.66667em 0 0.33333em -1.66667em;
           padding: 1.66667em;
@@ -2536,7 +2537,7 @@ button,
   margin-bottom: 0;
   padding: 0;
   text-transform: uppercase;
-  margin-top: -40px; }
+  margin-top: -14%; }
   #menu ul a, #menu ul span {
     line-height: 2.5em;
     border-bottom: 0;
