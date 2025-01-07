@@ -1,0 +1,26 @@
+/* Modo Claro (por defecto) */
+body.light {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* Modo Oscuro */
+body.dark {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+/* Estilo del botón para hacerlo más visible */
+button {
+    padding: 10px 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}

@@ -36,9 +36,11 @@ $(document).ready(function() {
     });
 
     /* Entrar dentro de los post */
-    $(".post-card").click(function(event) {
+    /*$(".post-card").click(function(event) {
         event.preventDefault();
         const postId = $(this).data('post-id');
+
+        $(this).addClass('clicked-post');
 
         $.ajax({
             url: '/isLogged',
@@ -54,7 +56,7 @@ $(document).ready(function() {
                 alert('Error checking login status.');
             }
         });
-    });
+    });*/
 
     /* Boton de like */
     $(".like-btn").click(function(event) {

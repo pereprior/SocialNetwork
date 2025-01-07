@@ -38,17 +38,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\OneToMany(targetEntity: Post::class, mappedBy: 'user')]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Post::class)]
     private Collection $posts;
 
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'user')]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class)]
     private Collection $comments;
 
-    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'userFrom')]
+    #[ORM\OneToMany(mappedBy: 'userFrom', targetEntity: Message::class)]
     private Collection $messages;
-
-    #[ORM\ManyToMany(targetEntity: Post::class)]
-    private Collection $likedPosts;
 
 
     public function __construct()
@@ -56,7 +53,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->posts = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->messages = new ArrayCollection();
-        $this->likedPosts = new ArrayCollection();
+        $this->likedPost = new ArrayCollection();
+        $this->savedPosts = new ArrayCollection();
     }
 
     #[ORM\Column(type: 'boolean')]
@@ -85,6 +83,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'boolean')]
     private bool $appNotifications = false;
+
+    #[ORM\ManyToMany(targetEntity: Post::class, inversedBy: 'usersWhoLiked')]
+    private Collection $likedPost;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: SavedPost::class, cascade: ['persist', 'remove'])]
+    private Collection $savedPosts;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -254,27 +259,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getLikedPosts(): Collection
-    {
-        return $this->likedPosts;
-    }
-
-    public function addLikedPost(Post $post): static
-    {
-        if (!$this->likedPosts->contains($post)) {
-            $this->likedPosts->add($post);
-        }
-
-        return $this;
-    }
-
-    public function removeLikedPost(Post $post): static
-    {
-        $this->likedPosts->removeElement($post);
-
-        return $this;
-    }
-
     public function getPosts(): Collection
     {
         return $this->posts;
@@ -325,5 +309,55 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->birthdate->format('Y-m-d');
     }
-}
 
+    /**
+     * @return Collection<int, Post>
+     */
+    public function getLikedPost(): Collection
+    {
+        return $this->likedPost;
+    }
+
+    public function addLikedPost(Post $likedPost): static
+    {
+        if (!$this->likedPost->contains($likedPost)) {
+            $this->likedPost[] = $likedPost;
+        }
+
+        return $this;
+    }
+
+    public function removeLikedPost(Post $likedPost): static
+    {
+        $this->likedPost->removeElement($likedPost);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Post>
+     */
+    public function getSavedPosts(): Collection
+    {
+        return $this->savedPosts;
+    }
+
+    public function addSavedPost(Post $post): static
+    {
+        if (!$this->savedPosts->contains($post)) {
+            $this->savedPosts[] = $post;
+            $post->addSavedPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSavedPost(Post $post): static
+    {
+        if ($this->savedPosts->removeElement($post)) {
+            $post->removeSavedPost($this);
+        }
+
+        return $this;
+    }
+}

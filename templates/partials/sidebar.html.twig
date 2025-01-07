@@ -2,7 +2,7 @@
 <div id="sidebar">
     <div class="inner">
 
-        <!-- Search -->
+        <!-- Logo -->
         <section id="search" class="alt">
             <form method="post" action="#">
                 <!-- Envolver la imagen del logo con un enlace -->
@@ -15,7 +15,7 @@
         <!-- Información del usuario -->
         {% if app.user %}
             <section id="user-info">
-                <a href="{{ path('app_profile') }}" class="user-profile">
+                <a href="{{ path('app_profile', { 'id': app.user.id }) }}" class="user-profile">
                     <img src="{{ asset('uploads/' ~ app.user.userImage) }}" alt="Profile Picture" class="profile-image">
                     <p class="username">{{ app.user.username }}</p>
                 </a>
@@ -39,7 +39,7 @@
 
                     {% if is_granted('ROLE_CHEF') %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_inicio') }}">Crear Clases</a>
+                            <a class="nav-link" href="{{ path('class_list') }}">Crear Clases</a>
                         </li>
                     {% endif %}
 

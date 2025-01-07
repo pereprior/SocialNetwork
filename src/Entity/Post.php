@@ -38,11 +38,14 @@ class Post
     #[ORM\ManyToOne(inversedBy: 'posts')]
     private ?User $user = null;
 
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'post')]
+    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class)]
     private Collection $comments;
 
     #[ORM\ManyToMany(targetEntity: Hashtag::class, mappedBy: 'posts')]
     private Collection $hashtags;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: SavedPost::class)]
+    private Collection $savedPosts;
 
     public function __construct()
     {
@@ -51,10 +54,15 @@ class Post
         $this->numLikes = 0;
         $this->numViews = 0;
         $this->hashtags = new ArrayCollection();
+        $this->usersWhoLiked = new ArrayCollection();
+        $this->savedPosts = new ArrayCollection();
     }
 
     // ESTE CAMPO NO SE GUARDA EN LA BBDD, PERO NO LO TOQUEIS
     private ?string $imgUrl = null;
+
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'likedPost')]
+    private Collection $usersWhoLiked;
 
     public function getId(): ?int
     {
@@ -176,7 +184,7 @@ class Post
     public function like(): void
     {
         if ($this->user) {
-            if ($this->user->getLikedPosts()->contains($this)) {
+            if ($this->user->getLikedPost()->contains($this)) {
                 $this->numLikes--;
                 $this->user->removeLikedPost($this);
             } else {
@@ -188,7 +196,7 @@ class Post
 
     public function isLikedByUser(User $user): bool
     {
-        return $this->user && $this->user->getLikedPosts()->contains($this);
+        return $this->user && $this->user->getLikedPost()->contains($this);
     }
 
     public function addView(): void
@@ -233,5 +241,61 @@ class Post
     public function getImgUrl(): ?string
     {
         return $this->imgUrl;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsersWhoLiked(): Collection
+    {
+        return $this->usersWhoLiked;
+    }
+
+    public function addUsersWhoLiked(User $usersWhoLiked): static
+    {
+        if (!$this->usersWhoLiked->contains($usersWhoLiked)) {
+            $this->usersWhoLiked->add($usersWhoLiked);
+            $usersWhoLiked->addLikedPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsersWhoLiked(User $usersWhoLiked): static
+    {
+        if ($this->usersWhoLiked->removeElement($usersWhoLiked)) {
+            $usersWhoLiked->removeLikedPost($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getSavedPosts(): Collection
+    {
+        return $this->savedPosts;
+    }
+
+    public function addSavedPost(User $user): static
+    {
+        if (!$this->savedPosts->contains($user)) {
+            $this->savedPosts[] = $user;
+        }
+
+        return $this;
+    }
+
+    public function removeSavedPost(User $user): static
+    {
+        $this->savedPosts->removeElement($user);
+
+        return $this;
+    }
+
+    public function isSavedByUser(User $user): bool
+    {
+        return $this->savedPosts->contains($user);
     }
 }

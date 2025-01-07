@@ -15,5 +15,12 @@
       <jdbc-url>jdbc:mysql://localhost:3306/social_network</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="social_network@10.112.2.110" uuid="2f66fb88-986f-4278-a4a2-4cbf7430a2e2">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://10.112.2.110:3306/social_network</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

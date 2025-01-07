@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Hashtag;
 use App\Entity\Post;
+use App\Entity\User;
 use App\Form\PostFormType;
 use App\Repository\PostRepository;
 use App\Service\FileService;
@@ -20,14 +21,16 @@ use Symfony\Component\Security\Core\Security;
 class PageController extends AbstractController
 {
     private ObjectManager $manager;
-    private $security;
+    private Security $security;
     private PostRepository $postRepository;
+    private FileService $fileService;
 
-    public function __construct(ManagerRegistry $doctrine, Security $security)
+    public function __construct(ManagerRegistry $doctrine, Security $security, FileService $fileService)
     {
         $this->manager = $doctrine->getManager();
         $this->security = $security;
         $this->postRepository = $doctrine->getRepository(Post::class);
+        $this->fileService = $fileService;
     }
 
     /**
@@ -35,18 +38,15 @@ class PageController extends AbstractController
      * @throws GuzzleException
      */
     #[Route('/', name: 'app_inicio')]
-    public function index(Request $request, FileService $fileService): Response
+    public function index(Request $request): Response
     {
         $post = new Post();
-        $user = $this->security->getUser();
+        $currentUser = $this->security->getUser();
         $form = $this->createForm(PostFormType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            if (!$user) {
-                throw $this->createAccessDeniedException();
-            }
 
             $post = $form->getData();
             $newHashtags = $form->get('hashtags')->getData();
@@ -66,7 +66,7 @@ class PageController extends AbstractController
             $image = $form->get('img')->getData();
             if ($image) {
                 try {
-                    $fileName = $fileService->uploadImage($image);
+                    $fileName = $this->fileService->uploadImage($image);
                     $post->setImg($fileName);
                 } catch (\Exception $e) {
                     return $this->render('page/index.html.twig', [
@@ -78,7 +78,7 @@ class PageController extends AbstractController
                 }
             }
 
-            $post->setUser($user);
+            $post->setUser($currentUser);
 
             $this->manager->persist($post);
             $this->manager->flush();
@@ -86,10 +86,7 @@ class PageController extends AbstractController
             return $this->redirectToRoute('app_inicio');
         }
 
-        $imageServerUrl = $this->getParameter('image_server_url');
-        foreach ($this->postRepository->findAll() as $post) {
-            $post->setImgUrl($imageServerUrl);
-        }
+        $this->fileService->setImagesUrl($this->postRepository->findAll());
 
         return $this->render('page/index.html.twig', [
             'page_title' => 'Inicio',
@@ -103,6 +100,7 @@ class PageController extends AbstractController
     {
         $search = $request->query->get('search');
         $posts = $search ? $this->postRepository->findByHashtag($search) : $this->postRepository->findAll();
+        $this->fileService->setImagesUrl($this->postRepository->findAll());
 
         return $this->render('page/explore.html.twig', [
             'page_title' => 'Explore',
@@ -121,8 +119,20 @@ class PageController extends AbstractController
     public function like($id): Response
     {
         $post = $this->postRepository->find($id);
+        $currentUser = $this->security->getUser();
+
         if ($post) {
-            $post->like();
+            if (!$currentUser instanceof User) {
+                return $this->json(['likes' => $post->getNumLikes()]);
+            }
+
+            if ($post->isLikedByUser($currentUser)) {
+                $post->setNumLikes($post->getNumLikes() - 1);
+                $currentUser->removeLikedPost($post);
+            } else {
+                $post->setNumLikes($post->getNumLikes() + 1);
+                $currentUser->addLikedPost($post);
+            }
             $this->manager->flush();
         }
 

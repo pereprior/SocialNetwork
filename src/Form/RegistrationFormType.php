@@ -15,9 +15,10 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Constraints\IsTrue;
+use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class RegistrationFormType extends AbstractType
 {
@@ -46,17 +47,25 @@ class RegistrationFormType extends AbstractType
                 'choices'  => [
                     'Male' => 'male',
                     'Female' => 'female',
+                    'Unknown' => 'unknown',
                 ],
                 'expanded' => true, // Esto hace que se muestren como botones de radio (opciones seleccionables)
                 'multiple' => false, // Solo puede seleccionar una opción
                 'label' => 'Gender', // Etiqueta del campo
             ])
-            ->add('birthdate', DateType::class, [
-                'widget' => 'single_text', // Elige un solo campo de texto
-                'input' => 'datetime', // Symfony debe esperar un objeto DateTime
-                'format' => 'yyyy-MM-dd', // Establece el formato de la fecha
-                'label' => 'Birthdate',
-            ])
+            ->add('birthdate', DateType::class,
+                [ 'widget' => 'single_text', 'input' => 'datetime', 'format' =>
+                    'yyyy-MM-dd', 'label' =>
+                    'Birthdate', 'constraints' =>
+                    [ new Callback([ 'callback' => function ($date, ExecutionContextInterface $context) {
+                        $minAge = 13; $today = new \DateTime(); $age = $today->diff($date)->y;
+                        if ($age < $minAge) { $context->buildViolation('You must be at least 13 years old to register.')
+                            ->atPath('birthdate') ->addViolation();
+                                    }
+                                },
+                            ]),
+                        ],
+                    ])
 
             ->add('bio', TextareaType::class, [
                 'required' => false,
@@ -109,8 +118,7 @@ class RegistrationFormType extends AbstractType
                 ],
             ]);
     }
-
-public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => User::class, // or Student::class, if using Student
