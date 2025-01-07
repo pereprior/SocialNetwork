@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Repository\PostRepository;
+use App\Repository\UserRepository;
 use App\Service\FileService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,16 +23,24 @@ class ProfileController extends AbstractController
         $this->postRepository = $postRepository;
     }
 
-    #[Route('/profile', name: 'app_profile')]
-    public function profile(PostRepository $postRepository, FileService $fileService): Response
+    #[Route('/profile/{id?}', name: 'app_profile')]
+    public function profile(?int $id, UserRepository $userRepository, PostRepository $postRepository, FileService $fileService): Response
     {
-        $user = $this->getUser();
-        $fileService->setImagesUrl($this->postRepository->findAll());
+        if ($id === null) {
+            $user = $this->getUser();
 
-        if (!$user) {
-            return $this->redirectToRoute('app_login');
+            if (!$user) {
+                return $this->redirectToRoute('app_login');
+            }
+        } else {
+            $user = $userRepository->find($id);
+
+            if (!$user) {
+                throw $this->createNotFoundException('Usuario no encontrado.');
+            }
         }
 
+        $fileService->setImagesUrl($this->postRepository->findAll());
         $posts = $postRepository->findBy(['user' => $user]);
         $savedPosts = $user->getSavedPosts();
 
@@ -39,9 +48,9 @@ class ProfileController extends AbstractController
             'user' => $user,
             'form' => null,
             'posts' => $posts,
-            'page_title' => 'Perfil del Usuario',
+            'page_title' => $id === null ? 'Mi Perfil' : 'Perfil de ' . $user->getName(),
             'savedPosts' => $savedPosts,
-            'show_form' => false,
+            'show_form' => $id === null,
         ]);
     }
 
