@@ -7,6 +7,7 @@ use App\Entity\Post;
 use App\Entity\User;
 use App\Form\PostFormType;
 use App\Repository\PostRepository;
+use App\Repository\UserRepository;
 use App\Service\FileService;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
@@ -38,7 +39,7 @@ class PageController extends AbstractController
      * @throws GuzzleException
      */
     #[Route('/', name: 'app_inicio')]
-    public function index(Request $request): Response
+    public function index(Request $request, UserRepository $userRepository): Response
     {
         $post = new Post();
         $currentUser = $this->security->getUser();
@@ -87,6 +88,7 @@ class PageController extends AbstractController
         }
 
         $this->fileService->setImagesUrl($this->postRepository->findAll());
+        $this->fileService->setImagesUrl($userRepository->findAll());
 
         return $this->render('page/index.html.twig', [
             'page_title' => 'Inicio',

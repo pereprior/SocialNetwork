@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Post;
+use App\Entity\User;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -62,9 +63,8 @@ class FileService
     {
         $imageServerUrl = $this->params->get('image_server_url');
         foreach ($posts as $post) {
-            if ($post instanceof Post) {
-                $post->setImgUrl($imageServerUrl);
-            }
+            $post->setImgUrl($imageServerUrl);
+            error_log($post->getImgUrl());
         }
     }
 

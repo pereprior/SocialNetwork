@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Form\UserFormType;
 use App\Repository\PostRepository;
 use App\Repository\UserRepository;
 use App\Service\FileService;
+use App\Service\UserService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -14,17 +16,21 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\{FileType, TextType, DateType, TextareaType, SubmitType};
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class ProfileController extends AbstractController
 {
     private PostRepository $postRepository;
-    public function __construct(PostRepository $postRepository)
+    private UserInterface $activeUser;
+
+    public function __construct(PostRepository $postRepository, UserService $userService)
     {
         $this->postRepository = $postRepository;
+        $this->activeUser = $userService->getActiveUser();
     }
 
     #[Route('/profile/{id?}', name: 'app_profile')]
-    public function profile(?int $id, UserRepository $userRepository, PostRepository $postRepository, FileService $fileService): Response
+    public function profile(?int $id, UserRepository $userRepository, FileService $fileService): Response
     {
         if ($id === null) {
             $user = $this->getUser();
@@ -40,8 +46,8 @@ class ProfileController extends AbstractController
             }
         }
 
-        $fileService->setImagesUrl($this->postRepository->findAll());
-        $posts = $postRepository->findBy(['user' => $user]);
+        $fileService->setImagesUrl($userRepository->findAll());
+        $posts = $this->postRepository->findBy(['user' => $user]);
         $savedPosts = $user->getSavedPosts();
 
         return $this->render('profile/index.html.twig', [
@@ -90,44 +96,26 @@ class ProfileController extends AbstractController
     public function editProfile(
         Request $request,
         EntityManagerInterface $entityManager,
-        PostRepository $postRepository
+        PostRepository $postRepository,
+        FileService $fileService
     ): Response {
-        $user = $this->getUser();
-        if (!$user) {
-            return $this->redirectToRoute('app_login');
-        }
-
-        $form = $this->createFormBuilder($user)
-            ->add('name', TextType::class, ['label' => 'Nombre'])
-            ->add('username', TextType::class, ['label' => 'Nombre de usuario'])
-            ->add('email', TextType::class, ['label' => 'Correo electrónico'])
-            ->add('birthdate', DateType::class, ['label' => 'Fecha de nacimiento', 'widget' => 'single_text'])
-            ->add('bio', TextareaType::class, ['label' => 'Biografía', 'required' => false])
-            ->add('gender', TextType::class, ['label' => 'Género'])
-            ->add('userImage', FileType::class, [
-                'label' => 'Imagen de perfil',
-                'mapped' => false,
-                'required' => false,
-            ])
-            ->add('submit', SubmitType::class, ['label' => 'Guardar cambios'])
-            ->getForm();
-
+        $user = $this->activeUser;
+        $form = $this->createForm(UserFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $imageFile = $form->get('userImage')->getData();
-
-            if ($imageFile) {
-                $newFilename = uniqid() . '.' . $imageFile->guessExtension();
-
+            $image = $form->get('userImage')->getData();
+            if ($image) {
                 try {
-                    $imageFile->move(
-                        $this->getParameter('IMAGE_SERVER_URL'),
-                        $newFilename
-                    );
-                    $user->setUserImage($newFilename);
-                } catch (FileException $e) {
-                    $this->addFlash('error', 'Hubo un error al subir la imagen.');
+                    $fileName = $fileService->uploadImage($image);
+                    $user->setUserImage($fileName);
+                } catch (\Exception $e) {
+                    return $this->render('page/index.html.twig', [
+                        'page_title' => 'Inicio',
+                        'form' => $form->createView(),
+                        'error' => $e->getMessage(),
+                        'posts' => $this->postRepository->findAll()
+                    ]);
                 }
             }
 

@@ -90,6 +90,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: SavedPost::class, cascade: ['persist', 'remove'])]
     private Collection $savedPosts;
 
+    // ESTE CAMPO NO SE GUARDA EN LA BBDD, PERO NO LO TOQUEIS
+    private ?string $imgUrl = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -359,5 +362,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public function setImgUrl(string $imageServerUrl): void
+    {
+        if ($this->userImage) {
+            $this->imgUrl = rtrim($imageServerUrl, '/') . '/' . $this->userImage;
+        }
+    }
+
+    public function getImgUrl(): ?string
+    {
+        return $this->imgUrl;
     }
 }
