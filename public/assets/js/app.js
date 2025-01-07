@@ -1,3 +1,4 @@
+// Mostrar el formulario para crear un post
 $(document).ready(function() {
 
     /* Muestra la ventana con el formulario para crear un nuevo post */
@@ -31,27 +32,6 @@ $(document).ready(function() {
             },
             error: function() {
                 alert('Error al enviar el comentario');
-            }
-        });
-    });
-
-    /* Entramos dentro de un post al hacer click sobre el mismo */
-    $(".post-card").click(function(event) {
-        event.preventDefault();
-        const postId = $(this).data('post-id');
-
-        $.ajax({
-            url: '/isLogged',
-            method: 'GET',
-            success: function(response) {
-                if (response.loggedIn) {
-                    window.location.href = `/post/${postId}`;
-                } else {
-                    window.location.href = `/login`;
-                }
-            },
-            error: function() {
-                alert('Error checking login status.');
             }
         });
     });

@@ -1631,6 +1631,12 @@ table {
     table.alt tfoot {
       border-top: 0; }
 
+.clicked-post {
+  background-color: lightblue;
+  border: 2px solid blue;
+  transition: all 0.3s ease;
+}
+
 
 /* SETTINGS */
 
@@ -1646,11 +1652,11 @@ table {
 }
 
 .button-settings-delete:hover{
-  background-color: red !important;
+  background-color: #930404 !important;
 }
 
 .button-settings-save:hover{
-  background-color: green !important;
+  background-color: #1e8a02 !important;
 }
 
 
@@ -1757,6 +1763,32 @@ button,
   .button:disabled {
     pointer-events: none;
     opacity: 0.25; }
+
+
+
+/* BUTTON PREMIUM*/
+
+.button-premium::after {
+  content: "";
+  position: absolute;
+  top: 335px; /* Ajusta según el tamaño de la corona */
+  background: url("corona-premium.png") no-repeat center;
+  background-size: contain;
+  width: 40px; /* Tamaño de la corona */
+  height: 50px;
+  opacity: 0; /* Oculto inicialmente */
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.button-premium:hover::after {
+  opacity: 1;
+  transform: rotate(15deg); /* Efecto divertido de rotación opcional */
+}
+
+.button-premium:hover{
+  background-color: #d8a504;
+}
+
 
 /* Mini Posts */
 .mini-posts article {
@@ -2009,6 +2041,12 @@ button,
           .posts article:last-child:after {
             display: none; } }
 
+  /* Button Back Post*/
+  .button-back {
+    background-color: #f5f5f5;
+    border: none;
+    align-items: center;
+  }
 /* Wrapper */
 #wrapper {
   display: -moz-flex;

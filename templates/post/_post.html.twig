@@ -3,7 +3,7 @@
         <div class="post-card" data-post-id="{{ post.id }}">
             <header>
                 <div style="display: flex; justify-content: space-between;">
-                    <p><strong>{{ post.user.name }}</strong> <span class="text-lowercase">@{{ post.user.username }}</span> · {{ post.datetime|date('Y-m-d H:i') }}</p>
+                    <p><a href="{{ path('app_profile', { 'id': post.user.id }) }}">{{ post.user.name }}</a> <span class="text-lowercase">@{{ post.user.username }}</span> · {{ post.datetime|date('Y-m-d H:i') }}</p>
                 </div>
                 <h2>{{ post.title }}</h2>
                 <p class="text-lowercase">
@@ -13,9 +13,14 @@
                 </p>
             </header>
             <p>{{ post.content }}</p>
-            <ul class="actions">
+            <!--<ul class="actions">
                 {% if is_granted('ROLE_STUDENT') or is_granted('ROLE_CHEF') %}
                     <li><a href="#" class="button big">Let's cook!</a></li>
+                {% endif %}
+            </ul>-->
+            <ul class="actions">
+                {% if app.request.attributes.get('_route') != 'post_info' or app.request.attributes.get('id') != post.id %}
+                    <li><a href="{{ path('post_info', { 'id': post.id }) }}" class="button big">Let's cook!</a></li>
                 {% endif %}
             </ul>
         </div>
