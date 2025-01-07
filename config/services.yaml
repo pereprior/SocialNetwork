@@ -34,3 +34,9 @@ services:
 
     App\Service\DateTimeService:
         public: true
+
+    App\Service\UserService:
+        public: true
+
+    App\Service\FormService:
+        public: true

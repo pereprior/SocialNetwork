@@ -4,7 +4,7 @@
 
     <h1>Chat con este tio</h1>
 
-    <ul style="list-style-type: none">
+    <ul id="chatList" class="chat-list" style="list-style-type: none">
         {% if chats %}
             {% for chat in chats %}
                 {{ include('chat/_message.html.twig') }}

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Message;
+use App\Service\DateTimeService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
@@ -22,21 +23,6 @@ class MessageRepository extends ServiceEntityRepository
         parent::__construct($registry, Message::class);
     }
 
-    /**
-     * @throws NonUniqueResultException
-     */
-    public function findLastMessagesByUsers(int $userId1, int $userId2): ?Message
-    {
-        return $this->createQueryBuilder('m')
-            ->where('(m.userFrom = :user1 AND m.userTo = :user2) OR (m.userFrom = :user2 AND m.userTo = :user1)')
-            ->setParameter('user1', $userId1)
-            ->setParameter('user2', $userId2)
-            ->orderBy('m.datetime', 'DESC')
-            ->setMaxResults(1)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
-
     public function findMessagesByUserId($userId)
     {
         return $this->createQueryBuilder('m')
@@ -47,28 +33,35 @@ class MessageRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-//    /**
-//     * @return Message[] Returns an array of Message objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('m.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findLastMessagesForUser(int $userId, DateTimeService $dateTimeService, UserRepository $userRepository): array
+    {
+        $allUsers = $userRepository->findAll();
+        $chats = [];
 
-//    public function findOneBySomeField($value): ?Message
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        foreach ($allUsers as $otherUser) {
+            if ($otherUser->getId() !== $userId) {
+
+                $lastMessage = $this->createQueryBuilder('m')
+                    ->where('(m.userFrom = :user1 AND m.userTo = :user2) OR (m.userFrom = :user2 AND m.userTo = :user1)')
+                    ->setParameter('user1', $userId)
+                    ->setParameter('user2', $otherUser->getId())
+                    ->orderBy('m.datetime', 'DESC')
+                    ->setMaxResults(1)
+                    ->getQuery()
+                    ->getOneOrNullResult();
+
+                if ($lastMessage) {
+                    $lastMessage->setTimeSince($dateTimeService->timeSince($lastMessage->getDatetime()));
+                    $chats[] = $lastMessage;
+                }
+            }
+        }
+
+        return $chats;
+    }
+
+
 }

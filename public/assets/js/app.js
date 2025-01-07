@@ -1,22 +1,22 @@
-// Mostrar el formulario para crear un post
 $(document).ready(function() {
 
+    /* Muestra la ventana con el formulario para crear un nuevo post */
     const newPostModal = $("#newPostModal");
     $(".fab").click(function(event) {
         event.preventDefault();
         newPostModal.modal('show');
     });
 
+    /* Muestra la ventana con el formulario para añadir un comentario */
     const newCommentModal = $("#newCommentModal");
     $(".comment-btn").click(function(event) {
         event.preventDefault();
         newCommentModal.modal('show');
     });
-
     newCommentModal.on('hidden.bs.modal', function() {
         $(this).find('form')[0].reset();
     });
-
+    /* Gestiona la lógica para que el comentario se asigne correctamente al post y se vea inmediatamente */
     $("#commentForm").submit(function(event) {
         event.preventDefault();
         const form = this;
@@ -35,7 +35,7 @@ $(document).ready(function() {
         });
     });
 
-    /* Entrar dentro de los post */
+    /* Entramos dentro de un post al hacer click sobre el mismo */
     $(".post-card").click(function(event) {
         event.preventDefault();
         const postId = $(this).data('post-id');
@@ -56,7 +56,7 @@ $(document).ready(function() {
         });
     });
 
-    /* Boton de like */
+    /* Gestiona la lógica del botón de likes de un post */
     $(".like-btn").click(function(event) {
         event.preventDefault();
         const postId = $(this).data('post-id');
@@ -75,7 +75,7 @@ $(document).ready(function() {
         });
     });
 
-    /* Dropdown menu */
+    /* Muestra el menu con las opciones adicionales de un post */
     $(".icn-btn").click(function(event) {
         event.stopPropagation();
         const postId = $(this).attr('id').split('-')[2];
@@ -85,6 +85,8 @@ $(document).ready(function() {
     $(document).click(function() {
         $(".dropdown.show").removeClass("show");
     });
+
+    /* Gestiona la lógica para eliminar un post */
     $(".delete-btn").click(function (event) {
         event.preventDefault();
         const postId = $(this).data('post-id');
@@ -105,4 +107,12 @@ $(document).ready(function() {
         });
 
     });
+});
+
+/* Muestra primero los chats más recientes */
+document.addEventListener("DOMContentLoaded", function() {
+    const chatList = document.getElementById("chatList");
+    if (chatList) {
+        chatList.scrollTop = chatList.scrollHeight;
+    }
 });
