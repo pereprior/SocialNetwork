@@ -30,7 +30,7 @@ services:
     App\Service\FileService:
         arguments:
             $client: '@guzzle.client'
-            $cloud: '%upload_server_url%'
+            $cloud: '%image_server_url%'
 
     App\Service\DateTimeService:
         public: true

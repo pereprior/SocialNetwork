@@ -47,6 +47,7 @@ class ProfileController extends AbstractController
         }
 
         $fileService->setImagesUrl($userRepository->findAll());
+        $fileService->setImagesUrl($this->postRepository->findAll());
         $posts = $this->postRepository->findBy(['user' => $user]);
         $savedPosts = $user->getSavedPosts();
 
@@ -57,6 +58,7 @@ class ProfileController extends AbstractController
             'page_title' => $id === null ? 'Mi Perfil' : 'Perfil de ' . $user->getName(),
             'savedPosts' => $savedPosts,
             'show_form' => $id === null,
+            'image_server_url' => $fileService->getImageServerUrl(),
         ]);
     }
 

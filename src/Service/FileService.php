@@ -2,11 +2,8 @@
 
 namespace App\Service;
 
-use App\Entity\Post;
-use App\Entity\User;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -14,13 +11,13 @@ class FileService
 {
     private Client $client;
     private string $cloud;
-    private ParameterBagInterface $params;
+    private string $imageServerUrl;
 
-    public function __construct(Client $client, string $cloud, ParameterBagInterface $params)
+    public function __construct(Client $client, string $cloud)
     {
         $this->client = $client;
-        $this->cloud = $cloud;
-        $this->params = $params;
+        $this->cloud = $cloud . '/upload.php';
+        $this->imageServerUrl = $cloud;
     }
 
     public function uploadImage(UploadedFile $file): string
@@ -61,11 +58,13 @@ class FileService
 
     public function setImagesUrl(array $posts): void
     {
-        $imageServerUrl = $this->params->get('image_server_url');
         foreach ($posts as $post) {
-            $post->setImgUrl($imageServerUrl);
-            error_log($post->getImgUrl());
+            $post->setImgUrl($this->imageServerUrl);
         }
     }
 
+    public function getImageServerUrl(): string
+    {
+        return $this->imageServerUrl;
+    }
 }

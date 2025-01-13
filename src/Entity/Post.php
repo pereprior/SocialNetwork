@@ -196,7 +196,7 @@ class Post
 
     public function isLikedByUser(User $user): bool
     {
-        return $this->user && $this->user->getLikedPost()->contains($this);
+        return $user->getLikedPost()->contains($this);
     }
 
     public function addView(): void

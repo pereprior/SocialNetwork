@@ -3,7 +3,9 @@
 
 {% block body %}
     {% for post in posts %}
-        {{ include('post/_post.html.twig') }}
+        {% if not app.user or app.user.id != post.user.id %}
+            {{ include('post/_post.html.twig') }}
+        {% endif %}
     {% endfor %}
 
     {% if app.user %}

@@ -93,7 +93,7 @@ class PageController extends AbstractController
         return $this->render('page/index.html.twig', [
             'page_title' => 'Inicio',
             'form' => $form->createView(),
-            'posts' => $this->postRepository->findAll()
+            'posts' => $this->postRepository->findAll(),
         ]);
     }
 

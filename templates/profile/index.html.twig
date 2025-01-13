@@ -12,6 +12,14 @@
                         <span class="text-warning">⭐</span>
                     {% endif %}
                 </h1>
+
+                {% if app.user and user.id != app.user.id %}
+                    <div>
+                        <a href="{{ path('chat_dm', {'id': user.id}) }}">
+                            <img src="{{ image_server_url ~ '/dm.png' }}" class="button-image" alt="Image description">
+                        </a>
+                    </div>
+                {% endif %}
             </div>
 
             <!-- Contenido principal -->
@@ -49,7 +57,9 @@
                                 <h5>{{ post.title }}</h5>
                                 {% if post.img %}
                                     <div class="post-image-wrapper">
-                                        <img src="{{ asset(post.img) }}" alt="Imagen de {{ post.title }}" class="img-fluid rounded" style="max-width: 100%; height: auto;">
+                                        <a href="{{ path('post_info', {'id': post.id}) }}">
+                                            <img src="{{ post.imgUrl }}" alt="Imagen de {{ post.title }}" class="img-fluid rounded" style="max-width: 100%; height: auto;">
+                                        </a>
                                     </div>
                                 {% endif %}
                                 <p>Publicado el {{ post.datetime|date('d/m/Y H:i') }}</p>
@@ -71,9 +81,12 @@
                         {% for savedPost in savedPosts %}
                             {% if savedPost.post is not null %}
                                 <div class="post-card">
-                                    <h3>{{ savedPost.post.title }}</h3>
-                                    <p>{{ savedPost.post.content }}</p>
-                                    <p><strong>{{ savedPost.post.user.username }}</strong> - {{ savedPost.post.datetime|date('Y-m-d H:i') }}</p>
+                                    <a href="{{ path('post_info', {'id': savedPost.id}) }}">
+                                        <h3>{{ savedPost.post.title }}</h3>
+                                        <p>{{ savedPost.post.content }}</p>
+                                        <p><strong>{{ savedPost.post.user.username }}</strong> - {{ savedPost.post.datetime|date('Y-m-d H:i') }}</p>
+                                    </a>
+
                                     <form method="post" action="{{ path('saved_posts_remove', {'id': savedPost.id}) }}">
                                         <button type="submit" class="btn btn-danger btn-sm disabled">Eliminar</button>
                                     </form>
@@ -126,7 +139,7 @@
         </div>
 
         <!-- Botón de volver -->
-        <div class="text-center mt-4">
+        <div class="text-center my-4">
             <a href="{{ path('app_inicio') }}" class="button">Volver a la Página Principal</a>
         </div>
     </div>

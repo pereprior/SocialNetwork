@@ -366,6 +366,11 @@ hr {
   display: none;
 }
 
+.button-image {
+  width: 40px;
+  height: auto;
+}
+
 .align-left {
   text-align: left; }
 
