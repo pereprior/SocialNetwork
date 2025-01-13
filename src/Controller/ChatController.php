@@ -8,6 +8,7 @@ use App\Form\MessageFormType;
 use App\Repository\MessageRepository;
 use App\Repository\UserRepository;
 use App\Service\DateTimeService;
+use App\Service\FileService;
 use App\Service\FormService;
 use App\Service\UserService;
 use Doctrine\ORM\NonUniqueResultException;
@@ -41,9 +42,10 @@ class ChatController extends AbstractController
      * @throws NonUniqueResultException
      */
     #[Route('/', name: 'chats')]
-    public function index(DateTimeService $dateTimeService): Response
+    public function index(DateTimeService $dateTimeService, FileService $fileService, UserRepository $userRepository): Response
     {
         $chats = $this->messageRepository->findLastMessagesForUser($this->activeUser->getId(), $dateTimeService, $this->userRepository);
+        $fileService->setImagesUrl($userRepository->findAll());
 
         return $this->render('chat/index.html.twig', [
             'page_title' => 'Chats',
@@ -55,7 +57,7 @@ class ChatController extends AbstractController
      * Ruta que muestra el chat privado entre el usuario actual y el usuario con el id proporcionado
      */
     #[Route('/dm/{id}', name: 'chat_dm')]
-    public function dm($id, Request $request, FormService $formService, DateTimeService $dateTimeService): Response
+    public function dm($id, Request $request, FileService $fileService, UserRepository $userRepository, DateTimeService $dateTimeService): Response
     {
         $chats = $this->messageRepository->findMessagesByUserId($id);
         foreach ($chats as $chat) {
@@ -78,15 +80,7 @@ class ChatController extends AbstractController
             return $this->redirectToRoute('chat_dm', ['id' => $id]);
         }
 
-        /*$message = new Message();
-        $form = $formService->handleForm($message, MessageFormType::class, $this->manager, function($entity) use ($id) {
-            $entity->setUserFrom($this->activeUser);
-            $userTo = $this->userRepository->find($id);
-            error_log("Usuario To:" . $userTo->getId());
-            $entity->setUserTo($userTo);
-        }, $request, function () use ($id) {
-            return $this->redirectToRoute('chat_dm', ['id' => $id]);
-        });*/
+        $fileService->setImagesUrl($userRepository->findAll());
 
         return $this->render('chat/_chat.html.twig', [
             'page_title' => 'Direct Messages',

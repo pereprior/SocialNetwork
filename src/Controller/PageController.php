@@ -98,11 +98,12 @@ class PageController extends AbstractController
     }
 
     #[Route('/explore', name: 'explore')]
-    public function explore(Request $request): Response
+    public function explore(Request $request, UserRepository $userRepository): Response
     {
         $search = $request->query->get('search');
         $posts = $search ? $this->postRepository->findByHashtag($search) : $this->postRepository->findAll();
         $this->fileService->setImagesUrl($this->postRepository->findAll());
+        $this->fileService->setImagesUrl($userRepository->findAll());
 
         return $this->render('page/explore.html.twig', [
             'page_title' => 'Explore',

@@ -371,6 +371,12 @@ hr {
   height: auto;
 }
 
+.post-settings {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .align-left {
   text-align: left; }
 

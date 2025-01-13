@@ -1,6 +1,8 @@
 <?php
 namespace App\Controller;
 
+use App\Repository\UserRepository;
+use App\Service\FileService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,13 +17,14 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class SettingsController extends AbstractController
 {
     #[Route('/settings', name: 'app_settings')]
-    public function index(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager, TokenStorageInterface $tokenStorage): Response
+    public function index(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager, TokenStorageInterface $tokenStorage, FileService $fileService, UserRepository $userRepository): Response
     {
         $user = $this->getUser();
 
         if (!$user) {
             throw $this->createAccessDeniedException('You must be logged in to change your password.');
         }
+        $fileService->setImagesUrl($userRepository->findAll());
 
         // Formulario de cambio de contraseña
         $changePasswordForm = $this->createFormBuilder()

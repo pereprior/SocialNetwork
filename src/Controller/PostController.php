@@ -7,6 +7,7 @@ use App\Entity\Post;
 use App\Form\CommentFormType;
 use App\Repository\CommentRepository;
 use App\Repository\PostRepository;
+use App\Repository\UserRepository;
 use App\Service\FileService;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
@@ -31,7 +32,7 @@ class PostController extends AbstractController
     }
 
     #[Route('/{id}', name: 'post_info')]
-    public function post($id, Request $request, FileService $fileService): Response
+    public function post($id, Request $request, FileService $fileService, UserRepository $userRepository): Response
     {
         $comment = new Comment();
         $post = $this->repository->find($id);
@@ -54,6 +55,8 @@ class PostController extends AbstractController
         }
 
         $fileService->setImagesUrl($this->repository->findAll());
+        $fileService->setImagesUrl($userRepository->findAll());
+
 
         return $this->render('post/post_info.html.twig', array(
             'page_title' => 'Post info',
