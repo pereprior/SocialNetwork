@@ -19,7 +19,7 @@
                 <div class="row align-items-center">
                     <!-- Imagen del perfil -->
                     <div class="col-md-4 text-center">
-                        <img src="{{ asset(user.userImage|default('/uploads')) }}" alt="Avatar de {{ user.username }}" class="rounded-circle shadow-lg" style="width: 150px; height: 150px; object-fit: cover;">
+                        <img src="{{ app.user.imgUrl }}" alt="Avatar de {{ user.username }}" class="rounded-circle shadow-lg" style="width: 150px; height: 150px; object-fit: cover;">
                     </div>
 
                     <!-- Información del perfil -->
@@ -58,6 +58,14 @@
                         {% endif %}
                     </div>
                 </div>
+
+                {% if app.user and user.id != app.user.id %}
+                    <div>
+                        <a href="{{ path('chat_dm', {'id': user.id}) }}">
+                            <img src="{{ image_server_url ~ '/dm.png' }}" class="button-image" alt="Image description">
+                        </a>
+                    </div>
+                {% endif %}
             </div>
 
             <!-- Sección de "Mis Posts" -->
@@ -120,6 +128,7 @@
                         </div>
                     {% endif %}
                 </div>
+            {% endif %}
         </div>
 
         <!-- Botón de volver -->
