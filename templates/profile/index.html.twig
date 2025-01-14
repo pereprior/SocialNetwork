@@ -4,108 +4,127 @@
 
 {% block body %}
     <div class="container mt-5">
-        <div class="card shadow-lg">
+        <div class="card shadow-lg border-0">
             <!-- Cabecera -->
-            <div class="card-header bg-primary text-white text-center">
-                <h1>Perfil de {{ user.username }}
+            <div class="card-header bg-gradient-primary text-white text-center py-4" style="background: linear-gradient(45deg, #4e73df, #1cc88a);">
+                <h1 class="mb-0">Perfil de {{ user.username }}
                     {% if 'ROLE_PREMIUM' in user.roles %}
                         <span class="text-warning">⭐</span>
                     {% endif %}
                 </h1>
-
-                {% if app.user and user.id != app.user.id %}
-                    <div>
-                        <a href="{{ path('chat_dm', {'id': user.id}) }}">
-                            <img src="{{ image_server_url ~ '/dm.png' }}" class="button-image" alt="Image description">
-                        </a>
-                    </div>
-                {% endif %}
             </div>
 
             <!-- Contenido principal -->
-            <div class="card-body">
-                <!-- Información del perfil -->
-                <p><strong>Nombre de usuario:</strong> {{ user.username }}</p>
-                <p><strong>Email:</strong> {{ user.email }}</p>
-                <p><strong>Fecha de nacimiento:</strong> {{ user.birthdate|date('Y-m-d') }}</p>
-                <p><strong>Biografía:</strong> {{ user.bio }}</p>
-                <p><strong>Género:</strong> {{ user.gender }}</p>
+            <div class="card-body px-4">
+                <div class="row align-items-center">
+                    <!-- Imagen del perfil -->
+                    <div class="col-md-4 text-center">
+                        <img src="{{ asset(user.userImage|default('/uploads')) }}" alt="Avatar de {{ user.username }}" class="rounded-circle shadow-lg" style="width: 150px; height: 150px; object-fit: cover;">
+                    </div>
 
-                {% if app.user and user.id == app.user.id %}
-                {% if 'ROLE_PREMIUM' in user.roles %}
-                    <p><strong>Estado:</strong> Usuario Premium</p>
-                    <form method="post" action="{{ path('app_downgrade_from_premium') }}">
-                        <button type="submit" class="button">Cancelar Premium</button>
-                    </form>
-                {% else %}
-                    <form method="post" action="{{ path('app_upgrade_to_premium') }}">
-                        <button type="submit" class="button-premium">Actualizar a Premium</button>
-                    </form>
-                {% endif %}
-                {% endif %}
+                    <!-- Información del perfil -->
+                    <div class="col-md-8">
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <strong>Nombre de usuario:</strong> {{ user.username }}
+                            </li>
+                            <li class="mb-2">
+                                <strong>Email:</strong> {{ user.email }}
+                            </li>
+                            <li class="mb-2">
+                                <strong>Fecha de nacimiento:</strong> {{ user.birthdate|date('Y-m-d') }}
+                            </li>
+                            <li class="mb-2">
+                                <strong>Biografía:</strong> {{ user.bio }}
+                            </li>
+                            <li class="mb-2">
+                                <strong>Género:</strong> {{ user.gender }}
+                            </li>
+                        </ul>
+
+                        {% if app.user and user.id == app.user.id %}
+                            <div>
+                                {% if 'ROLE_PREMIUM' in user.roles %}
+                                    <span class="badge badge-success">Usuario Premium</span>
+                                    <form method="post" action="{{ path('app_downgrade_from_premium') }}" class="mt-3">
+                                        <button type="submit" class="btn btn-danger btn-sm">Cancelar Premium</button>
+                                    </form>
+                                {% else %}
+                                    <form method="post" action="{{ path('app_upgrade_to_premium') }}" class="mt-3">
+                                        <button type="submit" class="btn btn-warning btn-sm">Actualizar a Premium</button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
 
             <!-- Sección de "Mis Posts" -->
-            <div class="card-footer bg-light">
-                <h3 class="text-center">Mis Posts</h3>
+            <div class="card-footer bg-light py-4">
+                <h3 class="text-center text-primary">Mis Posts</h3>
                 {% if posts is empty %}
                     <p class="text-center text-muted">No has creado ningún post todavía.</p>
                 {% else %}
-                    <ul class="list-group mt-3">
+                    <div class="row mt-3">
                         {% for post in posts %}
-                            <li class="list-group-item">
-                                <h5>{{ post.title }}</h5>
-                                {% if post.img %}
-                                    <div class="post-image-wrapper">
-                                        <a href="{{ path('post_info', {'id': post.id}) }}">
-                                            <img src="{{ post.imgUrl }}" alt="Imagen de {{ post.title }}" class="img-fluid rounded" style="max-width: 100%; height: auto;">
-                                        </a>
+                            <div class="col-md-4 mb-4">
+                                <div class="card shadow-sm">
+                                    {% if post.img %}
+                                        <div class="post-image-wrapper">
+                                            <a href="{{ path('post_info', {'id': post.id}) }}">
+                                                <img src="{{ post.imgUrl }}" alt="Imagen de {{ post.title }}" class="img-fluid rounded" style="max-width: 100%; height: auto;">
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ post.title }}</h5>
+                                        <p class="card-text text-muted">Publicado el {{ post.datetime|date('d/m/Y H:i') }}</p>
+                                        <p class="card-text">{{ post.content|slice(0, 100) ~ '...' }}</p>
                                     </div>
-                                {% endif %}
-                                <p>Publicado el {{ post.datetime|date('d/m/Y H:i') }}</p>
-                                <p>{{ post.content }}</p>
-                            </li>
+                                </div>
+                            </div>
                         {% endfor %}
-                    </ul>
+                    </div>
                 {% endif %}
             </div>
-
-        <!-- Formulario de edición y botón de cancelar -->
 
             <!-- Sección de edición del perfil -->
-            <div class="card-footer bg-light">
-                <h3 class="text-center">Editar Perfil</h3>
-                {% if not show_form %}
-                    <div class="text-center">
-                        <a href="{{ path('app_edit_profile') }}" class="button">Editar Perfil</a>
-                    </div>
-                {% else %}
-                    <div class="mt-3">
-                        {{ form_start(form) }}
-                        <div class="form-group">
-                            {{ form_row(form.name, {'attr': {'class': 'form-control'}}) }}
-                            {{ form_row(form.username, {'attr': {'class': 'form-control'}}) }}
-                            {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}
-                            {{ form_row(form.birthdate, {'attr': {'class': 'form-control'}}) }}
-                            {{ form_row(form.bio, {'attr': {'class': 'form-control'}}) }}
-                            {{ form_row(form.gender, {'attr': {'class': 'form-control'}}) }}
-                            {{ form_row(form.userImage, {'attr': {'class': 'form-control'}}) }}
-                        </div>
-                        <div class="mt-4">
-                            {{ form_row(form.submit, {'attr': {'class': 'btn btn-success'}}) }}
-                        </div>
-                        {{ form_end(form) }}
+            {% if app.user and user.id == app.user.id %}
+                <div class="card-footer bg-light py-4">
+                    <h3 class="text-center text-primary">Editar Perfil</h3>
+                    {% if not show_form %}
                         <div class="text-center mt-3">
-                            <a href="{{ path('app_profile') }}" class="button">Cancelar</a>
+                            <a href="{{ path('app_edit_profile') }}" class="btn btn-info">Editar Perfil</a>
                         </div>
-                    </div>
-                {% endif %}
-            </div>
+                    {% else %}
+                        <div class="mt-3">
+                            {{ form_start(form) }}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{ form_row(form.name, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_row(form.username, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_row(form.birthdate, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_row(form.bio, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_row(form.gender, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="mt-4 text-center">
+                                {{ form_row(form.submit, {'attr': {'class': 'btn btn-success'}}) }}
+                                <a href="{{ path('app_profile') }}" class="btn btn-secondary">Cancelar</a>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    {% endif %}
+                </div>
         </div>
 
         <!-- Botón de volver -->
-        <div class="text-center my-4">
-            <a href="{{ path('app_inicio') }}" class="button">Volver a la Página Principal</a>
+        <div class="text-center mt-4">
+            <a href="{{ path('app_inicio') }}" class="btn btn-primary">Volver a la Página Principal</a>
         </div>
     </div>
 {% endblock %}
