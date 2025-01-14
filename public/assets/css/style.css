@@ -24,3 +24,97 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+
+/* Settings Section */
+.settings-wrapper {
+    margin: 1em auto;
+    max-width: 100%;
+    width: 95%;
+    font: 18px/1.5 sans-serif;
+}
+
+.settings-wrapper code {
+    background: #F5F5F5;
+    padding: 2px 6px;
+}
+
+.settings-wrapper .text-center {
+    text-align: center;
+}
+
+.settings-wrapper .rounded-pill {
+    border-radius: 50rem;
+}
+
+.settings-wrapper .btn-lg {
+    font-size: 1.25rem;
+}
+
+/* Estilo de fondo y separación de las tarjetas */
+.settings-wrapper .card-body {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.settings-wrapper .card {
+    margin-bottom: 20px;
+}
+
+/* Botones estilizados */
+.settings-wrapper .button-settings {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    display: inline-block;
+}
+
+.settings-wrapper .button-settings:hover {
+    background-color: #0056b3;
+    text-decoration: none;
+}
+
+.settings-wrapper .button-settings-delete {
+    background-color: #dc3545; /* Rojo para eliminar cuenta */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 1px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    display: inline-block;
+}
+
+.settings-wrapper .button-settings-delete:hover {
+    background-color: #c82333;
+    text-decoration: none;
+}
+
+/* Efectos en los campos de formulario */
+.settings-wrapper .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.settings-wrapper .form-check-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Mensajes de éxito y error */
+.settings-wrapper .alert {
+    margin-top: 15px;
+}
+
+/* Agregar espaciado a la parte superior */
+.settings-wrapper .text-center.mt-4 {
+    margin-top: 25px;
+}
+
+/* Estilos para los íconos dentro de los encabezados */
+.settings-wrapper .card-header h5 i {
+    margin-right: 8px;
+}
+
