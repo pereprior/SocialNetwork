@@ -87,9 +87,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Post::class, inversedBy: 'usersWhoLiked')]
     private Collection $likedPost;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: SavedPost::class, cascade: ['persist', 'remove'])]
-    private Collection $savedPosts;
-
     // ESTE CAMPO NO SE GUARDA EN LA BBDD, PERO NO LO TOQUEIS
     private ?string $imgUrl = null;
 
@@ -333,33 +330,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeLikedPost(Post $likedPost): static
     {
         $this->likedPost->removeElement($likedPost);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Post>
-     */
-    public function getSavedPosts(): Collection
-    {
-        return $this->savedPosts;
-    }
-
-    public function addSavedPost(Post $post): static
-    {
-        if (!$this->savedPosts->contains($post)) {
-            $this->savedPosts[] = $post;
-            $post->addSavedPost($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSavedPost(Post $post): static
-    {
-        if ($this->savedPosts->removeElement($post)) {
-            $post->removeSavedPost($this);
-        }
 
         return $this;
     }
