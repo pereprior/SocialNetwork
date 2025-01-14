@@ -2,6 +2,9 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
+    {% block header %}
+        {% include 'partials/header.html.twig' %}
+    {% endblock %}
     {% for post in posts %}
         {% if not app.user or app.user.id != post.user.id %}
             {{ include('post/_post.html.twig') }}
