@@ -32,11 +32,7 @@
                 {% if app.user %}
                     <li><a href="{{ path('app_inicio') }}">Home</a></li>
                     <li><a href="{{ path('explore') }}">Explore</a></li>
-                    <!--<li><a href="{{ path('app_profile') }}">Profile</a></li>-->
                     <li><a href="{{ path('chats') }}">Chats</a></li>
-                    <li><a href="#">Notification</a></li>
-                    <li><a href="#">Report an error</a></li>
-
                     {% if is_granted('ROLE_CHEF') %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('class_list') }}">Crear Clases</a>

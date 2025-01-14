@@ -2,6 +2,9 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
+    {% block header %}
+        {% include 'partials/header.html.twig' %}
+    {% endblock %}
     {% for post in posts %}
         {{ include('post/_post.html.twig') }}
     {% endfor %}
