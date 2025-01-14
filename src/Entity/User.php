@@ -54,7 +54,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->comments = new ArrayCollection();
         $this->messages = new ArrayCollection();
         $this->likedPost = new ArrayCollection();
-        $this->savedPosts = new ArrayCollection();
     }
 
     #[ORM\Column(type: 'boolean')]

@@ -49,14 +49,12 @@ class ProfileController extends AbstractController
         $fileService->setImagesUrl($userRepository->findAll());
         $fileService->setImagesUrl($this->postRepository->findAll());
         $posts = $this->postRepository->findBy(['user' => $user]);
-        $savedPosts = $user->getSavedPosts();
 
         return $this->render('profile/index.html.twig', [
             'user' => $user,
             'form' => null,
             'posts' => $posts,
             'page_title' => $id === null ? 'Mi Perfil' : 'Perfil de ' . $user->getName(),
-            'savedPosts' => $savedPosts,
             'show_form' => $id === null,
             'image_server_url' => $fileService->getImageServerUrl(),
         ]);
@@ -129,13 +127,10 @@ class ProfileController extends AbstractController
         // Recuperar los posts creados por el usuario
         $posts = $postRepository->findBy(['user' => $user], ['datetime' => 'DESC']);
 
-        $savedPosts = $user->getSavedPosts();
-
         return $this->render('profile/index.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
             'posts' => $posts,
-            'savedPosts' => $savedPosts,
             'show_form' => true,
             'page_title' => 'Editar Perfil',
         ]);
