@@ -17,13 +17,21 @@
                 <div class="mb-3">
                     {{ form_label(changePasswordForm.current_password, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
                     {{ form_widget(changePasswordForm.current_password, {'attr': {'class': 'form-control rounded-pill'}}) }}
-                    {{ form_errors(changePasswordForm.current_password) }}
+                    {% if form_errors(changePasswordForm.current_password) %}
+                        <div class="text-danger">
+                            {{ form_errors(changePasswordForm.current_password) }}
+                        </div>
+                    {% endif %}
                 </div>
 
                 <div class="mb-3">
                     {{ form_label(changePasswordForm.new_password, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
                     {{ form_widget(changePasswordForm.new_password, {'attr': {'class': 'form-control rounded-pill'}}) }}
-                    {{ form_errors(changePasswordForm.new_password) }}
+                    {% if form_errors(changePasswordForm.new_password) %}
+                        <div class="text-danger">
+                            {{ form_errors(changePasswordForm.new_password) }}
+                        </div>
+                    {% endif %}
                 </div>
 
                 <div class="d-grid">

@@ -35,7 +35,11 @@
                     <li><a href="{{ path('chats') }}">Chats</a></li>
                     {% if is_granted('ROLE_CHEF') %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('class_list') }}">Crear Clases</a>
+                            <a class="nav-link" href="{{ path('class_list') }}">Clases</a>
+                        </li>
+                    {% elseif is_granted('ROLE_STUDENT') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('class_list') }}">Clases</a>
                         </li>
                     {% endif %}
                     <li><a href="{{ path('app_settings') }}">Settings</a></li>

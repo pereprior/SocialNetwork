@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Repository\UserRepository;
@@ -13,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Form\FormError;
 
 class SettingsController extends AbstractController
 {
@@ -62,17 +64,32 @@ class SettingsController extends AbstractController
         $notificationSettingsForm->handleRequest($request);
 
         // Procesar formulario de cambio de contraseña
-        if ($changePasswordForm->isSubmitted() && $changePasswordForm->isValid()) {
+        if ($changePasswordForm->isSubmitted()) {
             $data = $changePasswordForm->getData();
-            if ($passwordHasher->isPasswordValid($user, $data['current_password'])) {
-                $newPassword = $passwordHasher->hashPassword($user, $data['new_password']);
-                $user->setPassword($newPassword);
-                $entityManager->persist($user);
-                $entityManager->flush();
 
-                $this->addFlash('success', 'Password updated successfully.');
-            } else {
-                $this->addFlash('error', 'Current password is incorrect.');
+            // Verificar que la contraseña actual no esté vacía
+            if (empty($data['current_password'])) {
+                $changePasswordForm->get('current_password')->addError(new FormError('Current password cannot be empty.'));
+            }
+
+            // Verificar si las contraseñas coinciden
+            if ($data['current_password'] === $data['new_password']) {
+                $changePasswordForm->get('new_password')->addError(new FormError('New password cannot be the same as the current password.'));
+            }
+
+            // Si no hay errores en la contraseña actual y las contraseñas no coinciden
+            if ($changePasswordForm->isValid()) {
+                // Verificar la contraseña actual
+                if ($passwordHasher->isPasswordValid($user, $data['current_password'])) {
+                    $newPassword = $passwordHasher->hashPassword($user, $data['new_password']);
+                    $user->setPassword($newPassword);
+                    $entityManager->persist($user);
+                    $entityManager->flush();
+
+                    $this->addFlash('success', 'Password updated successfully.');
+                } else {
+                    $this->addFlash('error', 'Current password is incorrect.');
+                }
             }
         }
 

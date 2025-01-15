@@ -2789,23 +2789,52 @@ button,
   border-color: white;
 }
 
+/* Estilos generales para los mensajes */
+.chat-message {
+  max-width: 75%;
+  padding: 10px 15px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  display: inline-block;
+  position: relative;
+  word-wrap: break-word;
+}
 
+/* Estilo para los mensajes del usuario actual (alineados a la derecha) */
+.my-message {
+  background-color: #dcf8c6;
+  text-align: right;
+  margin-left: auto;
+  margin-right: 0;
+  position: relative;
+  border-radius: 15px 15px 0 15px; /* Bordes redondeados en la parte derecha */
+}
 
+/* Estilo para los mensajes de la otra persona (alineados a la izquierda) */
+.their-message {
+  background-color: #fff;
+  text-align: left;
+  margin-right: auto;
+  margin-left: 0;
+  border: 1px solid #ddd;
+  border-radius: 15px 15px 15px 0; /* Bordes redondeados en la parte izquierda */
+}
 
+/* Estilo para la hora */
+.chat-time {
+  font-size: 12px;
+  color: #888;
+  display: block;
+  margin-top: 5px;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 576px) {
+  .chat-message {
+    max-width: 90%;
+  }
+}
 
 
 

@@ -3,15 +3,15 @@
 {% block body %}
 
     <div class="container py-5">
-        <h1 class="mb-4 text-center">Direct Messages</h1>
-        <section id="banner-chats">
-            <ul>
+        <h1 class="mb-4 text-center text-primary" style="font-weight: 600; font-size: 2rem;">Direct Messages</h1>
+        <section id="banner-chats" class="p-3" style="background-color: #f9f9f9; border-radius: 8px;">
+            <ul style="list-style: none; padding: 0; margin: 0;">
                 {% if chats %}
                     {% for chat in chats %}
-                        {{ include('chat/_chat_entry.html.twig') }}
+                            {{ include('chat/_chat_entry.html.twig') }}
                     {% endfor %}
                 {% else %}
-                    <li>No chats found</li>
+                    <li class="text-center text-muted" style="padding: 1rem;">No chats found</li>
                 {% endif %}
             </ul>
         </section>
