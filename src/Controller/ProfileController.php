@@ -134,6 +134,7 @@ class ProfileController extends AbstractController
             'posts' => $posts,
             'show_form' => true,
             'page_title' => 'Editar Perfil',
+            'image_server_url' => $fileService->getImageServerUrl(),
         ]);
     }
 }

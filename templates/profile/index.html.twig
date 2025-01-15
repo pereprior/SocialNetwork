@@ -27,22 +27,21 @@
                     </div>
 
                     <!-- Información del perfil -->
-                    <div class="col-md-8">
+                    <div class="col-md-7">
                         <ul class="list-unstyled">
-                            <li class="mb-2">
-                                <strong>Nombre de usuario:</strong> {{ user.username }}
-                            </li>
-                            <li class="mb-2">
-                                <strong>Email:</strong> {{ user.email }}
-                            </li>
+                            {% if app.user and user.id == app.user.id %}
+                                <li class="mb-2">
+                                    <strong>Email:</strong> {{ user.email }}
+                                </li>
+                            {% endif %}
                             <li class="mb-2">
                                 <strong>Fecha de nacimiento:</strong> {{ user.birthdate|date('Y-m-d') }}
                             </li>
                             <li class="mb-2">
-                                <strong>Biografía:</strong> {{ user.bio }}
+                                <strong>Género:</strong> {{ user.gender }}
                             </li>
                             <li class="mb-2">
-                                <strong>Género:</strong> {{ user.gender }}
+                                <strong>Biografía:</strong><br> {{ user.bio }}
                             </li>
                         </ul>
 
@@ -61,28 +60,32 @@
                             </div>
                         {% endif %}
                     </div>
-                </div>
 
-                {% if app.user and user.id != app.user.id %}
-                    <div>
-                        <a href="{{ path('chat_dm', {'id': user.id}) }}">
-                            <img src="{{ image_server_url ~ '/dm.png' }}" class="button-image" alt="Image description">
-                        </a>
+                    <div class="col-md-1 align-self-start">
+                        {% if app.user and user.id != app.user.id %}
+                            <a href="{{ path('chat_dm', {'id': user.id}) }}">
+                                <img src="{{ image_server_url ~ '/dm.png' }}" class="button-image" alt="Image description" style="width: 40px; height: 40px;">
+                            </a>
+                        {% else %}
+                            <a href="{{ path('app_edit_profile') }}">
+                                <img src="{{ image_server_url ~ '/editaar.png' }}" class="button-image" alt="Image description" style="width: 40px; height: 40px;">
+                            </a>
+                        {% endif %}
                     </div>
-                {% endif %}
+                </div>
             </div>
 
             <!-- Sección de "Mis Posts" -->
             <div class="card-footer bg-light py-4">
                 <div class="mx-auto d-flex justify-content-between w-50">
-                    <a href="#" id="show-posts">
-                        <h3 class="text-primary">Posts</h3>
+                    <a href="#" id="show-all-posts" class="nav-link active">
+                        <h3 class="text-primary mx-5">Posts</h3>
                     </a>
-                    <a href="#" id="hide-posts">
-                        <h3 class="text-primary mx-5">Nada</h3>
+                    <a href="#" id="show-liked-posts" class="nav-link">
+                        <h3 class="text-primary mx-5">Favoritos</h3>
                     </a>
-                </div>
-                <div id="post-section">
+                </div><br>
+                <div id="all-posts-section">
                     {% if posts is empty %}
                         <p class="text-center text-muted">No has creado ningún post todavía.</p>
                     {% else %}
@@ -108,16 +111,44 @@
                         </div>
                     {% endif %}
                 </div>
+                <div id="liked-posts-section" style="display: none;">
+                    {% if user.likedPost is empty %}
+                        <p class="text-center text-muted">No has dado like a ningún post todavía.</p>
+                    {% else %}
+                        <div class="row mt-3">
+                            {% for post in user.likedPost %}
+                                <div class="col-md-4 mb-4">
+                                    <div class="card shadow-sm">
+                                        {% if post.img %}
+                                            <div class="post-image-wrapper">
+                                                <a href="{{ path('post_info', {'id': post.id}) }}">
+                                                    <img src="{{ post.imgUrl }}" alt="Imagen de {{ post.title }}" class="img-fluid rounded" style="max-width: 100%; height: auto;">
+                                                </a>
+                                            </div>
+                                        {% endif %}
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ post.title }}</h5>
+                                            <p class="card-text text-muted">Publicado el {{ post.datetime|date('d/m/Y H:i') }}</p>
+                                            <p class="card-text">{{ post.content|slice(0, 100) ~ '...' }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
             </div>
 
             <!-- Sección de edición del perfil -->
             {% if app.user and user.id == app.user.id %}
                 <div class="card-footer bg-light py-4">
+                    <!--
                     <h3 class="text-center text-primary">Editar Perfil</h3>
                     {% if not show_form %}
                         <div class="text-center mt-3">
                             <a href="{{ path('app_edit_profile') }}" class="btn btn-info">Editar Perfil</a>
                         </div>
+                        -->
                     {% else %}
                         <div class="mt-3">
                             {{ form_start(form) }}
@@ -151,15 +182,23 @@
     </div>
 
     <script>
-        document.getElementById('show-posts').addEventListener('click', function() {
-            document.getElementById('posts-section').style.display = 'block';
+        document.getElementById('show-all-posts').addEventListener('click', function() {
+            document.getElementById('all-posts-section').style.display = 'block';
+            document.getElementById('liked-posts-section').style.display = 'none';
+            document.getElementById('show-all-posts').classList.add('active');
+            document.getElementById('show-liked-posts').classList.remove('active');
         });
 
-        document.getElementById('hide-posts').addEventListener('click', function() {
-            document.getElementById('posts-section').style.display = 'none';
+        document.getElementById('show-liked-posts').addEventListener('click', function() {
+            document.getElementById('all-posts-section').style.display = 'none';
+            document.getElementById('liked-posts-section').style.display = 'block';
+            document.getElementById('show-liked-posts').classList.add('active');
+            document.getElementById('show-all-posts').classList.remove('active');
         });
 
-        // Initially hide the posts section
-        document.getElementById('posts-section').style.display = 'none';
+        // Initially show all posts section
+        document.getElementById('all-posts-section').style.display = 'block';
+        document.getElementById('liked-posts-section').style.display = 'none';
     </script>
+
 {% endblock %}
