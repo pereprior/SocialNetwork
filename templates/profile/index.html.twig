@@ -19,7 +19,11 @@
                 <div class="row align-items-center">
                     <!-- Imagen del perfil -->
                     <div class="col-md-4 text-center">
-                        <img src="{{ app.user.imgUrl }}" alt="Avatar de {{ user.username }}" class="rounded-circle shadow-lg" style="width: 150px; height: 150px; object-fit: cover;">
+                        {% if user.imgUrl %}
+                            <img src="{{ user.imgUrl }}" alt="Avatar de {{ user.username }}" class="rounded-circle shadow-lg" style="width: 150px; height: 150px; object-fit: cover;">
+                        {% else %}
+                            <img src="{{ image_server_url ~ '/default_logo.png' }}" alt="Avatar de {{ user.username }}" class="rounded-circle shadow-lg" style="width: 150px; height: 150px; object-fit: cover;">
+                        {% endif %}
                     </div>
 
                     <!-- Información del perfil -->
@@ -70,31 +74,40 @@
 
             <!-- Sección de "Mis Posts" -->
             <div class="card-footer bg-light py-4">
-                <h3 class="text-center text-primary">Mis Posts</h3>
-                {% if posts is empty %}
-                    <p class="text-center text-muted">No has creado ningún post todavía.</p>
-                {% else %}
-                    <div class="row mt-3">
-                        {% for post in posts %}
-                            <div class="col-md-4 mb-4">
-                                <div class="card shadow-sm">
-                                    {% if post.img %}
-                                        <div class="post-image-wrapper">
-                                            <a href="{{ path('post_info', {'id': post.id}) }}">
-                                                <img src="{{ post.imgUrl }}" alt="Imagen de {{ post.title }}" class="img-fluid rounded" style="max-width: 100%; height: auto;">
-                                            </a>
+                <div class="mx-auto d-flex justify-content-between w-50">
+                    <a href="#" id="show-posts">
+                        <h3 class="text-primary">Posts</h3>
+                    </a>
+                    <a href="#" id="hide-posts">
+                        <h3 class="text-primary mx-5">Nada</h3>
+                    </a>
+                </div>
+                <div id="post-section">
+                    {% if posts is empty %}
+                        <p class="text-center text-muted">No has creado ningún post todavía.</p>
+                    {% else %}
+                        <div class="row mt-3">
+                            {% for post in posts %}
+                                <div class="col-md-4 mb-4">
+                                    <div class="card shadow-sm">
+                                        {% if post.img %}
+                                            <div class="post-image-wrapper">
+                                                <a href="{{ path('post_info', {'id': post.id}) }}">
+                                                    <img src="{{ post.imgUrl }}" alt="Imagen de {{ post.title }}" class="img-fluid rounded" style="max-width: 100%; height: auto;">
+                                                </a>
+                                            </div>
+                                        {% endif %}
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ post.title }}</h5>
+                                            <p class="card-text text-muted">Publicado el {{ post.datetime|date('d/m/Y H:i') }}</p>
+                                            <p class="card-text">{{ post.content|slice(0, 100) ~ '...' }}</p>
                                         </div>
-                                    {% endif %}
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ post.title }}</h5>
-                                        <p class="card-text text-muted">Publicado el {{ post.datetime|date('d/m/Y H:i') }}</p>
-                                        <p class="card-text">{{ post.content|slice(0, 100) ~ '...' }}</p>
                                     </div>
                                 </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
             </div>
 
             <!-- Sección de edición del perfil -->
@@ -136,4 +149,17 @@
             <a href="{{ path('app_inicio') }}" class="btn btn-primary">Volver a la Página Principal</a>
         </div>
     </div>
+
+    <script>
+        document.getElementById('show-posts').addEventListener('click', function() {
+            document.getElementById('posts-section').style.display = 'block';
+        });
+
+        document.getElementById('hide-posts').addEventListener('click', function() {
+            document.getElementById('posts-section').style.display = 'none';
+        });
+
+        // Initially hide the posts section
+        document.getElementById('posts-section').style.display = 'none';
+    </script>
 {% endblock %}

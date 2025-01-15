@@ -16,7 +16,11 @@
         {% if app.user %}
             <section id="user-info">
                 <a href="{{ path('app_profile', { 'id': app.user.id }) }}" class="user-profile">
-                    <img src="{{ app.user.imgUrl }}" alt="Profile Picture" class="profile-image">
+                    {% if app.user.imgUrl %}
+                        <img src="{{ app.user.imgUrl }}" alt="Profile Picture" class="profile-image">
+                    {% else %}
+                        <img src="{{ image_server_url ~ '/default_logo.png' }}" alt="Profile Picture" class="profile-image">
+                    {% endif %}
                     <p class="username">{{ app.user.username }}</p>
                 </a>
             </section>

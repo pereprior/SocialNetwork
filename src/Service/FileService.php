@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\User;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;

@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Clases;
+use App\Entity\User;
 use App\Form\ClasesType;
+use App\Service\FileService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,6 +15,13 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ClasesController extends AbstractController
 {
+    private FileService $fileService;
+
+    public function __construct(FileService $fileService)
+    {
+        $this->fileService = $fileService;
+    }
+
     #[Route('/clases/new', name: 'class_new')]
     public function createClass(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -33,6 +42,7 @@ class ClasesController extends AbstractController
                 // Redirigir a la lista de clases
                 return $this->redirectToRoute('class_list');
             }
+            $this->fileService->setImagesUrl($entityManager->getRepository(User::class)->findAll());
 
             return $this->render('clases/index.html.twig', [
                 'classForm' => $form->createView(),
@@ -50,6 +60,7 @@ class ClasesController extends AbstractController
         try {
             // Obtener todas las clases de la base de datos
             $classes = $entityManager->getRepository(Clases::class)->findAll();
+            $this->fileService->setImagesUrl($entityManager->getRepository(User::class)->findAll());
 
             return $this->render('clases/lista_clases.html.twig', [
                 'classes' => $classes,
@@ -81,6 +92,7 @@ class ClasesController extends AbstractController
                 $this->addFlash('success', 'Class updated successfully.');
                 return $this->redirectToRoute('class_list');
             }
+            $this->fileService->setImagesUrl($entityManager->getRepository(User::class)->findAll());
 
             return $this->render('clases/edit.html.twig', [
                 'classForm' => $form->createView(),

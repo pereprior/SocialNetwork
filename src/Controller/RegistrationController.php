@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Service\FileService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -24,6 +25,7 @@ class RegistrationController extends AbstractController
         UserPasswordHasherInterface $userPasswordHasher,
         EntityManagerInterface $entityManager,
         UserAuthenticatorInterface $userAuthenticator,
+        FileService $fileService,
         #[Autowire(service: 'security.authenticator.form_login.main')] $formLoginAuthenticator
     ): Response {
         $user = new User();
@@ -32,20 +34,15 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // Procesar la imagen del usuario
-            $userImage = $form->get('userImage')->getData();
-            if ($userImage) {
-                $uploadsDirectory = $this->getParameter('uploads_directory'); // Directorio configurado en services.yaml
-                $newFilename = uniqid() . '.' . $userImage->guessExtension();
-
+            $image = $form->get('userImage')->getData();
+            if ($image) {
                 try {
-                    $userImage->move($uploadsDirectory, $newFilename);
-                } catch (FileException $e) {
-                    // Manejar error al mover el archivo
-                    $this->addFlash('error', 'No se pudo cargar la imagen. Inténtalo de nuevo.');
+                    $fileName = $fileService->uploadImage($image);
+                    $user->setUserImage($fileName);
+                } catch (\Exception $e) {
+                    $this->addFlash('error', 'No se pudo subir la imagen.');
+                    return $this->redirectToRoute('app_register');
                 }
-
-                // Establecer el nombre del archivo en el usuario
-                $user->setUserImage($newFilename);
             }
 
             // Configurar la contraseña

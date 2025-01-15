@@ -49,6 +49,7 @@ class ProfileController extends AbstractController
         $fileService->setImagesUrl($userRepository->findAll());
         $fileService->setImagesUrl($this->postRepository->findAll());
         $posts = $this->postRepository->findBy(['user' => $user]);
+        error_log('User: ' . $user->getImgUrl());
 
         return $this->render('profile/index.html.twig', [
             'user' => $user,
