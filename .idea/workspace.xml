@@ -5,16 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c78c43d-5be5-4d3b-a19c-2d74c33802e0" name="Changes" comment="Little refactor and profile image/username integration in aside">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/ClasesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ClasesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProfileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/RegistrationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RegistrationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/FileService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/FileService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SettingsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SettingsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/RegistrationFormType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/RegistrationFormType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/chat/_chat.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/chat/_chat.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/chat/_message.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/chat/_message.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/chat/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/chat/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/clases/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/clases/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/clases/lista_clases.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/clases/lista_clases.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/partials/sidebar.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/sidebar.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/profile/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/profile/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/registration/register.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/register.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/settings/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/settings/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +32,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="def_merge_marcel" />
+        <entry key="$PROJECT_DIR$" value="raul_frontend_1.0" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -48,7 +50,7 @@
   }
 }</component>
   <component name="PhpDebugGeneral" listening_started="true" />
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/bin/php">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\xampp\php\php.exe">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/symfony/monolog-bundle" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-idn" />
@@ -202,7 +204,7 @@
   &quot;associatedIndex&quot;: 3
 }</component>
   <component name="ProjectId" id="2pKfkaVYauwHWZiOM59144BGs8L" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectViewState">

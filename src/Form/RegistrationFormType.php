@@ -16,6 +16,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -25,20 +26,46 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('username', TextType::class)
-            ->add('name', TextType::class)
-            ->add('email', EmailType::class)
+            ->add('username', TextType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Username cannot be empty.',
+                    ]),
+                    new Length([
+                        'min' => 3,
+                        'minMessage' => 'Username must be at least {{ limit }} characters long.',
+                        'max' => 20,
+                        'maxMessage' => 'Username cannot be longer than {{ limit }} characters.',
+                    ]),
+                ],
+            ])
+            ->add('name', TextType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Name cannot be empty.',
+                    ]),
+                ],
+            ])
+            ->add('email', EmailType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Email cannot be empty.',
+                    ]),
+                    new Email([
+                        'message' => 'Please enter a valid email address.',
+                    ]),
+                ],
+            ])
             ->add('plainPassword', PasswordType::class, [
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Please enter a password.',
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
+                        'minMessage' => 'Your password should be at least {{ limit }} characters.',
                         'max' => 4096,
                     ]),
                 ],
@@ -49,24 +76,38 @@ class RegistrationFormType extends AbstractType
                     'Female' => 'female',
                     'Unknown' => 'unknown',
                 ],
-                'expanded' => true, // Esto hace que se muestren como botones de radio (opciones seleccionables)
-                'multiple' => false, // Solo puede seleccionar una opción
-                'label' => 'Gender', // Etiqueta del campo
+                'expanded' => true,
+                'multiple' => false,
+                'label' => 'Gender',
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please select your gender.',
+                    ]),
+                ],
             ])
-            ->add('birthdate', DateType::class,
-                [ 'widget' => 'single_text', 'input' => 'datetime', 'format' =>
-                    'yyyy-MM-dd', 'label' =>
-                    'Birthdate', 'constraints' =>
-                    [ new Callback([ 'callback' => function ($date, ExecutionContextInterface $context) {
-                        $minAge = 13; $today = new \DateTime(); $age = $today->diff($date)->y;
-                        if ($age < $minAge) { $context->buildViolation('You must be at least 13 years old to register.')
-                            ->atPath('birthdate') ->addViolation();
-                                    }
-                                },
-                            ]),
-                        ],
-                    ])
-
+            ->add('birthdate', DateType::class, [
+                'widget' => 'single_text',
+                'input' => 'datetime',
+                'format' => 'yyyy-MM-dd',
+                'label' => 'Birthdate',
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Birthdate cannot be empty.',
+                    ]),
+                    new Callback([
+                        'callback' => function ($date, ExecutionContextInterface $context) {
+                            $minAge = 13;
+                            $today = new \DateTime();
+                            $age = $today->diff($date)->y;
+                            if ($age < $minAge) {
+                                $context->buildViolation('You must be at least 13 years old to register.')
+                                    ->atPath('birthdate')
+                                    ->addViolation();
+                            }
+                        },
+                    ]),
+                ],
+            ])
             ->add('bio', TextareaType::class, [
                 'required' => false,
             ])
@@ -99,6 +140,7 @@ class RegistrationFormType extends AbstractType
                             'application/pdf',
                         ],
                         'mimeTypesMessage' => 'Please upload a valid image or PDF file.',
+                        'maxSizeMessage' => 'The file is too large. It must be less than {{ limit }}.',
                     ]),
                 ],
             ])
@@ -114,10 +156,12 @@ class RegistrationFormType extends AbstractType
                             'image/png',
                         ],
                         'mimeTypesMessage' => 'Please upload a valid image (JPEG or PNG).',
+                        'maxSizeMessage' => 'The file is too large. It must be less than {{ limit }}.',
                     ]),
                 ],
             ]);
     }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
