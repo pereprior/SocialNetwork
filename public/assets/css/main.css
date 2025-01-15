@@ -276,8 +276,6 @@ hr {
   padding: 10px;
 }
 .thick-divider {
-  height: 3px;
-  background-color: #999999;
   border: none;
 }
 .visibility-none {
@@ -602,7 +600,8 @@ hr {
             padding-top: 0.75em; }
       .row {
         margin-top: 0;
-        margin-left: -1.5em; }
+        margin-left: -1.5em;
+        margin-right: 0.1em; }
         .row > * {
           padding: 0 0 0 1.5em; }
         .row.gtr-uniform {
@@ -2785,6 +2784,28 @@ button,
   border-color: white;
 }
 
+/*COMENTARIOS EN POST*/
+
+.comment-post{
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.img-fluid{
+  width: 325px;
+  height: 200px !important;
+  object-fit: cover;
+}
+
+.card-body-post{
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 1.25rem;
+  height: 222px;
+}
 
 
 
