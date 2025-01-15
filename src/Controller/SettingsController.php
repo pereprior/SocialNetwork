@@ -14,7 +14,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Form\FormError;
 
 class SettingsController extends AbstractController
 {
@@ -35,91 +34,42 @@ class SettingsController extends AbstractController
             ->add('change', SubmitType::class, ['label' => 'Change Password'])
             ->getForm();
 
-        // Formulario de borrado de cuenta
-        $deleteAccountForm = $this->createFormBuilder()
-            ->add('confirm', CheckboxType::class, [
-                'label' => 'I understand that this action is permanent and cannot be undone.',
-                'mapped' => false,
-                'required' => true,
-            ])
-            ->add('delete', SubmitType::class, ['label' => 'Delete My Account'])
-            ->getForm();
-
-        // Formulario de configuración de notificaciones
-        $notificationSettingsForm = $this->createFormBuilder($user)
-            ->add('email_notifications', CheckboxType::class, [
-                'label' => 'Receive email notifications',
-                'required' => false,
-            ])
-            ->add('app_notifications', CheckboxType::class, [
-                'label' => 'Receive app notifications',
-                'required' => false,
-            ])
-            ->add('save', SubmitType::class, ['label' => 'Save Changes'])
-            ->getForm();
-
-        // Manejo de formularios
         $changePasswordForm->handleRequest($request);
-        $deleteAccountForm->handleRequest($request);
-        $notificationSettingsForm->handleRequest($request);
+
+        $error = null;
 
         // Procesar formulario de cambio de contraseña
-        if ($changePasswordForm->isSubmitted()) {
+        if ($changePasswordForm->isSubmitted() && $changePasswordForm->isValid()) {
             $data = $changePasswordForm->getData();
 
-            // Verificar que la contraseña actual no esté vacía
-            if (empty($data['current_password'])) {
-                $changePasswordForm->get('current_password')->addError(new FormError('Current password cannot be empty.'));
+            // Verificar contraseña actual
+            if (!$passwordHasher->isPasswordValid($user, $data['current_password'])) {
+                $error = [
+                    'messageKey' => 'Current password is incorrect.',
+                    'messageData' => [],
+                ];
+            } elseif ($data['current_password'] === $data['new_password']) {
+                // Validar que la nueva contraseña no sea igual a la actual
+                $error = [
+                    'messageKey' => 'New password cannot be the same as the current password.',
+                    'messageData' => [],
+                ];
+            } else {
+                // Cambiar la contraseña
+                $newPassword = $passwordHasher->hashPassword($user, $data['new_password']);
+                $user->setPassword($newPassword);
+                $entityManager->persist($user);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Password updated successfully.');
+                return $this->redirectToRoute('app_settings');
             }
-
-            // Verificar si las contraseñas coinciden
-            if ($data['current_password'] === $data['new_password']) {
-                $changePasswordForm->get('new_password')->addError(new FormError('New password cannot be the same as the current password.'));
-            }
-
-            // Si no hay errores en la contraseña actual y las contraseñas no coinciden
-            if ($changePasswordForm->isValid()) {
-                // Verificar la contraseña actual
-                if ($passwordHasher->isPasswordValid($user, $data['current_password'])) {
-                    $newPassword = $passwordHasher->hashPassword($user, $data['new_password']);
-                    $user->setPassword($newPassword);
-                    $entityManager->persist($user);
-                    $entityManager->flush();
-
-                    $this->addFlash('success', 'Password updated successfully.');
-                } else {
-                    $this->addFlash('error', 'Current password is incorrect.');
-                }
-            }
-        }
-
-        // Procesar formulario de borrado de cuenta
-        if ($deleteAccountForm->isSubmitted() && $deleteAccountForm->isValid()) {
-            // Elimina el usuario y guarda los cambios
-            $entityManager->remove($user);
-            $entityManager->flush();
-
-            // Desautentica al usuario
-            $tokenStorage->setToken(null);
-            $request->getSession()->invalidate();
-
-            // Redirige a la página de inicio o despedida
-            $this->addFlash('success', 'Your account has been deleted.');
-            return $this->redirectToRoute('login');  // O redirige a la página de inicio de sesión
-        }
-
-        // Procesar formulario de notificaciones
-        if ($notificationSettingsForm->isSubmitted() && $notificationSettingsForm->isValid()) {
-            // Guarda los cambios de las notificaciones
-            $entityManager->flush(); // Solo persistir si es necesario
-            $this->addFlash('success', 'Notification settings updated successfully.');
         }
 
         return $this->render('settings/index.html.twig', [
             'page_title' => 'Settings',
             'changePasswordForm' => $changePasswordForm->createView(),
-            'deleteAccountForm' => $deleteAccountForm->createView(),
-            'notificationSettingsForm' => $notificationSettingsForm->createView(),
+            'error' => $error, // Pasamos el error a la plantilla
         ]);
     }
 }
