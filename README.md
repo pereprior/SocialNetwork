@@ -35,7 +35,7 @@
 
 **[Pere Prior]**
 - Desarrollador del backend y los servidores.
-- Encuéntrame en [LinkedIn](www.linkedin.com/in/pereprior) o [GitHub](https://github.com/pereprior).
+- Encuéntrame en [LinkedIn](https://www.linkedin.com/in/pereprior/) o [GitHub](https://github.com/pereprior).
 
 **[Raul Simarro]**
 - Contribuidor del backend y frontend.
