@@ -1,4 +1,4 @@
-# Chefsfera - Red Social para Amantes de la Cocina 🍳👨‍🍳
+# Chefsfera - Red Social para Amantes de la Cocina
 
 **Chefsfera** es una aplicación web diseñada para conectar a los amantes de la cocina. Con esta herramienta, los usuarios pueden compartir recetas, interactuar con publicaciones de otros usuarios en tiempo real, y aprender más sobre el mundo culinario en un entorno dinámico y colaborativo.
 
