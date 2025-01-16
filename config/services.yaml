@@ -1,0 +1,42 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+    upload_server_url: '%env(IMAGE_SERVER_URL)%/upload.php'
+    image_server_url: '%env(IMAGE_SERVER_URL)%'
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    guzzle.client:
+        class: GuzzleHttp\Client
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    App\Service\FileService:
+        arguments:
+            $client: '@guzzle.client'
+            $cloud: '%image_server_url%'
+
+    App\Service\DateTimeService:
+        public: true
+
+    App\Service\UserService:
+        public: true
+
+    App\Service\FormService:
+        public: true

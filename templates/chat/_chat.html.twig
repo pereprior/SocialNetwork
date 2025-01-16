@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container py-4">
+        <h1 class="text-center mb-4">Chat en vivo</h1>
+
+        <div class="chat-window border rounded p-3" style="height: 400px; overflow-y: scroll; background-color: #f8f9fa;">
+            <ul id="chatList" class="chat-list list-unstyled">
+                {% if chats %}
+                    {% for chat in chats %}
+                        {{ include('chat/_message.html.twig') }}
+                    {% endfor %}
+                {% else %}
+                    <li class="text-center text-muted">No hay mensajes aún. ¡Inicia la conversación!</li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <div class="chat-form mt-3">
+            {{ form_start(messageForm, {'attr': {'id': 'messageForm', 'class': 'd-flex'}}) }}
+
+            <div class="form-group flex-grow-1 me-2">
+                {{ form_widget(messageForm.content, {
+                    'attr': {
+                        'class': 'form-control',
+                        'placeholder': 'Escribe tu mensaje...'
+                    }
+                }) }}
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-paper-plane"></i> Enviar
+            </button>
+            {{ form_end(messageForm) }}
+        </div>
+
+        <!-- Botón para volver a la lista de chats -->
+        <div class="mt-3">
+            <a href="{{ path('chats') }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Volver a los chats
+            </a>
+        </div>
+    </div>
+{% endblock %}

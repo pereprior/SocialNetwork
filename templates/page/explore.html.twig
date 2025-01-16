@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+{% block title %}Explore{% endblock %}
+
+{% block body %}
+    <form method="get" action="{{ path('explore') }}">
+        <div>
+            <label class="search-label">
+                <input type="text" name="search" placeholder="Search by hashtag" value="{{ app.request.get('search') }}">
+            </label>
+            <button type="submit">Search</button>
+        </div>
+    </form>
+
+    <ul>
+        {% for post in posts %}
+            {{ include('post/_post.html.twig') }}
+        {% endfor %}
+    </ul>
+{% endblock %}

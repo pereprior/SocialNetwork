@@ -1,0 +1,16 @@
+    {% if chat.userFrom.id == app.user.id %}
+        <li style="text-align: -webkit-right;">
+            <div class="chat-message my-message">
+                <p>{{ chat.content }} · <span class="chat-time">{{ chat.timeSince }}</span></p>
+            </div>
+        </li>
+    {% endif %}
+
+    {% if chat.userTo.id == app.user.id %}
+    <li style="text-align: -webkit-left;">
+
+    <div class="chat-message their-message">
+            <p>{{ chat.content }} · <span class="chat-time">{{ chat.timeSince }}</span></p>
+        </div>
+    </li>
+    {% endif %}

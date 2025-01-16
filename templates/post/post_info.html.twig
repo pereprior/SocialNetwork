@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {% if post %}
+        {{ post.title }}
+    {% else %}
+        Post no encontrado
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <div class="pointer-events-none">
+        {% if post %}
+                {{ include('post/_post.html.twig') }}
+        {% else %}
+            <p>El post no existe o ha sido eliminado.</p>
+        {% endif %}
+    </div>
+
+    {% if comments is not empty %}
+        {% for comment in comments %}
+            {{ include('post/_comment.html.twig') }}
+        {% endfor %}
+    {% else %}
+        <p>No hay comentarios aún.</p>
+    {% endif %}
+
+    <button type="submit" class="button big comment-btn">Comment</button>
+    {% include 'post/comment-modal.html.twig' %}
+
+    <a href="{{ path('app_inicio') }}" class="button big">Volver</a>
+
+
+
+{% endblock %}

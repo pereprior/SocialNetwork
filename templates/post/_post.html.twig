@@ -1,0 +1,59 @@
+<section id="banner">
+    <div class="content">
+        <div class="post-card" data-post-id="{{ post.id }}">
+            <header>
+                <div style="display: flex; justify-content: space-between;">
+                    <p><a href="{{ path('app_profile', { 'id': post.user.id }) }}">{{ post.user.name }}</a> <span class="text-lowercase">@{{ post.user.username }}</span> · {{ post.datetime|date('Y-m-d H:i') }}</p>
+                </div>
+                <h2>{{ post.title }}</h2>
+                <p class="text-lowercase">
+                    {% for hashtag in post.hashtags %}
+                        #{{ hashtag.name }}{% if not loop.last %} {% endif %}
+                    {% endfor %}
+                </p>
+            </header>
+            <p>{{ post.content }}</p>
+            <!--<ul class="actions">
+                {% if is_granted('ROLE_STUDENT') or is_granted('ROLE_CHEF') %}
+                    <li><a href="#" class="button big">Let's cook!</a></li>
+                {% endif %}
+            </ul>-->
+            <ul class="actions">
+                {% if app.request.attributes.get('_route') != 'post_info' or app.request.attributes.get('id') != post.id %}
+                    <li><a href="{{ path('post_info', { 'id': post.id }) }}" class="button big">Let's cook!</a></li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <p>
+            Likes:
+            {% if app.user %}
+                <a href="{{ path('post_like', { 'id': post.id }) }}" class="like-btn" data-post-id="{{ post.id }}">
+                    <i class="bi bi-heart{% if post.isLikedByUser(app.user) %}-fill{% endif %}"></i> <span>{{ post.numLikes }}</span>
+                </a>
+            {% else %}
+                <span class="like-btn" data-post-id="{{ post.id }}">
+                    <i class="bi bi-heart"></i> <span>{{ post.numLikes }}</span>
+                </span>
+            {% endif %}
+            Views: <i class="bi bi-eye"></i> {{ post.numViews }}
+        </p>
+    </div>
+
+    <span class="image object post-img">
+         {% if post.imgUrl %}
+             <img src="{{ post.imgUrl }}" alt="{{ post.title }}" />
+         {% endif %}
+    </span>
+
+    {% if app.user %}
+        <div class="post-settings mx-2">
+            <!-- Icono de borrar -->
+            {% if app.user.id == post.user.id %}
+                <a href="#" class="delete-btn" data-post-id="{{ post.id }}">
+                    <i class="bi bi-trash"></i>
+                </a>
+            {% endif %}
+        </div>
+    {% endif %}
+</section>
