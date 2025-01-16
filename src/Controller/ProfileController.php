@@ -26,7 +26,7 @@ class ProfileController extends AbstractController
     public function __construct(PostRepository $postRepository, UserService $userService)
     {
         $this->postRepository = $postRepository;
-        $this->activeUser = $userService->getActiveUser();
+        $this->activeUser = $userService->getCurrentUser();
     }
 
     #[Route('/profile/{id?}', name: 'app_profile')]
